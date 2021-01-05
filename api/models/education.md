@@ -1,6 +1,64 @@
 # Brainstorm for API End Points of Education Model
 
 The following endpoints can be asked in any order, execpt for the section titled "Last Question"
+
+## Report
+GET http://localhost:5000/api/v1/education/report
+```json
+{
+  "salary":{
+    "question": "What is your net monthly salary?",
+    "description": "soijrwofija;oijnfv;oi",
+    "definition": "Define net here",
+    "source": "http://www.example.com"
+  },
+  "zipcode":{
+    "question": "What is the zipcode you'd like to live in?",
+    "description": "ae;osihrf;oijaef",
+    "source": "http://www.example.com"
+  },
+  "monthly_debt": {
+    "question": "What is the zipcode you'd like to live in?",
+    "description": "ae;osihrf;oijaef",
+    "source": "http://www.example.com"
+  },
+  "downpayment_savings": {
+    "question": "Do you have any savings set aside for your downpayment?",
+    "description": "werfwerfwer",
+    "source": ""
+  },
+  "credit_score_range":{
+    "question": "What range does your credit score fall under?",
+    "description": "aijsdfijfd",
+    "source": ""
+  },
+  "downpayment_percentage": {
+    "question": "What downpayment percentage are you aiming to save?",
+    "description": "",
+    "definition": "The national average is 20%, but many programs can support alternate percentages.",
+    "source": ""
+  },
+  "mortgage_term": {
+    "question": "What mortgage term are you aiming for?",
+    "description": "",
+    "definition": "Typically, a fixed-rate mortgage runs 30 years.",
+    "source": ""
+  },
+  "rent": {
+    "question": "IMAGINATIVE: What is your current monthly rent?",
+    "description": "",
+    "definition": "The imaginative report gives a total home price you can afford based off of your monthly rent.",
+    "source": ""
+  },
+  "goal_home_price": {
+    "question": "PRAGMATIC: What is the price of your ideal home?",
+    "description": "",
+    "definition": "The pragmatic report gives your monthly payment you would make with your goal price.",
+    "source": ""
+  }
+
+}
+```
 ## Salary
 GET http://localhost:5000/api/v1/education/salary
 ```json
@@ -74,7 +132,7 @@ GET http://localhost:5000/api/v1/education/downpayment-percentage
 ```
 
 ## Mortgage Term
-GET http://localhost:5000/api/v1/education/downpayment-percentage
+GET http://localhost:5000/api/v1/education/mortgage-term
 - - Frontend has three options provided as radio buttons or dropdowns:
     - 10 years, 15 years, 30 years
     - default will be 30 years
