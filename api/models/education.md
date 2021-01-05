@@ -1,12 +1,12 @@
 # Brainstorm for API End Points of Education Model
 
-The following endpoints can be asked in any order, execpt for the section titled "Last Question"
+The following endpoints can be asked in any order, except for the section titled "Last Question"
 
-## Report
-GET http://localhost:5000/api/v1/education/report
+## Survey
+GET http://localhost:5000/api/v1/education/survey
 ```json
-{
-  "salary":{
+{"data": {
+  "annual_salary":{
     "question": "What is your net monthly salary?",
     "description": "soijrwofija;oijnfv;oi",
     "definition": "Define net here",
@@ -55,10 +55,30 @@ GET http://localhost:5000/api/v1/education/report
     "description": "",
     "definition": "The pragmatic report gives your monthly payment you would make with your goal price.",
     "source": ""
+  },
+  "external_services": {
+    "property_tax": "number",
+    "affordability": "mortgage amount + average mortgage from zipcode"
   }
+}}
+```
 
+COMING SOON /REPORT
+```json
+"decade": {
+  "1yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2022"},
+  "2yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2023"},
+  "3yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2024"},
+  "4yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2025"},
+  "5yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2026"},
+  "6yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2027"},
+  "7yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2028"},
+  "8yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2029"},
+  "9yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2030"},
+  "10yr": {"monthly_goal": "1901.00", "purchase_date": "01/04/2031"}
 }
 ```
+
 ## Salary
 GET http://localhost:5000/api/v1/education/salary
 ```json
