@@ -34,6 +34,9 @@ GET http://localhost:5000/api/v1/education/monthly-debt
 
 ## Downpayment Savings
 GET http://localhost:5000/api/v1/education/downpayment-savings
+
+ - Default downpayment savings is 0, if not given.
+
 ```json
 {
   "question": "Do you have any savings set aside for your downpayment?",
@@ -48,6 +51,7 @@ GET http://localhost:5000/api/v1/education/credit-score-range
     - `630 - 689`
     - `690 - 719`
     - `720 - 850`
+- Default range is 630-689, if not given.
 ```json
 {
   "question": "What range does your credit score fall under?",
@@ -57,13 +61,29 @@ GET http://localhost:5000/api/v1/education/credit-score-range
 ```
 ## What Downpayment Percent
 GET http://localhost:5000/api/v1/education/downpayment-percentage
-- - Frontend has five options provided as radio buttons or dropdowns:
+- Frontend has five options provided as radio buttons or dropdowns:
     - 0, 5, 10, 15, 20
+    - Default downpayment percent is 20%, if not given.
 ```json
 {
   "question": "What downpayment percentage are you aiming to save?",
   "description": "",
   "definition": "The national average is 20%, but many programs can support alternate percentages.",
+  "source": ""
+}
+```
+
+## Mortgage Term
+GET http://localhost:5000/api/v1/education/downpayment-percentage
+- - Frontend has three options provided as radio buttons or dropdowns:
+    - 10 years, 15 years, 30 years
+    - default will be 30 years
+
+```json
+{
+  "question": "What mortgage term are you aiming for?",
+  "description": "",
+  "definition": "Typically, a fixed-rate mortgage runs 30 years.",
   "source": ""
 }
 ```
