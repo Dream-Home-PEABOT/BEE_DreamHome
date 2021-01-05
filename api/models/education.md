@@ -1,4 +1,6 @@
 # Brainstorm for API End Points of Education Model
+
+The following endpoints can be asked in any order, execpt for the section titled "Last Question"
 ## Salary
 GET http://localhost:5000/api/v1/education/salary
 ```json
@@ -65,13 +67,15 @@ GET http://localhost:5000/api/v1/education/downpayment-percentage
   "source": ""
 }
 ```
-## Same Page
+
+## Last Question
 ### What rent?
 GET http://localhost:5000/api/v1/education/rent
 ```json
 {
   "question": "IMAGINATIVE: What is your current monthly rent?",
   "description": "",
+  "definition": "The imaginative report gives a total home price you can afford based off of your monthly rent.",
   "source": ""
 }
 ```
@@ -81,6 +85,7 @@ GET http://localhost:5000/api/v1/education/goal-home-price
 {
   "question": "PRAGMATIC: What is the price of your ideal home?",
   "description": "",
+  "definition": "The pragmatic report gives your monthly payment you would make with your goal price.",
   "source": ""
 }
 ```
