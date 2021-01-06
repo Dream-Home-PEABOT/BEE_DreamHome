@@ -8,10 +8,12 @@
   - how to run production deployed server
 
 ## Visual Schema
-- Report Model
+
+### Report Model
+#### REQUEST
 ```
-User clicks sumbit on survey
-# POST http://localhost:5000/report
+User clicks submit on survey
+# POST http://localhost:5000/api/v1/report
 {
   salary: 55000,
   zipcode: 11111,
@@ -22,6 +24,10 @@ User clicks sumbit on survey
   rent: 1800,
   goal_principal: 0
 }
+```
+
+#### RESPONSE
+```
 # The following is the json return to the POST from above
 {
   report: {
@@ -94,7 +100,13 @@ User clicks sumbit on survey
 }
 ```
 
-Education
+### Education Model
+#### REQUEST
+```
+User clicks submit on survey
+# GET http://localhost:5000/api/v1/education
+```
+#### RESPONSE
 ```
 const data = {
   "data": {
