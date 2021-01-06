@@ -33,6 +33,7 @@ dreamhome_server
       - welcome_routes.py
     - services
       - real_estate api
+    - helpers
   - database
     - db.py
     - seed_education.json
