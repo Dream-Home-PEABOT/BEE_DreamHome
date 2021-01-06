@@ -98,12 +98,15 @@ const data = {
   }
 ```
 
-
 ## Controller
 - The Education Controller
     - function names are route calls.
     - the functions may call services, helpers, AND/OR model
-    - The point of the functions is either to render an html template or send a json response which means it's technially calling on the model.
+    - The point of the functions is either to render an html template or send a json response which means it's technically calling on the model.
+
+## Error Handling
+- Error file lives in Helpers directory
+- The Controller will have the try/except conditionals that raise errors
 
 ## Routes
 - The last thing you write is a route which calls on the function of the controller.
