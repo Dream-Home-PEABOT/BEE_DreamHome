@@ -1,10 +1,13 @@
+# Psuedo Code
+
 
 ## Model
 - Update the model fields to match the front end requirements.
 - Does education have any functions?  No, only for ReportModel. those functions talk directly to database AND/OR helpers
 
+doesn't have a user field...once they sign in
 
-## Data
+## FrontEnd Requirements
 ```
 const data = {
   "data": {
@@ -101,8 +104,11 @@ const data = {
 ## Controller
 - The Education Controller
     - function names are route calls.
-    - the functions may call services, helpers, AND/OR model
-    - The point of the functions is either to render an html template or send a json response which means it's technically calling on the model.
+      - api/vi/register-user
+      - registeruser = Controller(lowercase)
+      - registerUser = Model(camelcase)
+    - the functions may call services, helpers(=Facade), AND/OR model
+    - The point of the functions is either to render an html template (documentation) or send a json response which means it's technically calling on the model.
 
 ## Error Handling
 - Error file lives in Helpers directory
@@ -110,6 +116,8 @@ const data = {
 
 ## Routes
 - The last thing you write is a route which calls on the function of the controller.
+    - Blueprint for API documentation
+    - flask_restful for API exposed endpoints
 
 ## Current Testing
 - Run server and test through PostMan until we have tests up.
