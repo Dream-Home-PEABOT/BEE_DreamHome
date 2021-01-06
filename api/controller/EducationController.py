@@ -8,5 +8,5 @@ class EducationController():
     # def get(self):
 
     def index(self):   
-        return render_template('index.html')
+        return render_template('education_documentation.html')
 educationcontroller = EducationController()
