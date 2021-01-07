@@ -1,3 +1,4 @@
+import pry
 import json
 from tests.BaseCase import BaseCase
 
@@ -5,17 +6,26 @@ class TestEducationCrud(BaseCase):
     # GET single
 
     # GET all
+    def test_succssful_get_education(self):
+        # Given
+            # All done in setup, see education.py seed in database
+
+        # When
+        response = self.app.get('/api/v1/education', headers={"Content-Type": "application/json"})
+
+        # Then
+        self.assertEqual(200, response.status_code)
 
     # POST
-    def test_post_education_response(self):
+    def test_successful_post_education(self):
         # Given
         payload = {
-            "classification": "Annual Salary",
-            "question": "What is your net monthly salary?",
-            "description": "Gross income is the total amount you earn (typically over the course of a year) before expenses. Net income is the profit your business earns after expenses ",
-            "information": "Depending on the home price you're aiming for, you may want to wait a year or two before you apply for a mortgage if you've just moved into a higher-paying role. The longer you stay in your higher-paying position, the more your lender may be willing to loan you.",
-            "note":"The amount of money you earn plays a smaller role in getting a mortgage than you might think. ",
-            "source": "https://www.rocketmortgage.com"
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
         }
 
         # When
