@@ -18,6 +18,7 @@ class EmailDoesnotExistsError(Exception):
     pass
 class BadTokenError(Exception):
     pass
+    
 errors = {
     "InternalServerError": {
         "message": "Something went wrong",
