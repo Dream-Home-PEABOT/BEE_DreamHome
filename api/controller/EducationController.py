@@ -9,8 +9,21 @@ import pry
 class EducationController():
     # GET single
     def get_education(self, id):
-        education = Education.objects.get(id=id).to_json()
-        return Response(education, mimetype="application/json", status=200)
+        education = Education.objects.get(id=id)
+        return {
+            "data": {
+                "type": str(education),
+                "id": str(education.id),
+                "attributes": {
+                    "classification": education.classification,
+                    "question": education.question,
+                    "description": education.description,
+                    "information": education.information,
+                    "note": education.note,
+                    "source": education.source
+                }
+            }
+        }, 200
 
     # GET all
     def index(self):

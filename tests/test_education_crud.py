@@ -6,7 +6,23 @@ from database.education import salary, zip, debt, savings, credit, percent, term
 
 class TestEducationCrud(BaseCase):
     # GET single
-    # def test_successful_get_education(self, id):
+    def test_successful_get_education(self):
+        # Given
+        create_salary = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
+        create_zip = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
+
+        id = create_salary.json['id']
+        url = f'/api/v1/education/{id}'
+
+        # When
+        response = self.app.get(url, headers={"Content-Type": "application/json"})
+        body = response.json['data']
+
+        # Then
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(id, body['id'])
+        self.assertNotEqual(id, create_zip.json['id'])
+        self.assertEqual(salary, body['attributes'])
 
     # GET all
     def test_succssful_get_education(self):
