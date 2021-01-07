@@ -11,6 +11,3 @@ class BaseCase(unittest.TestCase):
     def tearDown(self):
         for collection in self.db.list_collection_names():
             self.db.drop_collection(collection)
-
-if __name__ == '__main__':
-    unittest.main()
