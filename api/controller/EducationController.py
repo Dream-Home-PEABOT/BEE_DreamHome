@@ -44,7 +44,7 @@ class EducationController():
     def add_education(self):
         # try:
         body = request.get_json()
-        education = Education(**body) #will require auth later
+        education = Education(**body)
         education.save()
         id = education.id
         return {"id": str(id)}, 200
