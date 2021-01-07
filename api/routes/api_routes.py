@@ -8,6 +8,6 @@ def home():
 # @api.route('/registration', methods=['GET'])
 # def register():
 #     return homecontroller.register()
-# @api.route('/registration', methods=['POST'])
-# def registeruser():
-#     return homecontroller.registeruser()
+@api.route('/education', methods=['POST'])
+def create():
+    return educationcontroller.create()
