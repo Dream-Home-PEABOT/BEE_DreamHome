@@ -14,7 +14,7 @@ class EducationController():
 
     # GET all
     def index(self):
-        educations = Education.objects()
+        all_education = Education.objects()
 
         def convert_snake(string):
             return '_'.join(
@@ -22,23 +22,23 @@ class EducationController():
                 sub('([A-Z]+)', r' \1',
                 string.replace('-', ' '))).split()).lower()
 
-        get_all_education_objects = {}
+        json_education_objects = {}
 
-        for e in educations:
-            get_all_education_objects[convert_snake(e.classification)] = {
-                "type": str(e),
-                "id": str(e.id),
+        for education in all_education:
+            json_education_objects[convert_snake(education.classification)] = {
+                "type": str(education),
+                "id": str(education.id),
                 "attributes": {
-                    "classification": e.classification,
-                    "question": e.question,
-                    "description": e.description,
-                    "information": e.information,
-                    "note": e.note,
-                    "source": e.source
+                    "classification": education.classification,
+                    "question": education.question,
+                    "description": education.description,
+                    "information": education.information,
+                    "note": education.note,
+                    "source": education.source
                 }
             }
 
-        return {"data": get_all_education_objects}, 200
+        return {"data": json_education_objects}, 200
 
     # POST
     def add_education(self):
