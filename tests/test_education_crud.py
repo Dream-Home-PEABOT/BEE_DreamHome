@@ -77,9 +77,15 @@ class TestEducationCrud(BaseCase):
 
         # When
         response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = response.json['id']
+        url = f'/api/v1/education/{id}'
 
         # Then
         self.assertEqual(200, response.status_code)
+        response = self.app.get(url, headers={"Content-Type": "application/json"})
+        body = response.json['data']
+        self.assertEqual(id, body['id'])
+        self.assertEqual(payload, body['attributes'])
 
     # PUT
 
