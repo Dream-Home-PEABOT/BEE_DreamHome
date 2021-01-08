@@ -60,7 +60,15 @@ class EducationController():
         education = Education(**body)
         education.save()
         id = education.id
-        return {"id": str(id)}, 200
+        return {
+            "data": {
+                "id": str(id),
+                "confirmation": {
+                    "info": 'To see this new record, please do a GET request using the url',
+                    "url": f'/api/v1/education/{id}'
+                }
+            }
+        }, 200
         # except NotUniqueError():
         #     raise EducationAlreadyExistsError
         # except Exception:
@@ -71,12 +79,28 @@ class EducationController():
         education = Education.objects.get(id=id)
         body = request.get_json()
         education.update(**body)
-        return {"id": str(id), "to_see_update": "Run GET /api/v1/education or GET /api/v1/<id>"}, 200
+        return {
+            "data": {
+                "id": str(id),
+                "confirmation": {
+                    "info": "To see this record's update response, please do a GET request using the url",
+                    "url": f'/api/v1/education/{id}'
+                }
+            }
+        }, 200
 
     # DESTROY
     def destroy_education(self, id):
         education = Education.objects.get(id=id)
         education.delete()
-        return {"id": 'nil', "to_see_removal": "Run GET /api/v1/education or GET /api/v1/<id>"}, 200
+        return {
+            "data": {
+                "id": 'nil',
+                "confirmation": {
+                    "info": "To see this record's deletion response, please do a GET request using the url",
+                    "url": f'/api/v1/education/{id}'
+                }
+            }
+        }, 200
 
 educationcontroller = EducationController()
