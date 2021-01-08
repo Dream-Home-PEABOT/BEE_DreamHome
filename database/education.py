@@ -56,15 +56,15 @@ term = {
 }
 rent = {
     "classification": "Rent",
-    "question": "IMAGINATIVE: What is your current monthly rent?",
-    "description": "",
-    "information": "",
+    "question": "What is your current monthly rent?",
+    "description": "DESCRIPTION OF THE TERM",
+    "information": "ADDITIONAL INFORMATION ABOUT WHY",
     "note": "The imaginative report gives a total home price you can afford based off of your monthly rent.",
     "source": ""
 }
 principal = {
     "classification": "Goal Home Price",
-    "question": "PRAGMATIC: What is the price of your ideal home?",
+    "question": "What is the price of your ideal home?",
     "description": "",
     "information": "",
     "note": "The pragmatic report gives your monthly payment you would make with your goal price.",
