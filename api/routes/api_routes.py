@@ -22,3 +22,11 @@ def update_education(id):
 @api.route('/api/v1/education/<id>', methods=['DELETE'])
 def destroy_education(id):
     return educationcontroller.destroy_education(id)
+
+@api.route('/api/v1/record', methods=['POST'])
+def add_report():
+    return reportcontroller.add_report()
+
+@api.route('/api/v1/record/<id>', methods=['GET'])
+def get_report(id):
+    return reportcontroller.get_report(id)
