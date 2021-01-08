@@ -138,3 +138,26 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(200, response.status_code)
 
     # DESTROY
+    def test_successful_delete_education(self):
+        # Given
+        payload = {
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
+        }
+        create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_education.json['data']['id']
+        url = f'/api/v1/education/{id}'
+
+        # When
+        response = self.app.delete(url, headers={"Content-Type": "application/json"})
+        body = response.json['data']
+
+        # Then
+        self.assertEqual('nil', body['id'])
+        # Once you have error handling done, the following can be tested
+            # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
+            # confirmation_body = confirmation.json
