@@ -11,7 +11,7 @@ class TestEducationCrud(BaseCase):
         create_salary = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
         create_zip = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
 
-        id = create_salary.json['id']
+        id = create_salary.json['data']['id']
         url = f'/api/v1/education/{id}'
 
         # When
@@ -21,7 +21,7 @@ class TestEducationCrud(BaseCase):
         # Then
         self.assertEqual(200, response.status_code)
         self.assertEqual(id, body['id'])
-        self.assertNotEqual(id, create_zip.json['id'])
+        self.assertNotEqual(id, create_zip.json['data']['id'])
         self.assertEqual(salary, body['attributes'])
 
     # GET all
@@ -77,7 +77,7 @@ class TestEducationCrud(BaseCase):
 
         # When
         response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-        id = response.json['id']
+        id = response.json['data']['id']
         url = f'/api/v1/education/{id}'
 
         # Then
@@ -88,5 +88,53 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(payload, body['attributes'])
 
     # PUT
+    def test_successful_put_education(self):
+        # Given
+        payload = {
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
+        }
+        create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_education.json['data']['id']
+        url = f'/api/v1/education/{id}'
+
+        # When
+        updated_payload = {
+            "classification": "UPDATED Classification",
+            "description": "UPDATED Description",
+            "information": "UPDATED Information",
+            "note": "UPDATED Note",
+            "source": "UPDATED Source"
+        }
+        response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
+        confirmation_url = response.json['data']['confirmation']['url']
+
+        # Then
+        confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
+        confirmation_body = confirmation.json['data']['attributes']
+
+        self.assertEqual(updated_payload['classification'], confirmation_body['classification'])
+        self.assertNotEqual(payload['classification'], confirmation_body['classification'])
+
+        # This is the only field that wasn't updated, so it only tests the final response against the original creation
+        self.assertEqual(payload['question'], confirmation_body['question'])
+
+        self.assertEqual(updated_payload['description'], confirmation_body['description'])
+        self.assertNotEqual(payload['description'], confirmation_body['description'])
+
+        self.assertEqual(updated_payload['information'], confirmation_body['information'])
+        self.assertNotEqual(payload['information'], confirmation_body['information'])
+
+        self.assertEqual(updated_payload['note'], confirmation_body['note'])
+        self.assertNotEqual(payload['note'], confirmation_body['note'])
+
+        self.assertEqual(updated_payload['source'], confirmation_body['source'])
+        self.assertNotEqual(payload['source'], confirmation_body['source'])
+
+        self.assertEqual(200, response.status_code)
 
     # DESTROY
