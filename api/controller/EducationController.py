@@ -1,8 +1,7 @@
-from flask import Response, request
+from flask import Response, request, render_template
 from api.models.education import Education
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import EducationAlreadyExistsError
-from flask import render_template
 from re import sub
 import pry
 
