@@ -21,16 +21,17 @@ class ReportController():
                         "downpayment_percentage": report.downpayment_percentage,
                         "rent": report.rent,
                         "goal_principal": report.goal_principal,
-
                     },
                     "output": {
                         "location": {
                             "zipcode": report.zipcode,
-                            "city_state": report.location #map quest service
+                            "city_state": report.location #map quest service,
+                            "location_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "principal": {
                             "based_on_rent": report.principal_based_on_rent, # if we take in on rent
-                            "goal_principal": report.goal_principal
+                            "goal_principal": report.goal_principal,
+                            "principal_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "monthly": {
                             "monthly_principal": report.monthly_principal,
@@ -40,7 +41,8 @@ class ReportController():
                                 "property_tax": report.property_tax,
                                 "pmi": report.pmi,
                                 "hoa": report.hoa
-                            }
+                            },
+                            "monthly_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "downpayment": {
                             "downpayment_percentage_selected": report.downpayment_percentage,
@@ -87,7 +89,8 @@ class ReportController():
                                     "monthly_savings": report.downpayment_goal_monthly_savings(10, report.downpayment_savings, report.downpayment_percentage),
                                     "goal_end_date": report.downpayment_savings_goal_end_date(10)
                                 },
-                            }
+                            },
+                            "downpayment_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         }
                     }
                 }
