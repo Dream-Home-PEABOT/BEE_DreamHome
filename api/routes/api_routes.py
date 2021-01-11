@@ -57,3 +57,7 @@ def all_property_tax():
 @api.route('/api/v1/property_tax/<id>', methods=['PUT'])
 def update_property_tax(id):
     return propertytaxcontroller.update_property_tax(id)
+
+@api.route('/api/v1/property_tax/<id>', methods=['DELETE'])
+def destroy_property_tax(id):
+    return propertytaxcontroller.destroy_property_tax(id)

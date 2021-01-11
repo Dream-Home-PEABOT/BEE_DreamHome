@@ -92,3 +92,25 @@ class TestPropertyTaxCrud(BaseCase):
         self.assertNotEqual(payload['avg_property_tax'], confirmation_body['avg_property_tax'])
 
         self.assertEqual(200, response.status_code)
+
+    # DESTROY
+    def test_successful_delete_property_tax(self):
+        # Given
+        payload = {
+            "state": "West Kansas",
+            "tax_rate": 0.32,
+            "avg_property_tax": 1200
+        }
+        create_state = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_state.json['data']['id']
+        url = f'/api/v1/property_tax/{id}'
+
+        # When
+        response = self.app.delete(url, headers={"Content-Type": "application/json"})
+        body = response.json['data']
+
+        # Then
+        self.assertEqual('nil', body['id'])
+        # Once you have error handling done, the following can be tested
+        # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
+        # confirmation_body = confirmation.json

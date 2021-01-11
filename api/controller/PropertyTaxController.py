@@ -73,4 +73,18 @@ class PropertyTaxController():
                 }
             }
         }, 200
+
+     # DESTROY
+    def destroy_property_tax(self, id):
+        property_tax = PropertyTax.objects.get(id=id)
+        property_tax.delete()
+        return {
+            "data": {
+                "id": 'nil',
+                "confirmation": {
+                    "info": "To see this record's deletion response, please do a GET request using the url",
+                    "url": f'/api/v1/property_tax/{id}'
+                }
+            }
+        }, 200
 propertytaxcontroller = PropertyTaxController()
