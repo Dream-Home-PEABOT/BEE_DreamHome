@@ -35,7 +35,6 @@ class EducationController():
                 string.replace('-', ' '))).split()).lower()
 
         json_education_objects = {}
-
         for education in all_education:
             json_education_objects[convert_snake(education.classification)] = {
                 "type": str(education),
