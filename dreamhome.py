@@ -31,4 +31,16 @@ def handle_exception(err):
     app.logger.error(f"{err.description}: {response['data']['message']}")
     return jsonify(response), err.code
 
+@app.errorhandler(500)
+def handle_exception(err):
+    """Return JSON instead of HTML for any other server error"""
+    app.logger.error(f"Unknown Exception: {str(err)}")
+    app.logger.debug(''.join(traceback.format_exception(etype=type(err), value=err, tb=err.__traceback__)))
+    response = {
+        "data": {
+            "error": "Sorry, that error is on us, please contact support if this wasn't an accident"
+        }
+    }
+    return jsonify(response), 500
+
 app.run()
