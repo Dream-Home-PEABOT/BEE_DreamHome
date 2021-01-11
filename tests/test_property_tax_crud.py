@@ -29,15 +29,12 @@ class TestPropertyTaxCrud(BaseCase):
       
         response = self.app.get('/api/v1/property_tax', headers={"Content-Type": "application/json"})
         body = response.json['data']
-        returned_state = body['state']
-        returned_tax_rate = body['tax_rate']
-        returned_avg_property_tax_rate = body['avg_property_tax_rate']
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(3, len(body))
-        self.assertEqual(colorado, returned_salar['attributes'])
-        self.assertEqual(kentucky, returned_zip['attributes'])
-        self.assertEqual(illnois, returned_debt['attributes'])
+        self.assertEqual(colorado, body['colorado']['attributes'])
+        self.assertEqual(kentucky, body['kentucky']['attributes'])
+        self.assertEqual(illnois, body['illnois']['attributes'])
      
      # POST
     def test_successful_post_propertey_tax(self):
@@ -57,3 +54,41 @@ class TestPropertyTaxCrud(BaseCase):
         body = response.json['data']
         self.assertEqual(id, body['id'])
         self.assertEqual(new_state, body['attributes'])
+
+    # PUT
+    def test_successful_put_education(self):
+        # Given
+        payload = {
+            "state": "West Virginia",
+            "tax_rate": 0.57,
+            "avg_property_tax": 802
+        }
+
+        create_property_tax = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_property_tax.json['data']['id']
+        url = f'/api/v1/property_tax/{id}'
+
+        # When
+        updated_payload = {
+            "state": "Best Virginia",
+            "tax_rate": 0.69,
+            "avg_property_tax": 420
+        }
+        response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
+        confirmation_url = response.json['data']['confirmation']['url']
+
+        # Then
+        confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
+        confirmation_body = confirmation.json['data']['attributes']
+
+        self.assertEqual(updated_payload['state'], confirmation_body['state'])
+        self.assertNotEqual(payload['state'], confirmation_body['state'])
+
+        # This is the only field that wasn't updated, so it only tests the final response against the original creation
+        self.assertEqual(updated_payload['tax_rate'], confirmation_body['tax_rate'])
+        self.assertNotEqual(payload['tax_rate'], confirmation_body['tax_rate'])
+
+        self.assertEqual(updated_payload['avg_property_tax'], confirmation_body['avg_property_tax'])
+        self.assertNotEqual(payload['avg_property_tax'], confirmation_body['avg_property_tax'])
+
+        self.assertEqual(200, response.status_code)

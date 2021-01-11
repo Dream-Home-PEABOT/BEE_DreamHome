@@ -53,11 +53,24 @@ class PropertyTaxController():
                 "attributes": {
                     "state": propertytax.state,
                     "tax_rate": propertytax.tax_rate,
-                    "avg_property_tax_rate": propertytax.avg_property_tax_rate,
+                    "avg_property_tax": propertytax.avg_property_tax,
                 }
             }
     
         return {"data": json_property_tax_objects}, 200
 
-
+      # PUT
+    def update_property_tax(self, id):
+        property_tax = PropertyTax.objects.get(id=id)
+        body = request.get_json()
+        property_tax.update(**body)
+        return {
+            "data": {
+                "id": str(id),
+                "confirmation": {
+                    "info": "To see this record's update response, please do a GET request using the url",
+                    "url": f'/api/v1/property_tax/{id}'
+                }
+            }
+        }, 200
 propertytaxcontroller = PropertyTaxController()

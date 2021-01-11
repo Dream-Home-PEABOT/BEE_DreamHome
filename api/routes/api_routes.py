@@ -41,7 +41,6 @@ def update_report(id):
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
 
-
 @api.route('/api/v1/property_tax/<id>', methods=['GET'])
 def get_property_tax(id):
     return propertytaxcontroller.get_property_tax(id)
@@ -54,3 +53,7 @@ def add_property_tax():
 @api.route('/api/v1/property_tax', methods=['GET'])
 def all_property_tax():
     return propertytaxcontroller.index()
+
+@api.route('/api/v1/property_tax/<id>', methods=['PUT'])
+def update_property_tax(id):
+    return propertytaxcontroller.update_property_tax(id)
