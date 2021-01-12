@@ -14,9 +14,9 @@ app.config['MONGO_SETTINGS'] = {
     'host': os.environ.get('MONGDB_URI')
 }
 
-@app.route('/')
-def hello():
-    return 'Welcome to your dream home server!'
+# @app.route('/')
+# def hello():
+#     return 'Welcome to your dream home server!'
 
 app.register_blueprint(api)
 initialize_db(app)
