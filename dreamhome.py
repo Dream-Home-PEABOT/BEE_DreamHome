@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder = 'api/views')
 # app.config.from_envvar('ENV_FILE_LOCATION')
 # POTENTIAL FIRST SOLUTION
 import os
-app.config.['MONGO_SETTINGS'] = {
+app.config['MONGO_SETTINGS'] = {
     'host': os.environ.get('MONGO_URI')
 }
 
