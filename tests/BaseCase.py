@@ -1,5 +1,4 @@
 import unittest
-import json
 from dreamhome import app
 from database.db import db
 

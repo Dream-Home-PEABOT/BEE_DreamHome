@@ -20,8 +20,8 @@ class PropertyTaxController():
             }
         }, 200
 
+    # POST
     def add_property_tax(self):
-        # try:
         body = request.get_json()
         property_tax = PropertyTax(**body)
         property_tax.save()
@@ -34,7 +34,7 @@ class PropertyTaxController():
                     "url": f'/api/v1/property_tax/{id}'
                 }
             }
-        }, 200
+        }, 201
 
     def index(self):
         all_property_tax = PropertyTax.objects()
