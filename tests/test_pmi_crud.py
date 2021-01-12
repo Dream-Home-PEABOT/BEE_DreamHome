@@ -9,14 +9,14 @@ class TestPmiCrud(BaseCase):
         # Given
         payload = {
             "downpayment_percentage": 0,
-            "from_620_639": 2.25,
-            "from_640_659": 2.05,
-            "from_660_679": 1.90,
-            "from_680_699": 1.4,
-            "from_700_719": 1.15,
-            "from_720_739": 0.95,
-            "from_740_759": 0.75,
-            "from_760_850": 0.55,
+            "range_620_639": 2.25,
+            "range_640_659": 2.05,
+            "range_660_679": 1.90,
+            "range_680_699": 1.4,
+            "range_700_719": 1.15,
+            "range_720_739": 0.95,
+            "range_740_759": 0.75,
+            "range_760_850": 0.55,
         }
         # When
         response = self.app.post('/api/v1/pmi', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
@@ -75,14 +75,14 @@ class TestPmiCrud(BaseCase):
         # Given
         payload = {
             "downpayment_percentage": 0,
-            "from_620_639": 2.25,
-            "from_640_659": 2.05,
-            "from_660_679": 1.90,
-            "from_680_699": 1.4,
-            "from_700_719": 1.15,
-            "from_720_739": 0.95,
-            "from_740_759": 0.75,
-            "from_760_850": 0.55,
+            "range_620_639": 2.25,
+            "range_640_659": 2.05,
+            "range_660_679": 1.90,
+            "range_680_699": 1.4,
+            "range_700_719": 1.15,
+            "range_720_739": 0.95,
+            "range_740_759": 0.75,
+            "range_760_850": 0.55,
         }
 
 
@@ -92,14 +92,14 @@ class TestPmiCrud(BaseCase):
 # When
         updated_payload = {
             "downpayment_percentage": 0,
-            "from_620_639": 3.6,
-            "from_640_659": 2.05,
-            "from_660_679": 1.90,
-            "from_680_699": 1.4,
-            "from_700_719": 1.15,
-            "from_740_759": 0.87,
-            "from_760_850": 0.49,
-            "from_720_739": 0.95,
+            "range_620_639": 3.6,
+            "range_640_659": 2.05,
+            "range_660_679": 1.90,
+            "range_680_699": 1.4,
+            "range_700_719": 1.15,
+            "range_740_759": 0.87,
+            "range_760_850": 0.49,
+            "range_720_739": 0.95,
         }
 
         response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
@@ -109,20 +109,20 @@ class TestPmiCrud(BaseCase):
         confirmation = self.app.get(confirmation_url, headers={'Content-Type': 'application/json'})
         confirmation_body = confirmation.json['data']['attributes']
 
-        self.assertEqual(updated_payload['from_620_639'], confirmation_body['from_620_639'])
-        self.assertNotEqual(payload['from_620_639'], confirmation_body['from_620_639'])
+        self.assertEqual(updated_payload['range_620_639'], confirmation_body['range_620_639'])
+        self.assertNotEqual(payload['range_620_639'], confirmation_body['range_620_639'])
 
-        self.assertEqual(updated_payload['from_740_759'], confirmation_body['from_740_759'])
-        self.assertNotEqual(payload['from_740_759'], confirmation_body['from_740_759'])
+        self.assertEqual(updated_payload['range_740_759'], confirmation_body['range_740_759'])
+        self.assertNotEqual(payload['range_740_759'], confirmation_body['range_740_759'])
 
-        self.assertEqual(updated_payload['from_760_850'], confirmation_body['from_760_850'])
-        self.assertNotEqual(payload['from_760_850'], confirmation_body['from_760_850'])
+        self.assertEqual(updated_payload['range_760_850'], confirmation_body['range_760_850'])
+        self.assertNotEqual(payload['range_760_850'], confirmation_body['range_760_850'])
 
-        self.assertEqual(updated_payload['from_640_659'], confirmation_body['from_640_659'])
-        self.assertEqual(updated_payload['from_660_679'], confirmation_body['from_660_679'])
-        self.assertEqual(updated_payload['from_680_699'], confirmation_body['from_680_699'])
-        self.assertEqual(updated_payload['from_700_719'], confirmation_body['from_700_719'])
-        self.assertEqual(updated_payload['from_720_739'], confirmation_body['from_720_739'])
+        self.assertEqual(updated_payload['range_640_659'], confirmation_body['range_640_659'])
+        self.assertEqual(updated_payload['range_660_679'], confirmation_body['range_660_679'])
+        self.assertEqual(updated_payload['range_680_699'], confirmation_body['range_680_699'])
+        self.assertEqual(updated_payload['range_700_719'], confirmation_body['range_700_719'])
+        self.assertEqual(updated_payload['range_720_739'], confirmation_body['range_720_739'])
 
 
 # DESTROY
@@ -130,14 +130,14 @@ class TestPmiCrud(BaseCase):
 # Given
         payload = {
             "downpayment_percentage": 0,
-            "from_620_639": 3.6,
-            "from_640_659": 2.05,
-            "from_660_679": 1.90,
-            "from_680_699": 1.4,
-            "from_700_719": 1.15,
-            "from_740_759": 0.87,
-            "from_760_850": 0.49,
-            "from_720_739": 0.95,
+            "range_620_639": 3.6,
+            "range_640_659": 2.05,
+            "range_660_679": 1.90,
+            "range_680_699": 1.4,
+            "range_700_719": 1.15,
+            "range_740_759": 0.87,
+            "range_760_850": 0.49,
+            "range_720_739": 0.95,
         }
         create_pmi = self.app.post('/api/v1/pmi', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         url = create_pmi.json['data']['confirmation']['url']

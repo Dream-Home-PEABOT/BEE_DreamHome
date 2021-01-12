@@ -28,14 +28,14 @@ class PmiController():
                 "id": str(pmi.id),
                 "attributes": {
                     "downpayment_percentage": pmi.downpayment_percentage,
-                    "from_620_639": pmi.from_620_639,
-                    "from_640_659": pmi.from_640_659,
-                    "from_660_679": pmi.from_660_679,
-                    "from_680_699": pmi.from_680_699,
-                    "from_700_719": pmi.from_700_719,
-                    "from_720_739": pmi.from_720_739,
-                    "from_740_759": pmi.from_740_759,
-                    "from_760_850": pmi.from_760_850
+                    "range_620_639": pmi.range_620_639,
+                    "range_640_659": pmi.range_640_659,
+                    "range_660_679": pmi.range_660_679,
+                    "range_680_699": pmi.range_680_699,
+                    "range_700_719": pmi.range_700_719,
+                    "range_720_739": pmi.range_720_739,
+                    "range_740_759": pmi.range_740_759,
+                    "range_760_850": pmi.range_760_850
                 }
             }
         }, 200
@@ -51,14 +51,14 @@ class PmiController():
                 "id": str(pmi.id),
                 "attributes": {
                     "downpayment_percentage": pmi.downpayment_percentage,
-                    "from_620_639": pmi.from_620_639,
-                    "from_640_659": pmi.from_640_659,
-                    "from_660_679": pmi.from_660_679,
-                    "from_680_699": pmi.from_680_699,
-                    "from_700_719": pmi.from_700_719,
-                    "from_720_739": pmi.from_720_739,
-                    "from_740_759": pmi.from_740_759,
-                    "from_760_850": pmi.from_760_850
+                    "range_620_639": pmi.range_620_639,
+                    "range_640_659": pmi.range_640_659,
+                    "range_660_679": pmi.range_660_679,
+                    "range_680_699": pmi.range_680_699,
+                    "range_700_719": pmi.range_700_719,
+                    "range_720_739": pmi.range_720_739,
+                    "range_740_759": pmi.range_740_759,
+                    "range_760_850": pmi.range_760_850
                 }
             }
 
