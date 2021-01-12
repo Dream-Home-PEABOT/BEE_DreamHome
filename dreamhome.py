@@ -7,7 +7,9 @@ import pry
 
 app = Flask(__name__, template_folder = 'api/views')
 
-app.config.from_envvar('ENV_FILE_LOCATION')
+# app.config.from_envvar('ENV_FILE_LOCATION')
+app.config['MONGO_DBNAME']
+app.config['MONGO_URI']
 
 @app.route('/')
 def hello():
