@@ -66,3 +66,19 @@ def destroy_property_tax(id):
 @api.route('/api/v1/home_insurance', methods=['POST'])
 def add_insurance():
     return homeinsurancecontroller.add_insurance()
+
+@api.route('/api/v1/home_insurance/<id>', methods=['GET'])
+def get_insurance(id):
+    return homeinsurancecontroller.get_insurance(id)
+
+@api.route('/api/v1/home_insurance', methods=['GET'])
+def all_insurance():
+    return homeinsurancecontroller.all_insurance()
+
+@api.route('/api/v1/home_insurance/<id>', methods=['PUT'])
+def update_insurance(id):
+    return homeinsurancecontroller.update_insurance(id)
+
+@api.route('/api/v1/home_insurance/<id>', methods=['DELETE'])
+def destroy_insurance(id):
+    return homeinsurancecontroller.destroy_insurance(id)
