@@ -1,6 +1,7 @@
 from flask import Blueprint,request,json
 from api.controller.EducationController import educationcontroller
 from api.controller.ReportController import reportcontroller
+from api.controller.PmiController import pmicontroller
 
 api = Blueprint("api", __name__)
 
@@ -39,3 +40,23 @@ def update_report(id):
 @api.route('/api/v1/report/<id>', methods=['DELETE'])
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
+
+@api.route('/api/v1/pmi/<id>', methods=['GET'])
+def get_pmi(id):
+    return pmicontroller.get_pmi(id)
+#
+# @api.route('/api/v1/pmi', methods=['GET'])
+# def home():
+#     return pmicontroller.index()
+
+@api.route('/api/v1/pmi', methods=['POST'])
+def add_pmi():
+    return pmicontroller.add_pmi()
+#
+# @api.route('/api/v1/pmi/<id>', methods=['PUT'])
+# def update_pmi(id):
+#     return pmicontroller.update_pmi(id)
+#
+# @api.route('/api/v1/pmi/<id>', methods=['DELETE'])
+# def destroy_pmi(id):
+#     return pmicontroller.destroy_pmi(id)
