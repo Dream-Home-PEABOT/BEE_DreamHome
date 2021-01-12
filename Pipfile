@@ -6,8 +6,11 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-mongoengine = "*"
+"pry.py" = "*"
 
 [requires]
 python_version = "3.9"
 
 [dev-packages]
+pylint = "*"
+autopep8 = "*"

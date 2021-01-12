@@ -1,1 +1,8 @@
-/.env
+# Production environment
+.env
+
+# Development environment
+.env.dev
+
+# Test environment
+.env.test
