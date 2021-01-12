@@ -40,6 +40,8 @@ class EducationController():
                     sub('([A-Z]+)', r' \1',
                     string.replace('-', ' '))).split()).lower()
 
+
+
             json_education_objects = {}
 
             for education in all_education:
