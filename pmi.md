@@ -97,17 +97,63 @@ PMI Object 2 = LTV 95 (5%)
 ```json
 {
   "data": {
-    "type": blarg,
+    "downpayment_zero": {
+      "attributes": {
+        "downpayment_percentage": 0,
+        "prop_tax": {
+          "620-639": what+we_saving,
+          "640-659": balshrejkjdsf,
+          "620-639": what+we_saving,
+          "640-659": balshrejkjdsf,
+          "620-639": what+we_saving,
+          "640-659": balshrejkjdsf
+    },
     "id": 12334,
-    "attributes": {
-      "downpayment_percentage": 5,
-      "prop_tax": {
-        "620-639": what+we_saving,
-        "640-659": balshrejkjdsf,
-        "620-639": what+we_saving,
-        "640-659": balshrejkjdsf,
-        "620-639": what+we_saving,
-        "640-659": balshrejkjdsf
+    "type": "PMI Object"
+  },
+    "downpayment_five": {
+          "attributes": {
+            "downpayment_percentage": 5,
+            "prop_tax": {
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf
+        },
+        "id": 12334,
+        "type": "PMI Object"
+    },
+    "downpayment_five": {
+          "attributes": {
+            "downpayment_percentage": 5,
+            "prop_tax": {
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf
+        },
+        "id": 12334,
+        "type": "PMI Object"
+    },
+    "downpayment_five": {
+          "attributes": {
+            "downpayment_percentage": 5,
+            "prop_tax": {
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf,
+              "620-639": what+we_saving,
+              "640-659": balshrejkjdsf
+        },
+        "id": 12334,
+        "type": "PMI Object"
+    }
+
       }
     }
   }
