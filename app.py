@@ -49,4 +49,4 @@ def handle_exception(err):
     return jsonify(response), 500
 
 if __name__ == 'main':
-    app.run(threaded=True, port=5000)
+    app.run(threaded=True)
