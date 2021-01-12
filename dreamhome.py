@@ -14,9 +14,9 @@ app.config['MONGO_SETTINGS'] = {
     'host': os.environ.get('MONGDB_URI')
 }
 
-@app.route('/')
-def hello():
-    return 'Welcome to your dream home server!'
+# @app.route('/')
+# def hello():
+#     return 'Welcome to your dream home server!'
 
 app.register_blueprint(api)
 initialize_db(app)
@@ -48,5 +48,5 @@ def handle_exception(err):
     }
     return jsonify(response), 500
 
-if __name__ == 'main':
-    app.run()
+# if __name__ == 'main':
+app.run()

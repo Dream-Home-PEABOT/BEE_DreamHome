@@ -7,6 +7,10 @@ from api.controller.PropertyTaxController import propertytaxcontroller
 
 api = Blueprint("api", __name__)
 
+@api.route('/')
+def hello():
+    return 'Welcome to your dream home server!'
+
 @api.route('/api/v1/education/<id>', methods=['GET'])
 def get_education(id):
     return educationcontroller.get_education(id)
@@ -43,7 +47,6 @@ def update_report(id):
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
 
-
 @api.route('/api/v1/pmi/<id>', methods=['GET'])
 def get_pmi(id):
     return pmicontroller.get_pmi(id)
@@ -71,7 +74,6 @@ def get_property_tax(id):
 @api.route('/api/v1/property_tax', methods=['POST'])
 def add_property_tax():
     return propertytaxcontroller.add_property_tax()
-
 
 @api.route('/api/v1/property_tax', methods=['GET'])
 def all_property_tax():
