@@ -24,7 +24,7 @@ class Report(db.Document):
         return 'monthly_principal'
 
     def true_monthly(monthly_principal):
-        # monthly_principal + home_insurance + pmi + property_tax + hoa
+        # monthly_principal + home_insurance + pmi + property_tax
         return 'true_monthly'
 
     def home_insurance():
@@ -35,9 +35,6 @@ class Report(db.Document):
 
     def pmi():
         return 'web scraped pmi'
-
-    def hoa():
-        return 'web scraped hoa'
 
     def percentage_saved_based_on_principal(downpayment_savings, principal):
         return 'backend magic'
