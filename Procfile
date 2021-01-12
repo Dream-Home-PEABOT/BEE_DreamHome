@@ -1,1 +1,1 @@
-web: gunicorn dreamhome:app
+web: gunicorn app:app
