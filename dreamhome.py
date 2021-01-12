@@ -14,8 +14,6 @@ app.config['MONGO_SETTINGS'] = {
     'host': os.environ.get('MONGO_URI')
 }
 
-
-
 @app.route('/')
 def hello():
     return 'Welcome to your dream home server!'
@@ -50,4 +48,5 @@ def handle_exception(err):
     }
     return jsonify(response), 500
 
-app.run()
+if __name__ == 'main':
+    app.run()
