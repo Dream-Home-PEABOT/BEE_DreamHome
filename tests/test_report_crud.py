@@ -1,6 +1,6 @@
+from tests.BaseCase import BaseCase
 import pry
 import json
-from tests.BaseCase import BaseCase
 
 class TestReportCrud(BaseCase):
     # GET single
