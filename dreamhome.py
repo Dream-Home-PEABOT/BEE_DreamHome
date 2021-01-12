@@ -11,7 +11,7 @@ app = Flask(__name__, template_folder = 'api/views')
 # POTENTIAL FIRST SOLUTION
 import os
 app.config['MONGO_SETTINGS'] = {
-    'host': os.environ.get('MONGO_URI')
+    'host': os.environ.get('MONGDB_URI')
 }
 
 @app.route('/')
