@@ -47,7 +47,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual("Please check your request, the Insurance record with given id doesn't exist.", body['message'])
 
 
-    def test_unsuccessful_update_education_bad_fields(self):
+    def test_unsuccessful_update_home_insurance_bad_fields(self):
         # Given
         insurance_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
 

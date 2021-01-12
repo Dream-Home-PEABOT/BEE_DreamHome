@@ -23,7 +23,7 @@ class TestPmiCrud(BaseCase):
         id = response.json['data']['id']
         url = f'/api/v1/pmi/{id}'
         # Then
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(201, response.status_code)
 
         get_pmi = self.app.get(url, headers={"Content-Type": "application/json"})
         body = get_pmi.json['data']

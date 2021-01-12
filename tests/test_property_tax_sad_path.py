@@ -4,7 +4,7 @@ import json
 import pry
 
 
-class TestHomeInsuranceCrudSadPath(BaseCase):
+class TestPropertyTaxCrudSadPath(BaseCase):
     def ReplaceStringByIndex(self, text, index=0, end_index=1, replacement=''):
         return '%s%s%s' % (text[:index], replacement, text[end_index:])
 
@@ -28,7 +28,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual("Please check your request, the Property Tax record with given id doesn't exist.", body['message'])
 
     # PUT
-    def test_unsuccessful_update_home_insurance_incorrect_id(self):
+    def test_unsuccessful_update_property_tax_incorrect_id(self):
         # Given
         tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
 
@@ -46,7 +46,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual('Does Not Exist Error', body['error'])
         self.assertEqual("Please check your request, the Tax record with given id doesn't exist.", body['message'])
 
-    def test_unsuccessful_update_education_bad_fields(self):
+    def test_unsuccessful_update_property_tax_bad_fields(self):
         # Given
         tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
 
@@ -67,7 +67,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual("Please check the Property Tax documentation. Request is missing a required field or incorrect field entered.", body['message'])
 
     # DESTROY
-    def test_unsuccessful_delete_home_insurance_incorrect_id(self):
+    def test_unsuccessful_delete_property_tax_incorrect_id(self):
         # Given
         tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
 
@@ -86,7 +86,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual("Please check your request, the Tax record with given id doesn't exist.", body['message'])
 
       # POST
-    def test_unsuccessful_post_insurance_not_unique(self):
+    def test_unsuccessful_post_property_tax_not_unique(self):
         # Given
         initial_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
 
@@ -99,7 +99,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual('Not Unique Error', body['error'])
         self.assertEqual("This Tax record's classification already exists in the database", body['message'])
 
-    def test_unsuccessful_post_home_insurance_extra_field_incorrect(self):
+    def test_unsuccessful_post_property_tax_extra_field_incorrect(self):
         # Given
         extra_field_payload = {
             "bad_attribute": "Oops",
@@ -116,7 +116,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
         self.assertEqual('Schema Error', body['error'])
         self.assertEqual("Please check the Property Tax documentation. Request is missing a required field or incorrect field entered.", body['message'])
 
-    def test_unsuccessful_post_home_insurance_field_incorrect(self):
+    def test_unsuccessful_post_property_tax_field_incorrect(self):
         # Given
         incorrect_field_payload = {
             "state": 79,
