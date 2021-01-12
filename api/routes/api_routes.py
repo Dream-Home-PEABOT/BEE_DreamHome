@@ -2,6 +2,8 @@ from flask import Blueprint,request,json
 from api.controller.EducationController import educationcontroller
 from api.controller.ReportController import reportcontroller
 from api.controller.PmiController import pmicontroller
+from api.controller.PropertyTaxController import propertytaxcontroller
+
 
 api = Blueprint("api", __name__)
 
@@ -41,6 +43,7 @@ def update_report(id):
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
 
+
 @api.route('/api/v1/pmi/<id>', methods=['GET'])
 def get_pmi(id):
     return pmicontroller.get_pmi(id)
@@ -60,3 +63,24 @@ def update_pmi(id):
 @api.route('/api/v1/pmi/<id>', methods=['DELETE'])
 def destroy_pmi(id):
     return pmicontroller.destroy_pmi(id)
+
+@api.route('/api/v1/property_tax/<id>', methods=['GET'])
+def get_property_tax(id):
+    return propertytaxcontroller.get_property_tax(id)
+
+@api.route('/api/v1/property_tax', methods=['POST'])
+def add_property_tax():
+    return propertytaxcontroller.add_property_tax()
+
+
+@api.route('/api/v1/property_tax', methods=['GET'])
+def all_property_tax():
+    return propertytaxcontroller.index()
+
+@api.route('/api/v1/property_tax/<id>', methods=['PUT'])
+def update_property_tax(id):
+    return propertytaxcontroller.update_property_tax(id)
+
+@api.route('/api/v1/property_tax/<id>', methods=['DELETE'])
+def destroy_property_tax(id):
+    return propertytaxcontroller.destroy_property_tax(id)
