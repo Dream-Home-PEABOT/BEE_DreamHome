@@ -21,12 +21,11 @@ class TestPmiCrud(BaseCase):
         # When
         response = self.app.post('/api/v1/pmi', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = response.json['data']['id']
-        url = f'/api/v1/education/{id}'
+        url = f'/api/v1/pmi/{id}'
         # Then
         self.assertEqual(200, response.status_code)
 
         get_pmi = self.app.get(url, headers={"Content-Type": "application/json"})
-        pry()
         body = get_pmi.json['data']
 
         self.assertEqual(id, body['id'])
