@@ -73,7 +73,6 @@ def get_property_tax(id):
 def add_property_tax():
     return propertytaxcontroller.add_property_tax()
 
-
 @api.route('/api/v1/property_tax', methods=['GET'])
 def all_property_tax():
     return propertytaxcontroller.index()
