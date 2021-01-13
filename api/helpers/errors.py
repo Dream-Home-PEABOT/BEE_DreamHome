@@ -7,7 +7,7 @@
 # 410 - Empty resource
 # 200 - Standard sucess
 # 201 - Creates new resource
-# 202 - Accepted information for processing (update, destroy)
+# 202 - Accepted information for processing (update)
 # 204 - No Content (maybe this is delete)
 
 

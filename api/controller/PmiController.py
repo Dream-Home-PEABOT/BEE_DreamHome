@@ -90,7 +90,7 @@ class PmiController():
                         'url': f'/api/v1/pmi/{id}'
                     }
                 }
-            }, 200
+            }, 202
         except (InvalidQueryError, FieldDoesNotExist, ValidationError):
             raise APISchemaError("Please check the Property PMI documentation. Request is missing a required field or incorrect field entered.")
         except DoesNotExist:
@@ -110,7 +110,7 @@ class PmiController():
                         "url": f'/api/v1/pmi{id}'
                     }
                 }
-            }, 200
+            }, 204
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the PMI record with given id doesn't exist.")
         except Exception:

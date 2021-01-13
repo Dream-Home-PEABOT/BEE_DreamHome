@@ -38,7 +38,6 @@ def handle_exception(err):
     }
     if len(err.args) > 0:
         response["data"]["message"] = err.args[0]
-    # Add some logging so that we can monitor different types of errors
     app.logger.error(f"{err.description}: {response['data']['message']}")
     return jsonify(response), err.code
 

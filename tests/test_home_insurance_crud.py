@@ -85,7 +85,7 @@ class TestHomeInsuranceCrud(BaseCase):
         self.assertEqual(updated_payload['average_rate'], confirmation_body['average_rate'])
         self.assertNotEqual(payload['average_rate'], confirmation_body['average_rate'])
 
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(202, response.status_code)
 
      # DESTROY
     def test_successful_delete_insurance(self):
@@ -100,7 +100,8 @@ class TestHomeInsuranceCrud(BaseCase):
 
         # When
         response = self.app.delete(url, headers={"Content-Type": "application/json"})
-        body = response.json['data']
+        # body = response.json['data']
 
         # Then
-        self.assertEqual('nil', body['id'])
+        self.assertEqual(204, response.status_code)
+        # self.assertEqual('nil', body['id'])

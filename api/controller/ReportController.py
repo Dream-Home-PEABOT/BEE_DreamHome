@@ -1,13 +1,15 @@
 from flask import Response, request, render_template
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
+from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 import pry
 
 class ReportController():
     # GET single
     def get_report(self, id):
-        report = Report.objects.get(id=id)
-        return {
+        try:
+            report = Report.objects.get(id=id)
+            return {
             "data": {
                 "type": str(report),
                 "id": str(report.id),
@@ -21,127 +23,147 @@ class ReportController():
                         "downpayment_percentage": report.downpayment_percentage,
                         "rent": report.rent,
                         "goal_principal": report.goal_principal,
-
                     },
                     "output": {
                         "location": {
-                            "zipcode": 'report.zipcode',
-                            "city_state": 'report.location',
-                            "location_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "zipcode": report.zipcode,
+                            "city_state": report.zipcode,
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "principal": {
-                            "based_on_rent": 'report.principal_based_on_rent', # if we take in on rent
-                            "goal_principal": 'report.goal_principal',
-                            "principal_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "based_on_rent": report.principal_based_on_rent(),
+                            "goal_principal": report.goal_principal,
+                            "mortgage_rate": report.mortgage_rate(),
+                            "information": "what do we want to do here?"
                         },
                         "monthly": {
-                            "monthly_principal": 'report.monthly_principal',
+                            "monthly_principal": report.monthly_principal(),
                             "estimated_true_monthly": {
-                                "true_monthly": 'report.true_monthly',
-                                "home_insurance": 'report.home_insurance',
-                                "property_tax": 'report.property_tax',
-                                "pmi": 'report.pmi',
-                                "hoa": 'report.hoa'
+                                "true_monthly": report.true_monthly(),
+                                "home_insurance": report.home_insurance(),
+                                "property_tax": report.property_tax(),
+                                "pmi": report.pmi()
                             },
-                            "monthly_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "downpayment": {
-                            "downpayment_percentage_selected": 'report.downpayment_percentage',
-                            "downpayment_saved": 'report.downpayment_savings',
-                            "downpayment_percent_saved": 'report.percentage_saved_based_on_principal',
-                            "downpayment_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
+                            "downpayment_percentage_selected": report.downpayment_percentage,
+                            "downpayment_saved": report.downpayment_savings,
+                            "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
                             "ten_year_plan": {
-                                "one": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "1": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(1),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(1)
                                 },
-                                "two":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "2": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(2),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(2)
                                 },
-                                "three": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "3": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(3),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(3)
                                 },
-                                "four": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "4": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(4),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(4)
                                 },
-                                "five":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "5": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(5),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(5)
                                 },
-                                "six":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "6": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(6),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(6)
                                 },
-                                "seven":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "7": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(7),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(7)
                                 },
-                                "eight": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "8": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(8),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(8)
                                 },
-                                "nine":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "9": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(9),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(9)
                                 },
-                                "ten": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
-                                },
+                                "10": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(10),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                }
+
                             }
                         }
                     }
                 }
             }
         }, 200
+        except (ValidationError, DoesNotExist):
+            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+        except Exception:
+            raise 500
 
 
     # POST
     def add_report(self):
-        body = request.get_json()
-        # make the report exist
-        report = Report(**body)
-        report.save()
-        id = report.id
-        # have it return an id
-        return {
-            "data": {
-                "id": str(id),
-                "confirmation": {
-                    "info": 'To connect this report to a user in the future, save this url with the client',
-                    "url": f'/api/v1/report/{id}'
+        try:
+            body = request.get_json()
+            # make the report exist
+            report = Report(**body)
+            report.save()
+            id = report.id
+            # have it return an id
+            return {
+                "data": {
+                    "id": str(id),
+                    "confirmation": {
+                        "info": 'To connect this report to a user in the future, save this url with the client',
+                        "url": f'/api/v1/report/{id}'
+                    }
                 }
-            }
-        }, 201
+            }, 201
+        except (FieldDoesNotExist, ValidationError):
+            raise APISchemaError("Please check the Report documentation. Request is missing a required field or incorrect field entered.")
+        except Exception:
+            raise 500
 
     def update_report(self, id):
-        report = Report.objects.get(id=id)
-        body = request.get_json()
-        report.update(**body)
-        return {
-            "data": {
-                "id": str(id),
-                "confirmation": {
-                    "info": "To see this record's update response, please do a GET request using the url",
-                    "url": f'/api/v1/report/{id}'
+        try:
+            report = Report.objects.get(id=id)
+            body = request.get_json()
+            report.update(**body)
+            return {
+                "data": {
+                    "id": str(id),
+                    "confirmation": {
+                        "info": "To see this record's update response, please do a GET request using the url",
+                        "url": f'/api/v1/report/{id}'
+                    }
                 }
-            }
-        }, 200
+            }, 202
+        except (InvalidQueryError, FieldDoesNotExist, ValidationError):
+            raise APISchemaError("Please check the Report documentation. Request is missing a required field or incorrect field entered.")
+        except DoesNotExist:
+            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+        except Exception:
+            raise 500
 
     def destroy_report(self, id):
-        report = Report.objects.get(id=id)
-        report.delete()
-        return {
-            "data": {
-                "id": 'nil',
-                "confirmation": {
-                    "info": "To see this record's deletion response, please do a GET request using the url",
-                    "url": f'/api/v1/education/{id}'
+        try:
+            report = Report.objects.get(id=id)
+            report.delete()
+            return {
+                "data": {
+                    "id": 'nil',
+                    "confirmation": {
+                        "info": "To see this record's deletion response, please do a GET request using the url",
+                        "url": f'/api/v1/education/{id}'
+                    }
                 }
-            }
-        }, 200
-
+            }, 200
+        except DoesNotExist:
+            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+        except Exception:
+            raise 500
 reportcontroller = ReportController()
