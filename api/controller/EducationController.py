@@ -89,7 +89,6 @@ class EducationController():
     def update_education(self, id):
         try:
             education = Education.objects.get(id=id)
-            blarg = request
             body = request.get_json()
             education.update(**body)
             return {
