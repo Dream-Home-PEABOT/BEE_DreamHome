@@ -12,17 +12,17 @@ CORS(app, resources={r'/api/*': {'origins': '*'}})
 """For Production Only"""
 # # please comment out if not using
 
-app.config['MONGODB_SETTINGS'] = {
-    'db': os.environ['DBNAME'],
-    'host': os.environ['HOST'],
-    'username': os.environ['USERNAME'],
-    'password': os.environ['PASSWORD']
-}
+# app.config['MONGODB_SETTINGS'] = {
+#     'db': os.environ['DBNAME'],
+#     'host': os.environ['HOST'],
+#     'username': os.environ['USERNAME'],
+#     'password': os.environ['PASSWORD']
+# }
 
 """For Testing or Dev Purposes Only"""
 # # please comment out if not using
 
-# app.config.from_envvar('ENV_FILE_LOCATION')
+app.config.from_envvar('ENV_FILE_LOCATION')
 
 app.register_blueprint(api)
 initialize_db(app)

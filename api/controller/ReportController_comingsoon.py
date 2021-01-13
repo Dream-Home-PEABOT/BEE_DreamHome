@@ -25,11 +25,10 @@ class ReportController():
                     "output": {
                         "location": {
                             "zipcode": report.zipcode,
-                            "city_state": report.location #map quest service,
+                            "city_state": report.location, #map quest service, https://www.zipcodeapi.com/Register
                             "location_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "principal": {
-                            "based_on_rent": report.principal_based_on_rent, # if we take in on rent
                             "goal_principal": report.goal_principal,
                             "principal_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
