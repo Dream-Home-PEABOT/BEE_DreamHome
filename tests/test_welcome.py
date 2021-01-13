@@ -1,5 +1,5 @@
 import unittest
-from dreamhome import app
+from app import app
 
 class TestWelcome(unittest.TestCase):
     def setUp(self):

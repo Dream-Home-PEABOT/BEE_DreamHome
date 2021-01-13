@@ -135,7 +135,7 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(updated_payload['source'], confirmation_body['source'])
         self.assertNotEqual(payload['source'], confirmation_body['source'])
 
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(202, response.status_code)
 
     # DESTROY
     def test_successful_delete_education(self):
@@ -154,10 +154,11 @@ class TestEducationCrud(BaseCase):
 
         # When
         response = self.app.delete(url, headers={"Content-Type": "application/json"})
-        body = response.json['data']
+        # body = response.json['data']
 
         # Then
-        self.assertEqual('nil', body['id'])
+        self.assertEqual(204, response.status_code)
+        # self.assertEqual('nil', body['id'])
         # Once you have error handling done, the following can be tested
             # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
             # confirmation_body = confirmation.json

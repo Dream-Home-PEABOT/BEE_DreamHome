@@ -88,7 +88,7 @@ class PropertyTaxController():
                         "url": f'/api/v1/property_tax/{id}'
                     }
                 }
-            }, 200
+            }, 202
         except (InvalidQueryError, FieldDoesNotExist, ValidationError):
             raise APISchemaError("Please check the Property Tax documentation. Request is missing a required field or incorrect field entered.")
         except DoesNotExist:

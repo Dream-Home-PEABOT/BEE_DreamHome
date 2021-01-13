@@ -8,6 +8,10 @@ from api.controller.HomeInsuranceController import homeinsurancecontroller
 
 api = Blueprint("api", __name__)
 
+@api.route('/')
+def hello():
+    return 'Welcome to your dream home server!'
+
 @api.route('/api/v1/education/<id>', methods=['GET'])
 def get_education(id):
     return educationcontroller.get_education(id)
@@ -43,7 +47,6 @@ def update_report(id):
 @api.route('/api/v1/report/<id>', methods=['DELETE'])
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
-
 
 @api.route('/api/v1/pmi/<id>', methods=['GET'])
 def get_pmi(id):

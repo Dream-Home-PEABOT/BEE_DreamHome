@@ -108,7 +108,8 @@ class TestPmiCrud(BaseCase):
 # Then
         confirmation = self.app.get(confirmation_url, headers={'Content-Type': 'application/json'})
         confirmation_body = confirmation.json['data']['attributes']
-
+        
+        self.assertEqual(202, response.status_code)
         self.assertEqual(updated_payload['range_620_639'], confirmation_body['range_620_639'])
         self.assertNotEqual(payload['range_620_639'], confirmation_body['range_620_639'])
 
@@ -143,7 +144,8 @@ class TestPmiCrud(BaseCase):
         url = create_pmi.json['data']['confirmation']['url']
 # When
         response = self.app.delete(url, headers={"Content-Type": "application/json"})
-        body = response.json['data']
         # pry()
-# Then
-        self.assertEqual('nil', body['id'])
+        # body = response.json['data']
+# Then  
+        self.assertEqual(204, response.status_code)
+        # self.assertEqual('nil', body['id'])

@@ -89,7 +89,6 @@ class EducationController():
     def update_education(self, id):
         try:
             education = Education.objects.get(id=id)
-            blarg = request
             body = request.get_json()
             education.update(**body)
             return {
@@ -100,7 +99,7 @@ class EducationController():
                         "url": f'/api/v1/education/{id}'
                     }
                 }
-            }, 200
+            }, 202
         except (InvalidQueryError, FieldDoesNotExist, ValidationError):
             raise APISchemaError("Please check the Education documentation. Request is missing a required field or incorrect field entered.")
         except DoesNotExist:
@@ -121,7 +120,7 @@ class EducationController():
                         "url": f'/api/v1/education/{id}'
                     }
                 }
-            }, 200
+            }, 204
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the Education record with given id doesn't exist.")
         except Exception:
