@@ -26,72 +26,73 @@ class ReportController():
                     },
                     "output": {
                         "location": {
-                            "zipcode": 'report.zipcode',
-                            "city_state": 'report.location',
-                            "location_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "zipcode": report.zipcode,
+                            "city_state": report.zipcode,
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "principal": {
-                            "based_on_rent": 'report.principal_based_on_rent', # if we take in on rent
-                            "goal_principal": 'report.goal_principal',
-                            "principal_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "based_on_rent": report.principal_based_on_rent(),
+                            "goal_principal": report.goal_principal,
+                            "mortgage_rate": report.mortgage_rate(),
+                            "information": "what do we want to do here?"
                         },
                         "monthly": {
-                            "monthly_principal": 'report.monthly_principal',
+                            "monthly_principal": report.monthly_principal(),
                             "estimated_true_monthly": {
-                                "true_monthly": 'report.true_monthly',
-                                "home_insurance": 'report.home_insurance',
-                                "property_tax": 'report.property_tax',
-                                "pmi": 'report.pmi',
-                                "hoa": 'report.hoa'
+                                "true_monthly": report.true_monthly(),
+                                "home_insurance": report.home_insurance(),
+                                "property_tax": report.property_tax(),
+                                "pmi": report.pmi()
                             },
-                            "monthly_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                         },
                         "downpayment": {
-                            "downpayment_percentage_selected": 'report.downpayment_percentage',
-                            "downpayment_saved": 'report.downpayment_savings',
-                            "downpayment_percent_saved": 'report.percentage_saved_based_on_principal',
-                            "downpayment_information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
+                            "downpayment_percentage_selected": report.downpayment_percentage,
+                            "downpayment_saved": report.downpayment_savings,
+                            "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
+                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
                             "ten_year_plan": {
-                                "one": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "1": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(1),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(1)
                                 },
-                                "two":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "2": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(2),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(2)
                                 },
-                                "three": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "3": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(3),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(3)
                                 },
-                                "four": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "4": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(4),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(4)
                                 },
-                                "five":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "5": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(5),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(5)
                                 },
-                                "six":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "6": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(6),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(6)
                                 },
-                                "seven":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "7": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(7),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(7)
                                 },
-                                "eight": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "8": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(8),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(8)
                                 },
-                                "nine":{
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
+                                "9": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(9),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(9)
                                 },
-                                "ten": {
-                                    "monthly_savings":'report.downpayment_goal_monthly_savings',
-                                    "goal_end_date": 'report.downpayment_savings_goal_end_date'
-                                },
+                                "10": {
+                                    "monthly_savings": report.downpayment_goal_monthly_savings(10),
+                                    "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                }
+
                             }
                         }
                     }
