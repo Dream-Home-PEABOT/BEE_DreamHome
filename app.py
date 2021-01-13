@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from database.db import initialize_db
 from api.routes.api_routes import api
 from api.helpers.errors import APIError
@@ -6,6 +7,7 @@ import traceback
 import os
 
 app = Flask(__name__, template_folder = 'api/views')
+CORS(app, resources={r'/api/*': {'origins': '*'}})
 
 """For Production Only"""
 # # please comment out if not using
