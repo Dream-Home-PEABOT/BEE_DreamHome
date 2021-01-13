@@ -47,10 +47,10 @@ class TestReportCrud(BaseCase):
 
         response2 = self.app.get(url, headers={'Content-Type': "application/json"})
 
-        body = response2.json
+        body = response1.json
 
         # Then
-        self.assertEqual(200, response2.status_code)
+        self.assertEqual(201, response1.status_code)
         self.assertEqual(str, type(id))
 
 
@@ -82,6 +82,7 @@ class TestReportCrud(BaseCase):
     # Then
         confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
         confirmation_body = confirmation.json['data']['attributes']['input']
+        self.assertEqual(202, response.status_code)
         self.assertEqual(updated_payload['salary'], confirmation_body['salary'])
         self.assertEqual(updated_payload['zipcode'], confirmation_body['zipcode'])
         self.assertEqual(updated_payload['credit_score'], confirmation_body['credit_score'])
