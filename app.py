@@ -6,14 +6,14 @@ from api.helpers.errors import APIError
 import traceback
 import pry
 import os
-from pymongo import MongoClient
 
 
 app = Flask(__name__, template_folder = 'api/views')
 
+uri = os.environ.get('MONGODB_URI')
+client = pymongo.MongoClient(uri)
+db = client.test
 
-client = pymongo.MongoClient(os.environ.get('MONGODB_URI'))
-db = client.dreamhome
 
 app.register_blueprint(api)
 initialize_db(app)
