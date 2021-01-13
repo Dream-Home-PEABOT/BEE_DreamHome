@@ -77,7 +77,7 @@ class EducationController():
                         "url": f'/api/v1/education/{id}'
                     }
                 }
-            }, 200
+            }, 201
         except NotUniqueError:
             raise APINotUniqueError("This education record's classification already exists in the database")
         except (FieldDoesNotExist, ValidationError):

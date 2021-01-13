@@ -81,7 +81,7 @@ class TestEducationCrud(BaseCase):
         url = f'/api/v1/education/{id}'
 
         # Then
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(201, response.status_code)
         response = self.app.get(url, headers={"Content-Type": "application/json"})
         body = response.json['data']
         self.assertEqual(id, body['id'])

@@ -115,7 +115,7 @@ class ReportController():
                     "url": f'/api/v1/report/{id}'
                 }
             }
-        }, 200
+        }, 201
 
     def update_report(self, id):
         report = Report.objects.get(id=id)
