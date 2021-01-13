@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from database.db import initialize_db
 from api.routes.api_routes import api
 from api.helpers.errors import APIError
@@ -6,21 +7,22 @@ import traceback
 import os
 
 app = Flask(__name__, template_folder = 'api/views')
+CORS(app, resources={r'/api/*': {'origins': '*'}})
 
 """For Production Only"""
 # # please comment out if not using
 
-# app.config['MONGODB_SETTINGS'] = {
-#     'db': os.environ['DBNAME'],
-#     'host': os.environ['HOST'],
-#     'username': os.environ['USERNAME'],
-#     'password': os.environ['PASSWORD']
-# }
+app.config['MONGODB_SETTINGS'] = {
+    'db': os.environ['DBNAME'],
+    'host': os.environ['HOST'],
+    'username': os.environ['USERNAME'],
+    'password': os.environ['PASSWORD']
+}
 
 """For Testing or Dev Purposes Only"""
 # # please comment out if not using
 
-app.config.from_envvar('ENV_FILE_LOCATION')
+# app.config.from_envvar('ENV_FILE_LOCATION')
 
 app.register_blueprint(api)
 initialize_db(app)
@@ -36,7 +38,6 @@ def handle_exception(err):
     }
     if len(err.args) > 0:
         response["data"]["message"] = err.args[0]
-    # Add some logging so that we can monitor different types of errors
     app.logger.error(f"{err.description}: {response['data']['message']}")
     return jsonify(response), err.code
 
