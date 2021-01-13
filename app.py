@@ -7,12 +7,20 @@ import os
 
 app = Flask(__name__, template_folder = 'api/views')
 
+"""For Production Only"""
+# # please comment out if not using
+
 app.config['MONGODB_SETTINGS'] = {
     'db': os.environ['DBNAME'],
     'host': os.environ['HOST'],
     'username': os.environ['USERNAME'],
     'password': os.environ['PASSWORD']
 }
+
+"""For Testing or Dev Purposes Only"""
+# # please comment out if not using
+
+# app.config.from_envvar('ENV_FILE_LOCATION')
 
 app.register_blueprint(api)
 initialize_db(app)
