@@ -1,7 +1,6 @@
 from database.db import db
 
 class Report(db.Document):
-    #Initial Post from FrontEnd
     salary = db.IntField(required=True)
     zipcode = db.IntField(required=True)
     credit_score = db.IntField(required=True)

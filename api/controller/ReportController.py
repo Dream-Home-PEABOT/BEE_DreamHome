@@ -98,7 +98,8 @@ class ReportController():
                         }
                     }
                 }
-            }, 200
+            }
+        }, 200
         except (ValidationError, DoesNotExist):
             raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
         except Exception:
