@@ -1,6 +1,11 @@
-from flask_mongoengine import MongoEngine
+# from flask_mongoengine import MongoEngine
+import pymongo
+import os
 
-db = MongoEngine()
+uri = os.environ.get('MONGODB_URI')
+client = pymongo.MongoClient(uri)
+db = client['dreamhome']
+
 def initialize_db(app):
     db.init_app(app)
 

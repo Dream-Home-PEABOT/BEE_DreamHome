@@ -1,18 +1,18 @@
-import pymongo
 from flask import Flask, jsonify
 from database.db import initialize_db
 from api.routes.api_routes import api
 from api.helpers.errors import APIError
 import traceback
 import pry
+import pymongo
 import os
 
 
 app = Flask(__name__, template_folder = 'api/views')
 
-uri = os.environ.get('MONGODB_URI')
-client = pymongo.MongoClient(uri)
-db = client.test
+# uri = os.environ.get('MONGODB_URI')
+# client = pymongo.MongoClient(uri)
+# db = client[test]
 
 
 app.register_blueprint(api)
