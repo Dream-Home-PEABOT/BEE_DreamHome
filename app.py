@@ -4,12 +4,12 @@ from api.routes.api_routes import api
 from api.helpers.errors import APIError
 import traceback
 import pry
+import os
 
 app = Flask(__name__, template_folder = 'api/views')
 
 # app.config.from_envvar('ENV_FILE_LOCATION')
 # POTENTIAL FIRST SOLUTION
-import os
 app.config['MONGO_SETTINGS'] = {
     'host': os.environ.get('MONGDB_URI')
 }

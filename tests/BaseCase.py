@@ -1,5 +1,5 @@
 import unittest
-from dreamhome import app
+from app import app
 from database.db import db
 
 class BaseCase(unittest.TestCase):
