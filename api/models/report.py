@@ -40,9 +40,6 @@ class Report(db.Document):
     def percentage_saved_based_on_principal(self):
         return self.downpayment_percentage #fix this!
 
-    def downpayment_goal_monthly_savings(self, year):
-        monthly_goal = self.downpayment_savings / (year * 12) #fix this!
-        return round(monthly_goal)
 
     def downpayment_savings_goal_end_date(self, year):
         now = datetime.datetime.now()
@@ -69,3 +66,13 @@ class Report(db.Document):
 
         imaginative_principal = numerator / denomenator
         return round(imaginative_principal)
+
+    def downpayment_goal_monthly_savings(self, year):
+        if self.goal_principal == 0.0:
+            principal = self.principal_based_on_rent()
+        else:
+            principal = self.goal_principal
+        downpayment = principal * (self.downpayment_percentage / 100)
+        downpayment -= self.downpayment_savings
+        monthly_goal = downpayment / (year * 12)
+        return round(monthly_goal)
