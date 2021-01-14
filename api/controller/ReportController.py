@@ -4,108 +4,108 @@ from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, 
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 import pry
 
+
 class ReportController():
     # GET single
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
             return {
-            "data": {
-                "type": str(report),
-                "id": str(report.id),
-                "attributes": {
-                    "input": {
-                        "salary": report.salary,
-                        "zipcode": report.zipcode,
-                        "credit_score": report.credit_score,
-                        "monthly_debt": report.monthly_debt,
-                        "downpayment_savings": report.downpayment_savings,
-                        "downpayment_percentage": report.downpayment_percentage,
-                        "rent": report.rent,
-                        "goal_principal": report.goal_principal,
-                    },
-                    "output": {
-                        "location": {
+                "data": {
+                    "type": str(report),
+                    "id": str(report.id),
+                    "attributes": {
+                        "input": {
+                            "salary": report.salary,
                             "zipcode": report.zipcode,
-                            "city_state": report.zipcode,
-                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
-                        },
-                        "principal": {
-                            "based_on_rent": report.principal_based_on_rent(),
+                            "credit_score": report.credit_score,
+                            "monthly_debt": report.monthly_debt,
+                            "downpayment_savings": report.downpayment_savings,
+                            "downpayment_percentage": report.downpayment_percentage,
+                            "rent": report.rent,
                             "goal_principal": report.goal_principal,
-                            "mortgage_rate": report.mortgage_rate(),
-                            "information": "what do we want to do here?"
                         },
-                        "monthly": {
-                            "monthly_principal": report.monthly_principal(),
-                            "estimated_true_monthly": report.true_monthly(),
-                            "add_ons": {
-                                "home_insurance": report.home_insurance(),
-                                "property_tax": report.property_tax(),
-                                "pmi": report.pmi()
+                        "output": {
+                            "location": {
+                                "zipcode": report.zipcode,
+                                "city_state": report.zipcode,
+                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
                             },
-                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
-                        },
-                        "downpayment": {
-                            "downpayment_percentage_selected": report.downpayment_percentage,
-                            "downpayment_saved": report.downpayment_savings,
-                            "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
-                            "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
-                            "ten_year_plan": {
-                                "1": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(1),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(1)
+                            "principal": {
+                                "based_on_rent": report.principal_based_on_rent(),
+                                "goal_principal": report.goal_principal,
+                                "mortgage_rate": report.mortgage_rate(),
+                                "information": "what do we want to do here?"
+                            },
+                            "monthly": {
+                                "monthly_principal": report.monthly_principal(),
+                                "estimated_true_monthly": report.true_monthly(),
+                                "add_ons": {
+                                    "home_insurance": report.home_insurance(),
+                                    "property_tax": report.property_tax(),
+                                    "pmi": report.pmi()
                                 },
-                                "2": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(2),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(2)
-                                },
-                                "3": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(3),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(3)
-                                },
-                                "4": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(4),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(4)
-                                },
-                                "5": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(5),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(5)
-                                },
-                                "6": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(6),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(6)
-                                },
-                                "7": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(7),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(7)
-                                },
-                                "8": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(8),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(8)
-                                },
-                                "9": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(9),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(9)
-                                },
-                                "10": {
-                                    "monthly_savings": report.downpayment_goal_monthly_savings(10),
-                                    "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                            },
+                            "downpayment": {
+                                "downpayment_percentage_selected": report.downpayment_percentage,
+                                "downpayment_saved": report.downpayment_savings,
+                                "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
+                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
+                                "ten_year_plan": {
+                                    "1": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(1),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(1)
+                                    },
+                                    "2": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(2),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(2)
+                                    },
+                                    "3": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(3),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(3)
+                                    },
+                                    "4": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(4),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(4)
+                                    },
+                                    "5": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(5),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(5)
+                                    },
+                                    "6": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(6),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(6)
+                                    },
+                                    "7": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(7),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(7)
+                                    },
+                                    "8": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(8),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(8)
+                                    },
+                                    "9": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(9),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(9)
+                                    },
+                                    "10": {
+                                        "monthly_savings": report.downpayment_goal_monthly_savings(10),
+                                        "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                    }
                                 }
-
                             }
                         }
                     }
                 }
-            }
-        }, 200
+            }, 200
         except (ValidationError, DoesNotExist):
-            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+            raise APIDoesNotExistError(
+                "Please check your request, the Report record with given id doesn't exist.")
         except Exception:
             raise 500
-
-
     # POST
+
     def add_report(self):
         try:
             body = request.get_json()
@@ -124,7 +124,8 @@ class ReportController():
                 }
             }, 201
         except (FieldDoesNotExist, ValidationError):
-            raise APISchemaError("Please check the Report documentation. Request is missing a required field or incorrect field entered.")
+            raise APISchemaError(
+                "Please check the Report documentation. Request is missing a required field or incorrect field entered.")
         except Exception:
             raise 500
 
@@ -143,9 +144,11 @@ class ReportController():
                 }
             }, 202
         except (InvalidQueryError, FieldDoesNotExist, ValidationError):
-            raise APISchemaError("Please check the Report documentation. Request is missing a required field or incorrect field entered.")
+            raise APISchemaError(
+                "Please check the Report documentation. Request is missing a required field or incorrect field entered.")
         except DoesNotExist:
-            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+            raise APIDoesNotExistError(
+                "Please check your request, the Report record with given id doesn't exist.")
         except Exception:
             raise 500
 
@@ -163,7 +166,9 @@ class ReportController():
                 }
             }, 200
         except DoesNotExist:
-            raise APIDoesNotExistError("Please check your request, the Report record with given id doesn't exist.")
+            raise APIDoesNotExistError(
+                "Please check your request, the Report record with given id doesn't exist.")
         except Exception:
             raise 500
+
 reportcontroller = ReportController()
