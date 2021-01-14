@@ -133,7 +133,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The created objects id with url for getting the new object data
-    - Example response:
 
 #### Update an education object by id
   - Method/HTTP_Verb: PUT
@@ -151,7 +150,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The updated objects id with url for getting the updated object data
-    - Example response:
 
 
 #### Destroy an education object by id
@@ -160,7 +158,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - The destroyed objects id with url for getting the deletion confirmation for this object
-    - Example response:
 
 
 ## Report
@@ -171,7 +168,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - All report object id's
-    - Example response:
  -->
 #### Call a single report object by id
   - Method/HTTP_Verb: GET
@@ -180,7 +176,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Returns:
     - A single report object's information
     - This is part of our MVP - our frontend can access a dynamic report response so they can display custom information to the user
-    - Example response:
 
 
 #### Create a new report object
@@ -201,7 +196,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The created objects id with url for getting the new object data
-    - Example response:
 
 
 #### Update an report object by id
@@ -222,7 +216,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The updated objects id with url for getting the updated object data
-    - Example response:
 
 
 #### Destroy an report object by id
@@ -231,7 +224,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - The destroyed objects id with url for getting the deletion confirmation for this object
-    - Example response:
 
 
 ## Property Tax
@@ -242,7 +234,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A list of average property taxes by state
-    - Example response:
 
 #### Call a single property-tax object by id
   - Method/HTTP_Verb: GET
@@ -250,7 +241,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A single property-tax object's information
-    - Example response:
 
 #### Create a new property-tax object
   - Method/HTTP_Verb: POST
@@ -265,7 +255,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The created objects id with url for getting the new object data
-    - Example response:
 
 #### Update an property-tax object by id
   - Method/HTTP_Verb: PUT
@@ -280,7 +269,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The updated objects id with url for getting the updated object data
-    - Example response:
 
 #### Destroy an property-tax object by id
   - Method/HTTP_Verb: DELETE
@@ -288,7 +276,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - The destroyed objects id with url for getting the deletion confirmation for this object
-    - Example response:
 
 
 ## PMI
@@ -299,7 +286,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A list of PMI objects that represent different the LTV categories: 100 (0%), 95 (5%), 90 (10%), and 85 (15%)
-    - Example response:
 
 #### Call a single pmi object by id
   - Method/HTTP_Verb: GET
@@ -307,7 +293,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A single pmi object's information
-    - Example response:
 
 #### Create a new pmi object
   - Method/HTTP_Verb: POST
@@ -328,7 +313,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The created objects id with url for getting the new object data
-    - Example response:
 
 #### Update an pmi object by id
   - Method/HTTP_Verb: PUT
@@ -349,7 +333,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The updated objects id with url for getting the updated object data
-    - Example response:
 
 #### Destroy an pmi object by id
   - Method/HTTP_Verb: DELETE
@@ -357,7 +340,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - The destroyed objects id with url for getting the deletion confirmation for this object
-    - Example response:
 
 
 ## Home Insurance
@@ -368,7 +350,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A list of average home insurance by state
-    - Example response:
 
 #### Call a single home-insurance object by id
   - Method/HTTP_Verb: GET
@@ -376,7 +357,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - A single home-insurance object's information
-    - Example response:
 
 #### Create a new home-insurance object
   - Method/HTTP_Verb: POST
@@ -390,7 +370,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The created objects id with url for getting the new object data
-    - Example response:
 
 #### Update an home-insurance object by id
   - Method/HTTP_Verb: PUT
@@ -404,7 +383,6 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```
   - Returns:
     - The updated objects id with url for getting the updated object data
-    - Example response:
 
 #### Destroy an home-insurance object by id
   - Method/HTTP_Verb: DELETE
@@ -412,4 +390,3 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: NA
   - Returns:
     - The destroyed objects id with url for getting the deletion confirmation for this object
-    - Example response:
