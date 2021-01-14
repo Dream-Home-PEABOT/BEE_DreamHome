@@ -6,6 +6,22 @@ import pry
 
 
 class ReportController():
+
+    def index(self):
+        num = 1
+        all_reports = Report.objects()
+        json_reports_objects = {}
+        for report in all_reports:
+            json_reports_objects[f'report_{num}'] = {
+                "type": 'Report',
+                "attributes": {
+                    "id": report.id
+                }
+            }
+            num += 1
+
+        return { "data": json_reports_objects}, 200
+
     # GET single
     def get_report(self, id):
         try:

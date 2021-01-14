@@ -36,6 +36,10 @@ def destroy_education(id):
 def get_report(id):
     return reportcontroller.get_report(id)
 
+@api.route('/api/v1/report', methods=['GET'])
+def get_all_reports():
+    return reportcontroller.index()
+
 @api.route('/api/v1/report', methods=['POST'])
 def add_report():
     return reportcontroller.add_report()
