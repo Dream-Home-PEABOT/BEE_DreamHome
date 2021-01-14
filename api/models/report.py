@@ -58,8 +58,8 @@ class Report(db.Document):
         percentage = self.downpayment_percentage / 100
         exponent = math.pow((1 + monthly_interest), self.number_payments())
         numerator = ((1 - percentage) * principal) * (monthly_interest) * (exponent)
-        denomenator = exponent - 1
-        monthly = numerator / denomenator
+        denominator = exponent - 1
+        monthly = numerator / denominator
         return round(monthly, 2)
 
     def percentage_saved_based_on_principal(self):
@@ -82,19 +82,16 @@ class Report(db.Document):
 
 
     def principal_based_on_rent(self):
+        if self.goal_principal != 0:
+            return 0
         monthly = self.rent
-        percentage = self.downpayment_percentage / 100
         annual_interest = self.mortgage_rate()
         monthly_interest = annual_interest / 12
-        number_payments = self.number_payments()
-
-        exponent = math.pow((1 + monthly_interest), number_payments)
-
-        numerator = (monthly) * (exponent - 1)
-
-        denomenator = (percentage) * (monthly_interest * exponent)
-
-        imaginative_principal = numerator / denomenator
+        percentage = 1 - (self.downpayment_percentage / 100)
+        exponent = math.pow((1 + monthly_interest), self.number_payments())
+        numerator = (exponent - 1) * (monthly)
+        denominator = (monthly_interest) * (exponent) * (percentage)
+        imaginative_principal = numerator / denominator
         return round(imaginative_principal)
 
     def downpayment_goal_monthly_savings(self, year):
