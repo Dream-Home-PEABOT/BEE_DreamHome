@@ -27,7 +27,7 @@ class Report(db.Document):
 
     def mortgage_rate(self):
         rate = 0.0
-        if self.credit_score in range(620, 639):
+        if self.credit_score in range(300, 639):
            rate = 4.072
         elif self.credit_score in range(640, 659):
             rate = 3.526
@@ -68,7 +68,7 @@ class Report(db.Document):
         else:
             principal = self.goal_principal
         percent_saved = (self.downpayment_savings / principal) * 100
-        return round(percent_saved, 2) 
+        return round(percent_saved, 2)
 
 
     def downpayment_savings_goal_end_date(self, year):

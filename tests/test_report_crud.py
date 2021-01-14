@@ -74,7 +74,7 @@ class TestReportCrud(BaseCase):
         updated_payload = {
             "salary": 150000.0,
             "zipcode": 80016,
-            "credit_score": 500,
+            "credit_score": 500
         }
         response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
         confirmation_url = response.json['data']['confirmation']['url']

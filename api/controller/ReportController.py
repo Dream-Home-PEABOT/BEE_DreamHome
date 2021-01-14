@@ -29,13 +29,13 @@ class ReportController():
                             "location": {
                                 "zipcode": report.zipcode,
                                 "city_state": report.zipcode,
-                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                                "information": "The term ZIP is an acronym for Zone Improvement Plan"
                             },
                             "principal": {
                                 "based_on_rent": report.principal_based_on_rent(),
                                 "goal_principal": report.goal_principal,
                                 "mortgage_rate": report.mortgage_rate(),
-                                "information": "what do we want to do here?"
+                                "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan."
                             },
                             "monthly": {
                                 "monthly_principal": report.monthly_principal(),
@@ -45,13 +45,13 @@ class ReportController():
                                     "property_tax": report.property_tax(),
                                     "pmi": report.pmi()
                                 },
-                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE"
+                                "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided."
                             },
                             "downpayment": {
                                 "downpayment_percentage_selected": report.downpayment_percentage,
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
-                                "information": "DEAR FE, HARD CODE INFORMATION YOU WANT HERE",
+                                "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
                                 "ten_year_plan": {
                                     "1": {
                                         "monthly_savings": report.downpayment_goal_monthly_savings(1),
