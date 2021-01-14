@@ -38,8 +38,8 @@ class ReportController():
                         },
                         "monthly": {
                             "monthly_principal": report.monthly_principal(),
-                            "estimated_true_monthly": {
-                                "true_monthly": report.true_monthly(),
+                            "estimated_true_monthly": report.true_monthly(),
+                            "add_ons": {
                                 "home_insurance": report.home_insurance(),
                                 "property_tax": report.property_tax(),
                                 "pmi": report.pmi()
