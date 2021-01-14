@@ -6,3 +6,17 @@
 
 # Test environment
 .env.test
+
+# Coverage
+htmlcov/
+htmlcov/**
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
