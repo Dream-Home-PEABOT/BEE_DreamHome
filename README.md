@@ -1,4 +1,4 @@
-# DreamHome BackEnd
+# Dream Home API Back End Server
 ___
 ## About
 This is the RESTful API back end server for [Dream Home](https://dream-home-cap.herokuapp.com/home). Dream Home walks users through an educative journey that ends in a analysis report that includes a timeline towards their projected home plan and future monthly payment details.
