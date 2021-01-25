@@ -20,7 +20,8 @@ class EducationController():
                         "description": education.description,
                         "information": education.information,
                         "note": education.note,
-                        "source": education.source
+                        "source": education.source,
+                        "order": education.order
                     }
                 }
             }, 200
@@ -54,7 +55,8 @@ class EducationController():
                         "description": education.description,
                         "information": education.information,
                         "note": education.note,
-                        "source": education.source
+                        "source": education.source,
+                        "order": education.order
                     }
                 }
 
