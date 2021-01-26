@@ -109,3 +109,28 @@ class Report(db.Document):
         downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
         monthly_goal = downpayment / (year * 12)
         return round(monthly_goal)
+
+    def number_of_years(self, savings_style):
+        monthly_pay = self.salary
+        monthly_debt = self.monthly_debt
+
+        if self.rent == 0:
+            monthly_living_expense = self.monthly_principal()
+            principal = self.goal_principal
+        else:
+            monthly_living_expense = self.rent
+            principal = self.principal_based_on_rent()
+
+        remaining_monthly = monthly_pay - monthly_debt - monthly_living_expense
+        savings_cap = remaining_monthly * savings_style
+
+        downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
+        potential_monthly_savings = downpayment / 12
+        year = 1
+        static_monthly = potential_monthly_savings
+        while potential_monthly_savings > savings_cap:
+            potential_monthly_savings = static_monthly / year
+            year += 1
+        else:
+            dynamic_years = (year, year + 2,  year + 4)
+        return dynamic_years
