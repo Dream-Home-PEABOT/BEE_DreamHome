@@ -24,15 +24,17 @@ class ReportController():
                             "downpayment_percentage": report.downpayment_percentage,
                             "rent": report.rent,
                             "goal_principal": report.goal_principal,
+                            "mortgage_term": report.mortgage_term
                         },
                         "output": {
                             "location": {
                                 "zipcode": report.zipcode,
-                                "city_state": report.zipcode,
+                                "city_state": report.city_state(),
+                                "average_home_price": report.home_price_by_zip(),
                                 "information": "The term ZIP is an acronym for Zone Improvement Plan"
                             },
                             "principal": {
-                                "based_on_rent": report.principal_based_on_rent(),
+                                "principal_based_on_rent": report.principal_based_on_rent(),
                                 "goal_principal": report.goal_principal,
                                 "mortgage_rate": report.mortgage_rate(),
                                 "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan."
@@ -40,11 +42,9 @@ class ReportController():
                             "monthly": {
                                 "monthly_principal": report.monthly_principal(),
                                 "estimated_true_monthly": report.true_monthly(),
-                                "add_ons": {
-                                    "home_insurance": report.home_insurance(),
-                                    "property_tax": report.property_tax(),
-                                    "pmi": report.pmi()
-                                },
+                                "home_insurance_by_location": report.home_insurance(),
+                                "property_tax_by_location": report.property_tax(),
+                                "pmi_by_location": report.pmi(),
                                 "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided."
                             },
                             "downpayment": {
@@ -52,8 +52,26 @@ class ReportController():
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
                                 "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
-                                "ten_year_plan": {
-                                    "1": {
+                                "plan_style": {
+                                # salary versus debt
+                                #why:
+                                    # currently, simplistic math
+                                    # first year is always discouraging
+                                    # doesn't  match based on salary and debt
+                                # new:
+                                    # only a percentage after debt and salary
+                                    # five year plan, where the first number that starts with the year that's attuned to your current FINANCIAL SITUATION! *APPROPRIATE YEAR
+                                # Example
+                                #     monthly salary = x
+                                #     debt = y
+                                #     available = x - y - rent
+                                # beyonce = .5 of available
+                                    # three timelines
+                                # taylor_swift = .3 of available
+                                    # three timelines
+                                # keanu_reece = .1 of available
+                                    # three timelines
+                                    "THIS BECOMES A DYNAMIC NUMBER": {
                                         "monthly_savings": report.downpayment_goal_monthly_savings(1),
                                         "goal_end_date": report.downpayment_savings_goal_end_date(1)
                                     },
