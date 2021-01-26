@@ -11,40 +11,40 @@ class ReportController():
             report = Report.objects.get(id=id)
             return {
                 "data": {
-                    "type": str(report),
-                    "id": str(report.id),
-                    "attributes": {
+                    "01_type": str(report),
+                    "02_id": str(report.id),
+                    "03_attributes": {
                         "input": {
-                            "salary": report.salary,
-                            "zipcode": report.zipcode,
-                            "credit_score": report.credit_score,
-                            "monthly_debt": report.monthly_debt,
-                            "downpayment_savings": report.downpayment_savings,
-                            "downpayment_percentage": report.downpayment_percentage,
-                            "rent": report.rent,
-                            "goal_principal": report.goal_principal,
+                            "A_zipcode": report.zipcode,
+                            "B_credit_score": report.credit_score,
+                            "C_salary": report.salary,
+                            "D_monthly_debt": report.monthly_debt,
+                            "E_downpayment_savings": report.downpayment_savings,
+                            "F_mortgage_term": report.mortgage_term,
+                            "G_downpayment_percentage": report.downpayment_percentage,
+                            "H_goal_principal": report.goal_principal,
+                            "I_rent": report.rent
                         },
                         "output": {
-                            "location": {
+                            "A_location": {
+                                "information": "By providing a zipcode, we can report location specific information such as average home price.",
                                 "zipcode": report.zipcode,
-                                "city_state": report.zipcode,
-                                "information": "The term ZIP is an acronym for Zone Improvement Plan"
+                                "city_state": report.city_state(),
+                                "average_home_price": report.home_price_by_zip(),
                             },
-                            "principal": {
-                                "based_on_rent": report.principal_based_on_rent(),
-                                "goal_principal": report.goal_principal,
+                            "B_principal": {
+                                "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
                                 "mortgage_rate": report.mortgage_rate(),
-                                "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan."
+                                "goal_principal": report.goal_principal,
+                                "principal_based_on_rent": report.principal_based_on_rent()
                             },
-                            "monthly": {
+                            "C_monthly": {
+                                "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided.",
                                 "monthly_principal": report.monthly_principal(),
                                 "estimated_true_monthly": report.true_monthly(),
-                                "add_ons": {
-                                    "home_insurance": report.home_insurance(),
-                                    "property_tax": report.property_tax(),
-                                    "pmi": report.pmi()
-                                },
-                                "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided."
+                                "home_insurance_by_location": report.home_insurance(),
+                                "property_tax_by_location": report.property_tax(),
+                                "pmi_by_location": report.pmi()
                             },
                             "downpayment": {
                                 "downpayment_percentage_selected": report.downpayment_percentage,
