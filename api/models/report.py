@@ -60,7 +60,7 @@ class Report(db.Document):
     def monthly_principal(self):
         if self.rent != 0:
             return self.rent
-        principal = self.goal_principal
+        principal = self.goal_principal - self.downpayment_savings
         annual_interest = self.mortgage_rate()
         monthly_interest = annual_interest / 12
         percentage = self.downpayment_percentage / 100
@@ -78,7 +78,6 @@ class Report(db.Document):
         percent_saved = (self.downpayment_savings / principal) * 100
         return round(percent_saved, 2)
 
-
     def downpayment_savings_goal_end_date(self, year):
         now = datetime.datetime.now()
         month = now.month
@@ -87,7 +86,6 @@ class Report(db.Document):
         new_year = current_year + year
         date = f'{month}/{day}/{new_year}'
         return date
-
 
     def principal_based_on_rent(self):
         if self.goal_principal != 0:
