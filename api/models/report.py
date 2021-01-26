@@ -105,7 +105,7 @@ class Report(db.Document):
             principal = self.principal_based_on_rent()
         else:
             principal = self.goal_principal
-        downpayment = principal * (self.downpayment_percentage / 100)
-        downpayment -= self.downpayment_savings
+
+        downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
         monthly_goal = downpayment / (year * 12)
         return round(monthly_goal)
