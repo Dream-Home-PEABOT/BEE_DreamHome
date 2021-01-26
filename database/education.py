@@ -17,13 +17,14 @@ credit = {
     "order": 2
 }
 salary = {
-    "classification": "Annual Salary",
+    "classification": "Monthly Salary",
     "question": "What is your net monthly salary?",
     "description": "Gross income is the total amount you earn (typically over the course of a year) before expenses. Net income is the profit your business earns after expenses.",
     "information": "Depending on the home price you’re aiming for, you may want to wait a year or two before you apply for a mortgage if you’ve just moved into a higher-paying role. The longer you stay in your higher-paying position, the more your lender may be willing to loan you.",
     "note":"The amount of money you earn plays a smaller role in getting a mortgage than you might think. ",
     "source": "https://www.rocketmortgage.com",
-    "order": 3
+    "order": 3,
+    "symbol": "$"
 }
 debt = {
     "classification": "Monthly Debt",
@@ -32,7 +33,8 @@ debt = {
     "information": "This is NOT your DTI aka Debt-To-Income Ratio, Your DTI is equal to your total fixed, recurring monthly debts divided by your total monthly gross household income.",
     "note": "Your debts directly affect your affordability, since it’s based on the ratio between what you earn (income) and what you owe (debts).",
     "source": "http://www.trulia.com",
-    "order": 4
+    "order": 4,
+    "symbol": "$"
 }
 savings = {
     "classification": "Downpayment Savings",
@@ -41,7 +43,8 @@ savings = {
     "information": "That money typically comes from your personal savings, and in most cases, you pay with a check, a credit card, or an electronic payment.",
     "note": "Homeownership comes with costs that rentals do not. So remember to put extra money away for closing costs, maintenance, and home repairs.",
     "source": "http://www.trulia.com",
-    "order": 5
+    "order": 5,
+    "symbol": "$"
 }
 term = {
     "classification": "Mortgage Term",
@@ -59,7 +62,8 @@ percent = {
     "information": "You might have heard you need 20% down to buy a home. The reason why this number is often quoted is that 20% down is the minimum you’ll need to avoid buying private mortgage insurance – it’s not the minimum you need to get a loan.",
     "note":"You can buy a home with as little as 3% down.",
     "source": "https://www.rocketmortgage.com",
-    "order": 7
+    "order": 7,
+    "symbol": "%"
 }
 principal = {
     "classification": "Goal Home Price",
@@ -68,7 +72,8 @@ principal = {
     "information": "",
     "note": "The pragmatic report gives your monthly payment you would make with your goal price.",
     "source": "",
-    "order": 8
+    "order": 8,
+    "symbol": "$"
 }
 rent = {
     "classification": "Rent",
@@ -77,5 +82,6 @@ rent = {
     "information": "",
     "note": "The imaginative report gives a total home price you can afford based off of your monthly rent.",
     "source": "",
-    "order": 9
+    "order": 9,
+    "symbol": "$"
 }

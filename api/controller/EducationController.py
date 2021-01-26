@@ -21,7 +21,8 @@ class EducationController():
                         "D_description": education.description,
                         "E_information": education.information,
                         "F_note": education.note,
-                        "G_source": education.source
+                        "G_source": education.source,
+                        "H_symbol": education.symbol
                     }
                 }
             }, 200
@@ -56,7 +57,8 @@ class EducationController():
                         "D_description": education.description,
                         "E_information": education.information,
                         "F_note": education.note,
-                        "G_source": education.source
+                        "G_source": education.source,
+                        "H_symbol": education.symbol
                     }
                 }
 
