@@ -7,3 +7,5 @@ class Education(db.Document):
     information = db.StringField()
     note = db.StringField()
     source = db.StringField(required=True)
+    order = db.IntField(required=True)
+    symbol = db.StringField(default="")

@@ -4,95 +4,113 @@ from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, 
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 import pry
 
-
 class ReportController():
-    # GET single
+    # GET by ID
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
+            beyonce_plan = report.number_of_years(0.5)
+            tswift_plan = report.number_of_years(0.3)
+            keanu_plan = report.number_of_years(0.1)
+
             return {
                 "data": {
-                    "type": str(report),
-                    "id": str(report.id),
-                    "attributes": {
+                    "01_type": str(report),
+                    "02_id": str(report.id),
+                    "03_attributes": {
                         "input": {
-                            "salary": report.salary,
-                            "zipcode": report.zipcode,
-                            "credit_score": report.credit_score,
-                            "monthly_debt": report.monthly_debt,
-                            "downpayment_savings": report.downpayment_savings,
-                            "downpayment_percentage": report.downpayment_percentage,
-                            "rent": report.rent,
-                            "goal_principal": report.goal_principal,
+                            "A_zipcode": report.zipcode,
+                            "B_credit_score": report.credit_score,
+                            "C_salary": report.salary,
+                            "D_monthly_debt": report.monthly_debt,
+                            "E_downpayment_savings": report.downpayment_savings,
+                            "F_mortgage_term": report.mortgage_term,
+                            "G_downpayment_percentage": report.downpayment_percentage,
+                            "H_goal_principal": report.goal_principal,
+                            "I_rent": report.rent
                         },
                         "output": {
-                            "location": {
+                            "A_location": {
+                                "information": "By providing a zipcode, we can report location specific information such as average home price.",
                                 "zipcode": report.zipcode,
-                                "city_state": report.zipcode,
-                                "information": "The term ZIP is an acronym for Zone Improvement Plan"
+                                "city_state": report.city_state(),
+                                "average_home_price": report.home_price_by_zip(),
                             },
-                            "principal": {
-                                "based_on_rent": report.principal_based_on_rent(),
-                                "goal_principal": report.goal_principal,
+                            "B_principal": {
+                                "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
                                 "mortgage_rate": report.mortgage_rate(),
-                                "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan."
+                                "goal_principal": report.goal_principal,
+                                "principal_based_on_rent": report.principal_based_on_rent()
                             },
-                            "monthly": {
+                            "C_monthly": {
+                                "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided.",
                                 "monthly_principal": report.monthly_principal(),
                                 "estimated_true_monthly": report.true_monthly(),
-                                "add_ons": {
-                                    "home_insurance": report.home_insurance(),
-                                    "property_tax": report.property_tax(),
-                                    "pmi": report.pmi()
-                                },
-                                "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided."
+                                "home_insurance_by_location": report.home_insurance(),
+                                "property_tax_by_location": report.property_tax(),
+                                "pmi_by_location": report.pmi()
                             },
-                            "downpayment": {
+                            "D_downpayment": {
+                                "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
                                 "downpayment_percentage_selected": report.downpayment_percentage,
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
-                                "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
-                                "ten_year_plan": {
-                                    "1": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(1),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(1)
+                                "plan_style": {
+                                    "01_keanu_frugal": {
+                                        "saving_style_percentage": 0.1,
+                                        "plan_1": {
+                                            "number_of_years": keanu_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": keanu_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": keanu_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[2])
+                                        }
                                     },
-                                    "2": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(2),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(2)
+                                    "02_tswift_moderate": {
+                                        "saving_style_percentage": 0.3,
+                                        "plan_1": {
+                                            "number_of_years": tswift_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": tswift_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": tswift_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[2])
+                                        }
                                     },
-                                    "3": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(3),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(3)
-                                    },
-                                    "4": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(4),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(4)
-                                    },
-                                    "5": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(5),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(5)
-                                    },
-                                    "6": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(6),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(6)
-                                    },
-                                    "7": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(7),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(7)
-                                    },
-                                    "8": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(8),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(8)
-                                    },
-                                    "9": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(9),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(9)
-                                    },
-                                    "10": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(10),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                    "03_beyonce": {
+                                        "saving_style_percentage": 0.5,
+                                        "plan_1": {
+                                            "number_of_years": beyonce_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": beyonce_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": beyonce_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[2])
+                                        }
                                     }
+
                                 }
                             }
                         }
@@ -104,8 +122,8 @@ class ReportController():
                 "Please check your request, the Report record with given id doesn't exist.")
         except Exception:
             raise 500
-    # POST
 
+    # POST
     def add_report(self):
         try:
             body = request.get_json()
@@ -129,6 +147,7 @@ class ReportController():
         except Exception:
             raise 500
 
+    # PUT
     def update_report(self, id):
         try:
             report = Report.objects.get(id=id)
@@ -152,6 +171,7 @@ class ReportController():
         except Exception:
             raise 500
 
+    # DELETE
     def destroy_report(self, id):
         try:
             report = Report.objects.get(id=id)
