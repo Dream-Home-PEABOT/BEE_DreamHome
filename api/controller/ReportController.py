@@ -9,6 +9,10 @@ class ReportController():
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
+            beyonce_plan = report.number_of_years(0.5)
+            tswift_plan = report.number_of_years(0.3)
+            keanu_plan = report.number_of_years(0.1)
+
             return {
                 "data": {
                     "01_type": str(report),
@@ -46,52 +50,67 @@ class ReportController():
                                 "property_tax_by_location": report.property_tax(),
                                 "pmi_by_location": report.pmi()
                             },
-                            "downpayment": {
+                            "D_downpayment": {
+                                "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
                                 "downpayment_percentage_selected": report.downpayment_percentage,
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
-                                "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
-                                "ten_year_plan": {
-                                    "1": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(1),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(1)
+                                "plan_style": {
+                                    "01_keanu_frugal": {
+                                        "saving_style_percentage": 0.1,
+                                        "plan_1": {
+                                            "number_of_years": keanu_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": keanu_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": keanu_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[2])
+                                        }
                                     },
-                                    "2": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(2),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(2)
+                                    "02_tswift_moderate": {
+                                        "saving_style_percentage": 0.3,
+                                        "plan_1": {
+                                            "number_of_years": tswift_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": tswift_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": tswift_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[2])
+                                        }
                                     },
-                                    "3": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(3),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(3)
-                                    },
-                                    "4": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(4),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(4)
-                                    },
-                                    "5": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(5),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(5)
-                                    },
-                                    "6": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(6),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(6)
-                                    },
-                                    "7": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(7),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(7)
-                                    },
-                                    "8": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(8),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(8)
-                                    },
-                                    "9": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(9),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(9)
-                                    },
-                                    "10": {
-                                        "monthly_savings": report.downpayment_goal_monthly_savings(10),
-                                        "goal_end_date": report.downpayment_savings_goal_end_date(10)
+                                    "03_beyonce": {
+                                        "saving_style_percentage": 0.5,
+                                        "plan_1": {
+                                            "number_of_years": beyonce_plan[0],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[0]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[0])
+                                        },
+                                        "plan_2": {
+                                            "number_of_years": beyonce_plan[1],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[1]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[1])
+                                        },
+                                        "plan_3": {
+                                            "number_of_years": beyonce_plan[2],
+                                            "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[2]),
+                                            "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[2])
+                                        }
                                     }
+
                                 }
                             }
                         }
