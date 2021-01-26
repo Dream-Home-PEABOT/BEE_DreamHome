@@ -4,9 +4,8 @@ from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, 
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 import pry
 
-
 class ReportController():
-    # GET single
+    # GET by ID
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
@@ -104,8 +103,8 @@ class ReportController():
                 "Please check your request, the Report record with given id doesn't exist.")
         except Exception:
             raise 500
-    # POST
 
+    # POST
     def add_report(self):
         try:
             body = request.get_json()
@@ -129,6 +128,7 @@ class ReportController():
         except Exception:
             raise 500
 
+    # PUT
     def update_report(self, id):
         try:
             report = Report.objects.get(id=id)
@@ -152,6 +152,7 @@ class ReportController():
         except Exception:
             raise 500
 
+    # DELETE
     def destroy_report(self, id):
         try:
             report = Report.objects.get(id=id)
