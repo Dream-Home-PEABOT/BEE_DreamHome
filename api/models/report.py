@@ -44,6 +44,13 @@ class Report(db.Document):
         rate = rate / 100
         return round(rate, 4)
 
+    def city_state(self):
+        # 80209 entered for zip
+        return "Denver, CO"
+
+    def home_price_by_zip(self):
+        return "$834,278"
+
     def pmi(self):
         return 45
 
