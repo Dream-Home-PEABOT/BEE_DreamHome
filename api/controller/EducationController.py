@@ -12,16 +12,16 @@ class EducationController():
             education = Education.objects.get(id=id)
             return {
                 "data": {
-                    "type": str(education),
-                    "id": str(education.id),
-                    "attributes": {
-                        "classification": education.classification,
-                        "question": education.question,
-                        "description": education.description,
-                        "information": education.information,
-                        "note": education.note,
-                        "source": education.source,
-                        "order": education.order
+                    "01_type": str(education),
+                    "02_id": str(education.id),
+                    "03_attributes": {
+                        "A_order": education.order,
+                        "B_classification": education.classification,
+                        "C_question": education.question,
+                        "D_description": education.description,
+                        "E_information": education.information,
+                        "F_note": education.note,
+                        "G_source": education.source
                     }
                 }
             }, 200
@@ -47,16 +47,16 @@ class EducationController():
 
             for education in all_education:
                 json_education_objects[convert_snake(education.classification)] = {
-                    "type": str(education),
-                    "id": str(education.id),
-                    "attributes": {
-                        "classification": education.classification,
-                        "question": education.question,
-                        "description": education.description,
-                        "information": education.information,
-                        "note": education.note,
-                        "source": education.source,
-                        "order": education.order
+                    "01_type": str(education),
+                    "02_id": str(education.id),
+                    "03_attributes": {
+                        "A_order": education.order,
+                        "B_classification": education.classification,
+                        "C_question": education.question,
+                        "D_description": education.description,
+                        "E_information": education.information,
+                        "F_note": education.note,
+                        "G_source": education.source
                     }
                 }
 
