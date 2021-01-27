@@ -1,9 +1,8 @@
-# range_300_619 = {
-#     "credit_score_floor": "620",
-#     "credit_score_cieling": "639",
-#     "rate": 
-# "This one is special": "And needs something informational"
-# }
+range_300_619 = {
+    "credit_score_floor": "300",
+    "credit_score_cieling": "619",
+    "rate": 4.5
+}
 
 range_620_639 = {
     "credit_score_floor": "620",
