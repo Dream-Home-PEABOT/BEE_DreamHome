@@ -8,7 +8,7 @@ class TestHomeInsuranceCrud(BaseCase):
     def test_successful_post_home_insurance(self):
         gecko = {
             "state": "Oklahoma",
-            "average_rate": 4445
+            "annual_average_insurance_rate": 4445
         }
 
         response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
@@ -59,7 +59,7 @@ class TestHomeInsuranceCrud(BaseCase):
         # Given
         payload = {
             "state": "Best Virginia",
-            "average_rate": 1200
+            "annual_average_insurance_rate": 1200
         }
 
         create_insurance = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
@@ -69,7 +69,7 @@ class TestHomeInsuranceCrud(BaseCase):
         # When
         updated_payload = {
             "state": "West Virginia",
-            "average_rate": 2486
+            "annual_average_insurance_rate": 2486
         }
         response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
         confirmation_url = response.json['data']['confirmation']['url']
@@ -82,8 +82,8 @@ class TestHomeInsuranceCrud(BaseCase):
         self.assertNotEqual(payload['state'], confirmation_body['state'])
 
         # This is the only field that wasn't updated, so it only tests the final response against the original creation
-        self.assertEqual(updated_payload['average_rate'], confirmation_body['average_rate'])
-        self.assertNotEqual(payload['average_rate'], confirmation_body['average_rate'])
+        self.assertEqual(updated_payload['annual_average_insurance_rate'], confirmation_body['annual_average_insurance_rate'])
+        self.assertNotEqual(payload['annual_average_insurance_rate'], confirmation_body['annual_average_insurance_rate'])
 
         self.assertEqual(202, response.status_code)
 
@@ -92,7 +92,7 @@ class TestHomeInsuranceCrud(BaseCase):
         # Given
         payload = {
             "state": "West Kansas",
-            "average_rate": 3000
+            "annual_average_insurance_rate": 3000
         }
         insurance1 = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = insurance1.json['data']['id']
