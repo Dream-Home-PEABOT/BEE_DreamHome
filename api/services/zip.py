@@ -10,6 +10,9 @@ def zip_to_location(zip):
     url = f'http://www.zipcodeapi.com/rest/{api_key}/info.{format}/{zip}/{units}'
 
     response = requests.get(url)
+    if response.status_code == 404:
+        return 'Denver, CO'
+
     json_response = json.loads(response.text)
     city = json_response['city']
     state = json_response['state']

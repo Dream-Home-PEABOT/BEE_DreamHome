@@ -9,9 +9,9 @@ class ReportController():
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
-            beyonce_plan = report.number_of_years(0.5)
-            tswift_plan = report.number_of_years(0.3)
-            keanu_plan = report.number_of_years(0.1)
+            beyonce_plan = report.number_of_years(0.6)
+            tswift_plan = report.number_of_years(0.4)
+            keanu_plan = report.number_of_years(0.2)
 
             return {
                 "data": {
@@ -56,8 +56,8 @@ class ReportController():
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
                                 "plan_style": {
-                                    "01_keanu_frugal": {
-                                        "saving_style_percentage": 0.1,
+                                    "min_savings_plan": {
+                                        "savings_style_percentage": 0.2,
                                         "plan_1": {
                                             "number_of_years": keanu_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[0]),
@@ -74,8 +74,8 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[2])
                                         }
                                     },
-                                    "02_tswift_moderate": {
-                                        "saving_style_percentage": 0.3,
+                                    "med_savings_plan": {
+                                        "savings_style_percentage": 0.4,
                                         "plan_1": {
                                             "number_of_years": tswift_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[0]),
@@ -92,8 +92,8 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[2])
                                         }
                                     },
-                                    "03_beyonce": {
-                                        "saving_style_percentage": 0.5,
+                                    "max_savings_plan": {
+                                        "savings_style_percentage": 0.6,
                                         "plan_1": {
                                             "number_of_years": beyonce_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[0]),
@@ -110,7 +110,6 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[2])
                                         }
                                     }
-
                                 }
                             }
                         }
@@ -181,10 +180,10 @@ class ReportController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/education/{id}'
+                        "url": f'/api/v1/report/{id}'
                     }
                 }
-            }, 200
+            }, 202
         except DoesNotExist:
             raise APIDoesNotExistError(
                 "Please check your request, the Report record with given id doesn't exist.")

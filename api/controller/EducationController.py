@@ -124,7 +124,7 @@ class EducationController():
                         "url": f'/api/v1/education/{id}'
                     }
                 }
-            }, 204
+            }, 202
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the Education record with given id doesn't exist.")
         except Exception:
