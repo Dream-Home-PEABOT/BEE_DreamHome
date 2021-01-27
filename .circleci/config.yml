@@ -1,22 +1,23 @@
-version: 2.1
-jobs: # a basic unit of work in a run
-  build: # runs not using `Workflows` must have a `build` job as entry point
-    macos:  # indicate that we are using the macOS executor
-      xcode: 11.3.0 # indicate our selected version of Xcode
-    steps: # a series of commands to run
-      - checkout  # pull down code from your version control system.
+# Python CircleCI 2.0 configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.9
+
+    working_directory: ~/repo
+
+    steps:
+      # Step 1: obtain repo from GitHub
+      - checkout
+      # Step 2: create virtual env and install dependencies
       - run:
-          # run our tests using xcode's cli tool `xcodebuild`
-          name: Run Unit Tests
-          command: xcodebuild test -scheme circleci-demo-macos
+          name: install dependencies
+          command: |
+            pip install pipenv
+            pipenv install
+      # Step 3: run linter and tests
       - run:
-          # build our application
-          name: Build Application
-          command: xcodebuild
-      - run:
-          # compress Xcode's build output so that it can be stored as an artifact
-          name: Compress app for storage
-          command: zip -r app.zip build/Release/circleci-demo-macos.app
-      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
-          path: app.zip
-          destination: app
+          name: run tests
+          command: |
+            pipenv run python -m unittest discover
