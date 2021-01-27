@@ -110,7 +110,7 @@ class MortgageRateController():
                 }
             }, 204
         except DoesNotExist:
-            raise APIDoesNotExistError("Please check your request, the Insurance record with given id doesn't exist.")
+            raise APIDoesNotExistError("Please check your request, the Mortgage Rate record with given id doesn't exist.")
         except Exception:
             raise 500
 mortgageratecontroller = MortgageRateController()
