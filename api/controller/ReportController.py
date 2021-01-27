@@ -9,9 +9,9 @@ class ReportController():
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
-            beyonce_plan = report.number_of_years(0.5)
-            tswift_plan = report.number_of_years(0.3)
-            keanu_plan = report.number_of_years(0.1)
+            beyonce_plan = report.number_of_years(0.6)
+            tswift_plan = report.number_of_years(0.4)
+            keanu_plan = report.number_of_years(0.2)
 
             return {
                 "data": {
@@ -56,8 +56,8 @@ class ReportController():
                                 "downpayment_saved": report.downpayment_savings,
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
                                 "plan_style": {
-                                    "01_keanu_frugal": {
-                                        "savings_style_percentage": 0.1,
+                                    "min_savings_plan": {
+                                        "savings_style_percentage": 0.2,
                                         "plan_1": {
                                             "number_of_years": keanu_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[0]),
@@ -74,8 +74,8 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(keanu_plan[2])
                                         }
                                     },
-                                    "02_tswift_moderate": {
-                                        "savings_style_percentage": 0.3,
+                                    "med_savings_plan": {
+                                        "savings_style_percentage": 0.4,
                                         "plan_1": {
                                             "number_of_years": tswift_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[0]),
@@ -92,8 +92,8 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(tswift_plan[2])
                                         }
                                     },
-                                    "03_beyonce": {
-                                        "savings_style_percentage": 0.5,
+                                    "max_savings_plan": {
+                                        "savings_style_percentage": 0.6,
                                         "plan_1": {
                                             "number_of_years": beyonce_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[0]),
