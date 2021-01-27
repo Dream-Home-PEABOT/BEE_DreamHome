@@ -109,22 +109,22 @@ def update_insurance(id):
 def destroy_insurance(id):
     return homeinsurancecontroller.destroy_insurance(id)
 
-# @api.route('/api/v1/mortgage_rate', methods=['POST'])
-# def add_mortgage_rate():
-#     return mortgageratecontroller.add_mortgage_rate()
-#
-# @api.route('/api/v1/mortgage_rate/<id>', methods=['GET'])
-# def get_mortgage_rate(id):
-#     return mortgageratecontroller.get_mortgage_rate(id)
-#
-# @api.route('/api/v1/mortgage_rate', methods=['GET'])
-# def all_mortgage_rate():
-#     return mortgageratecontroller.all_mortgage_rate()
-#
-# @api.route('/api/v1/mortgage_rate/<id>', methods=['PUT'])
-# def update_mortgage_rate(id):
-#     return mortgageratecontroller.update_mortgage_rate(id)
-#
-# @api.route('/api/v1/mortgage_rate/<id>', methods=['DELETE'])
-# def destroy_mortgage_rate(id):
-#     return mortgageratecontroller.destroy_mortgage_rate(id)
+@api.route('/api/v1/mortgage_rate', methods=['POST'])
+def add_mortgage_rate():
+    return mortgageratecontroller.add_mortgage_rate()
+
+@api.route('/api/v1/mortgage_rate/<id>', methods=['GET'])
+def get_mortgage_rate(id):
+    return mortgageratecontroller.get_mortgage_rate(id)
+
+@api.route('/api/v1/mortgage_rate', methods=['GET'])
+def all_mortgage_rate():
+    return mortgageratecontroller.all_mortgage_rate()
+
+@api.route('/api/v1/mortgage_rate/<id>', methods=['PUT'])
+def update_mortgage_rate(id):
+    return mortgageratecontroller.update_mortgage_rate(id)
+
+@api.route('/api/v1/mortgage_rate/<id>', methods=['DELETE'])
+def destroy_mortgage_rate(id):
+    return mortgageratecontroller.destroy_mortgage_rate(id)
