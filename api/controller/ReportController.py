@@ -57,7 +57,7 @@ class ReportController():
                                 "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
                                 "plan_style": {
                                     "01_keanu_frugal": {
-                                        "saving_style_percentage": 0.1,
+                                        "savings_style_percentage": 0.1,
                                         "plan_1": {
                                             "number_of_years": keanu_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(keanu_plan[0]),
@@ -75,7 +75,7 @@ class ReportController():
                                         }
                                     },
                                     "02_tswift_moderate": {
-                                        "saving_style_percentage": 0.3,
+                                        "savings_style_percentage": 0.3,
                                         "plan_1": {
                                             "number_of_years": tswift_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(tswift_plan[0]),
@@ -93,7 +93,7 @@ class ReportController():
                                         }
                                     },
                                     "03_beyonce": {
-                                        "saving_style_percentage": 0.5,
+                                        "savings_style_percentage": 0.5,
                                         "plan_1": {
                                             "number_of_years": beyonce_plan[0],
                                             "monthly_savings": report.downpayment_goal_monthly_savings(beyonce_plan[0]),
@@ -110,7 +110,6 @@ class ReportController():
                                             "goal_end_date": report.downpayment_savings_goal_end_date(beyonce_plan[2])
                                         }
                                     }
-
                                 }
                             }
                         }
@@ -181,10 +180,10 @@ class ReportController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/education/{id}'
+                        "url": f'/api/v1/report/{id}'
                     }
                 }
-            }, 200
+            }, 202
         except DoesNotExist:
             raise APIDoesNotExistError(
                 "Please check your request, the Report record with given id doesn't exist.")
