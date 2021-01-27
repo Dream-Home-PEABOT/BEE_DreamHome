@@ -5,21 +5,19 @@ from database.education import salary, zip, debt, savings, credit, percent, term
 
 
 class TestEducationCrud(BaseCase):
-    # GET single
+    # GET by ID
     def test_successful_get_education(self):
-        # Given
+    # Given
         create_salary = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
         create_zip = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
         post_zip_data = create_zip.json['data']
 
         salary_id = create_salary.json['data']['id']
         salary_url = f'/api/v1/education/{salary_id}'
-
-        # When
+    # When
         salary_get_response = self.app.get(salary_url, headers={"Content-Type": "application/json"})
         get_salary_data = salary_get_response.json['data']
-
-        # Then
+    # Then
         self.assertEqual(200, salary_get_response.status_code)
         self.assertEqual(salary_id, get_salary_data['02_id'])
         self.assertNotEqual(salary_id, post_zip_data['id'])
@@ -27,48 +25,46 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(salary['question'], get_salary_data['03_attributes']['C_question'])
         self.assertEqual(salary['information'], get_salary_data['03_attributes']['E_information'])
 
-    # # GET all
-    # def test_succssful_get_education(self):
-    #     # Given
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(debt))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(savings))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(credit))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(percent))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(term))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(rent))
-    #     self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(principal))
-    #
-    #     # When
-    #     response = self.app.get('/api/v1/education', headers={"Content-Type": "application/json"})
-    #     body = response.json['data']
-    #     returned_salary = body['annual_salary']
-    #     returned_zip = body['zip_code']
-    #     returned_debt = body['monthly_debt']
-    #     returned_savings = body['downpayment_savings']
-    #     returned_credit = body['credit_score']
-    #     returned_percent = body['downpayment_percentage']
-    #     returned_term = body['mortgage_term']
-    #     returned_rent = body['rent']
-    #     returned_principal = body['goal_home_price']
-    #
-    #     # Then
-    #     self.assertEqual(200, response.status_code)
-    #     self.assertEqual(9, len(body))
-    #     self.assertEqual(salary, returned_salary['attributes'])
-    #     self.assertEqual(zip, returned_zip['attributes'])
-    #     self.assertEqual(debt, returned_debt['attributes'])
-    #     self.assertEqual(savings, returned_savings['attributes'])
-    #     self.assertEqual(credit, returned_credit['attributes'])
-    #     self.assertEqual(percent, returned_percent['attributes'])
-    #     self.assertEqual(term, returned_term['attributes'])
-    #     self.assertEqual(rent, returned_rent['attributes'])
-    #     self.assertEqual(principal, returned_principal['attributes'])
-    #
+    # GET all
+    def test_succssful_get_education(self):
+    # Given
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(debt))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(savings))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(credit))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(percent))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(term))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(rent))
+        self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(principal))
+    # When
+        response = self.app.get('/api/v1/education', headers={"Content-Type": "application/json"})
+        body = response.json['data']
+        returned_salary = body['annual_salary']
+        returned_zip = body['zip_code']
+        returned_debt = body['monthly_debt']
+        returned_savings = body['downpayment_savings']
+        returned_credit = body['credit_score']
+        returned_percent = body['downpayment_percentage']
+        returned_term = body['mortgage_term']
+        returned_rent = body['rent']
+        returned_principal = body['goal_home_price']
+    # Then
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(9, len(body))
+        self.assertEqual(salary, returned_salary['attributes'])
+        self.assertEqual(zip, returned_zip['attributes'])
+        self.assertEqual(debt, returned_debt['attributes'])
+        self.assertEqual(savings, returned_savings['attributes'])
+        self.assertEqual(credit, returned_credit['attributes'])
+        self.assertEqual(percent, returned_percent['attributes'])
+        self.assertEqual(term, returned_term['attributes'])
+        self.assertEqual(rent, returned_rent['attributes'])
+        self.assertEqual(principal, returned_principal['attributes'])
+
     # # POST
     # def test_successful_post_education(self):
-    #     # Given
+#     # Given
     #     payload = {
     #         "classification": "Testing Classification",
     #         "question": "Testing Question",
@@ -77,13 +73,11 @@ class TestEducationCrud(BaseCase):
     #         "note": "Testing Note",
     #         "source": "Testing Source"
     #     }
-    #
-    #     # When
+#     # When
     #     response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
     #     id = response.json['data']['id']
     #     url = f'/api/v1/education/{id}'
-    #
-    #     # Then
+#     # Then
     #     self.assertEqual(201, response.status_code)
     #     response = self.app.get(url, headers={"Content-Type": "application/json"})
     #     body = response.json['data']
@@ -92,7 +86,7 @@ class TestEducationCrud(BaseCase):
     #
     # # PUT
     # def test_successful_put_education(self):
-    #     # Given
+#     # Given
     #     payload = {
     #         "classification": "Testing Classification",
     #         "question": "Testing Question",
@@ -104,8 +98,7 @@ class TestEducationCrud(BaseCase):
     #     create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
     #     id = create_education.json['data']['id']
     #     url = f'/api/v1/education/{id}'
-    #
-    #     # When
+#     # When
     #     updated_payload = {
     #         "classification": "UPDATED Classification",
     #         "description": "UPDATED Description",
@@ -115,8 +108,7 @@ class TestEducationCrud(BaseCase):
     #     }
     #     response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
     #     confirmation_url = response.json['data']['confirmation']['url']
-    #
-    #     # Then
+#     # Then
     #     confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
     #     confirmation_body = confirmation.json['data']['attributes']
     #
@@ -142,7 +134,7 @@ class TestEducationCrud(BaseCase):
     #
     # # DESTROY
     # def test_successful_delete_education(self):
-    #     # Given
+#     # Given
     #     payload = {
     #         "classification": "Testing Classification",
     #         "question": "Testing Question",
@@ -154,12 +146,10 @@ class TestEducationCrud(BaseCase):
     #     create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
     #     id = create_education.json['data']['id']
     #     url = f'/api/v1/education/{id}'
-    #
-    #     # When
+#     # When
     #     response = self.app.delete(url, headers={"Content-Type": "application/json"})
     #     # body = response.json['data']
-    #
-    #     # Then
+#     # Then
     #     self.assertEqual(204, response.status_code)
     #     # self.assertEqual('nil', body['id'])
     #     # Once you have error handling done, the following can be tested
