@@ -1,18 +1,15 @@
+import os
+import traceback
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 from database.db import initialize_db
 from api.routes.api_routes import api
 from api.helpers.errors import APIError
-import traceback
-import os
 
 
 app = Flask(__name__, template_folder = 'api/views')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-"""For Production Only"""
-# # please comment out if not using
 
 app.config['MONGODB_SETTINGS'] = {
     'db': os.environ['DBNAME'],
@@ -20,14 +17,6 @@ app.config['MONGODB_SETTINGS'] = {
     'username': os.environ['USERNAME'],
     'password': os.environ['PASSWORD']
 }
-
-"""For Testing or Dev Purposes Only"""
-# # please comment out if not using
-
-# app.config['MONGODB_SETTINGS'] = {
-#     'db': os.environ['DBNAME'],
-#     'host': os.environ['HOST']
-# }
 
 app.register_blueprint(api)
 initialize_db(app)
