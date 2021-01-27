@@ -5,7 +5,29 @@ from database.education import salary, zip, debt, savings, credit, percent, term
 
 
 class TestEducationCrud(BaseCase):
-    # GET by ID
+    # CREATE -----------------------------------------------------------
+    def test_successful_post_education(self):
+    # Given
+        payload = {
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
+        }
+    # When
+        response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = response.json['data']['id']
+        url = f'/api/v1/education/{id}'
+    # Then
+        self.assertEqual(201, response.status_code)
+        response = self.app.get(url, headers={"Content-Type": "application/json"})
+        body = response.json['data']
+        self.assertEqual(id, body['id'])
+        self.assertEqual(payload, body['attributes'])
+
+    # READ by ID -----------------------------------------------------------
     def test_successful_get_education(self):
     # Given
         create_salary = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
@@ -25,8 +47,8 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(salary['question'], get_salary_data['03_attributes']['C_question'])
         self.assertEqual(salary['information'], get_salary_data['03_attributes']['E_information'])
 
-    # GET all
-    def test_succssful_get_education(self):
+    # READ all -----------------------------------------------------------
+    def test_successful_get_education(self):
     # Given
         self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
         self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
@@ -62,96 +84,66 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(rent, returned_rent['attributes'])
         self.assertEqual(principal, returned_principal['attributes'])
 
-    # # POST
-    # def test_successful_post_education(self):
-#     # Given
-    #     payload = {
-    #         "classification": "Testing Classification",
-    #         "question": "Testing Question",
-    #         "description": "Testing Description",
-    #         "information": "Testing Information",
-    #         "note": "Testing Note",
-    #         "source": "Testing Source"
-    #     }
-#     # When
-    #     response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-    #     id = response.json['data']['id']
-    #     url = f'/api/v1/education/{id}'
-#     # Then
-    #     self.assertEqual(201, response.status_code)
-    #     response = self.app.get(url, headers={"Content-Type": "application/json"})
-    #     body = response.json['data']
-    #     self.assertEqual(id, body['id'])
-    #     self.assertEqual(payload, body['attributes'])
-    #
-    # # PUT
-    # def test_successful_put_education(self):
-#     # Given
-    #     payload = {
-    #         "classification": "Testing Classification",
-    #         "question": "Testing Question",
-    #         "description": "Testing Description",
-    #         "information": "Testing Information",
-    #         "note": "Testing Note",
-    #         "source": "Testing Source"
-    #     }
-    #     create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-    #     id = create_education.json['data']['id']
-    #     url = f'/api/v1/education/{id}'
-#     # When
-    #     updated_payload = {
-    #         "classification": "UPDATED Classification",
-    #         "description": "UPDATED Description",
-    #         "information": "UPDATED Information",
-    #         "note": "UPDATED Note",
-    #         "source": "UPDATED Source"
-    #     }
-    #     response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
-    #     confirmation_url = response.json['data']['confirmation']['url']
-#     # Then
-    #     confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
-    #     confirmation_body = confirmation.json['data']['attributes']
-    #
-    #     self.assertEqual(updated_payload['classification'], confirmation_body['classification'])
-    #     self.assertNotEqual(payload['classification'], confirmation_body['classification'])
-    #
-    #     # This is the only field that wasn't updated, so it only tests the final response against the original creation
-    #     self.assertEqual(payload['question'], confirmation_body['question'])
-    #
-    #     self.assertEqual(updated_payload['description'], confirmation_body['description'])
-    #     self.assertNotEqual(payload['description'], confirmation_body['description'])
-    #
-    #     self.assertEqual(updated_payload['information'], confirmation_body['information'])
-    #     self.assertNotEqual(payload['information'], confirmation_body['information'])
-    #
-    #     self.assertEqual(updated_payload['note'], confirmation_body['note'])
-    #     self.assertNotEqual(payload['note'], confirmation_body['note'])
-    #
-    #     self.assertEqual(updated_payload['source'], confirmation_body['source'])
-    #     self.assertNotEqual(payload['source'], confirmation_body['source'])
-    #
-    #     self.assertEqual(202, response.status_code)
-    #
-    # # DESTROY
-    # def test_successful_delete_education(self):
-#     # Given
-    #     payload = {
-    #         "classification": "Testing Classification",
-    #         "question": "Testing Question",
-    #         "description": "Testing Description",
-    #         "information": "Testing Information",
-    #         "note": "Testing Note",
-    #         "source": "Testing Source"
-    #     }
-    #     create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-    #     id = create_education.json['data']['id']
-    #     url = f'/api/v1/education/{id}'
-#     # When
-    #     response = self.app.delete(url, headers={"Content-Type": "application/json"})
-    #     # body = response.json['data']
-#     # Then
-    #     self.assertEqual(204, response.status_code)
-    #     # self.assertEqual('nil', body['id'])
-    #     # Once you have error handling done, the following can be tested
-    #         # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
-    #         # confirmation_body = confirmation.json
+    # UPDATE -----------------------------------------------------------
+    def test_successful_put_education(self):
+    # Given
+        payload = {
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
+        }
+        create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_education.json['data']['id']
+        url = f'/api/v1/education/{id}'
+    # When
+        updated_payload = {
+            "classification": "UPDATED Classification",
+            "description": "UPDATED Description",
+            "information": "UPDATED Information",
+            "note": "UPDATED Note",
+            "source": "UPDATED Source"
+        }
+        response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
+        confirmation_url = response.json['data']['confirmation']['url']
+    # Then
+        confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
+        confirmation_body = confirmation.json['data']['attributes']
+        self.assertEqual(updated_payload['classification'], confirmation_body['classification'])
+        self.assertNotEqual(payload['classification'], confirmation_body['classification'])
+    # This is the only field that wasn't updated, so it only tests the final response against the original creation
+        self.assertEqual(payload['question'], confirmation_body['question'])
+        self.assertEqual(updated_payload['description'], confirmation_body['description'])
+        self.assertNotEqual(payload['description'], confirmation_body['description'])
+        self.assertEqual(updated_payload['information'], confirmation_body['information'])
+        self.assertNotEqual(payload['information'], confirmation_body['information'])
+        self.assertEqual(updated_payload['note'], confirmation_body['note'])
+        self.assertNotEqual(payload['note'], confirmation_body['note'])
+        self.assertEqual(updated_payload['source'], confirmation_body['source'])
+        self.assertNotEqual(payload['source'], confirmation_body['source'])
+        self.assertEqual(202, response.status_code)
+
+    # DESTROY -----------------------------------------------------------
+    def test_successful_delete_education(self):
+    # Given
+        payload = {
+            "classification": "Testing Classification",
+            "question": "Testing Question",
+            "description": "Testing Description",
+            "information": "Testing Information",
+            "note": "Testing Note",
+            "source": "Testing Source"
+        }
+        create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = create_education.json['data']['id']
+        url = f'/api/v1/education/{id}'
+    # When
+        response = self.app.delete(url, headers={"Content-Type": "application/json"})
+    # Then
+        self.assertEqual(204, response.status_code)
+        # self.assertEqual('nil', body['id'])
+    # Once you have error handling done, the following can be tested
+        # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
+        # confirmation_body = confirmation.json
