@@ -2,6 +2,7 @@ import pry
 from database.db import db
 import math
 import datetime
+from api.services.zip import zip_to_location, zip_to_avg_home
 
 class Report(db.Document):
     zipcode = db.IntField(required=True)
@@ -45,11 +46,10 @@ class Report(db.Document):
         return round(rate, 4)
 
     def city_state(self):
-        # 80209 entered for zip
-        return "Denver, CO"
+        return zip_to_location(self.zipcode)
 
     def home_price_by_zip(self):
-        return "$834,278"
+        return zip_to_avg_home(self.zipcode)
 
     def pmi(self):
         return 45
