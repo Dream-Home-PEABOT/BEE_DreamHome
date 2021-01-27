@@ -14,7 +14,8 @@ class TestEducationCrud(BaseCase):
             "description": "Testing Description",
             "information": "Testing Information",
             "note": "Testing Note",
-            "source": "Testing Source"
+            "source": "Testing Source",
+            "order": 1
         }
     # When
         response = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
@@ -24,8 +25,11 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(201, response.status_code)
         response = self.app.get(url, headers={"Content-Type": "application/json"})
         body = response.json['data']
-        self.assertEqual(id, body['id'])
-        self.assertEqual(payload, body['attributes'])
+        self.assertEqual(id, body['02_id'])
+        self.assertEqual(payload['order'], body['03_attributes']['A_order'])
+        self.assertEqual('', body['03_attributes']['H_symbol'])
+        self.assertEqual(payload['classification'], body['03_attributes']['B_classification'])
+        self.assertEqual(payload['note'], body['03_attributes']['F_note'])
 
     # READ by ID -----------------------------------------------------------
     def test_successful_get_education(self):
@@ -48,7 +52,7 @@ class TestEducationCrud(BaseCase):
         self.assertEqual(salary['information'], get_salary_data['03_attributes']['E_information'])
 
     # READ all -----------------------------------------------------------
-    def test_successful_get_education(self):
+    def test_successful_get_all_education(self):
     # Given
         self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(salary))
         self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(zip))
@@ -62,7 +66,7 @@ class TestEducationCrud(BaseCase):
     # When
         response = self.app.get('/api/v1/education', headers={"Content-Type": "application/json"})
         body = response.json['data']
-        returned_salary = body['annual_salary']
+        returned_salary = body['monthly_salary']
         returned_zip = body['zip_code']
         returned_debt = body['monthly_debt']
         returned_savings = body['downpayment_savings']
@@ -74,15 +78,15 @@ class TestEducationCrud(BaseCase):
     # Then
         self.assertEqual(200, response.status_code)
         self.assertEqual(9, len(body))
-        self.assertEqual(salary, returned_salary['attributes'])
-        self.assertEqual(zip, returned_zip['attributes'])
-        self.assertEqual(debt, returned_debt['attributes'])
-        self.assertEqual(savings, returned_savings['attributes'])
-        self.assertEqual(credit, returned_credit['attributes'])
-        self.assertEqual(percent, returned_percent['attributes'])
-        self.assertEqual(term, returned_term['attributes'])
-        self.assertEqual(rent, returned_rent['attributes'])
-        self.assertEqual(principal, returned_principal['attributes'])
+        self.assertEqual(salary['classification'], returned_salary['03_attributes']['B_classification'])
+        self.assertEqual(zip['classification'], returned_zip['03_attributes']['B_classification'])
+        self.assertEqual(debt['classification'], returned_debt['03_attributes']['B_classification'])
+        self.assertEqual(savings['classification'], returned_savings['03_attributes']['B_classification'])
+        self.assertEqual(credit['classification'], returned_credit['03_attributes']['B_classification'])
+        self.assertEqual(percent['classification'], returned_percent['03_attributes']['B_classification'])
+        self.assertEqual(term['classification'], returned_term['03_attributes']['B_classification'])
+        self.assertEqual(rent['classification'], returned_rent['03_attributes']['B_classification'])
+        self.assertEqual(principal['classification'], returned_principal['03_attributes']['B_classification'])
 
     # UPDATE -----------------------------------------------------------
     def test_successful_put_education(self):
@@ -93,7 +97,9 @@ class TestEducationCrud(BaseCase):
             "description": "Testing Description",
             "information": "Testing Information",
             "note": "Testing Note",
-            "source": "Testing Source"
+            "source": "Testing Source",
+            "symbol": "Testing Symbol",
+            "order": 1
         }
         create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = create_education.json['data']['id']
@@ -110,20 +116,20 @@ class TestEducationCrud(BaseCase):
         confirmation_url = response.json['data']['confirmation']['url']
     # Then
         confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
-        confirmation_body = confirmation.json['data']['attributes']
-        self.assertEqual(updated_payload['classification'], confirmation_body['classification'])
-        self.assertNotEqual(payload['classification'], confirmation_body['classification'])
-    # This is the only field that wasn't updated, so it only tests the final response against the original creation
-        self.assertEqual(payload['question'], confirmation_body['question'])
-        self.assertEqual(updated_payload['description'], confirmation_body['description'])
-        self.assertNotEqual(payload['description'], confirmation_body['description'])
-        self.assertEqual(updated_payload['information'], confirmation_body['information'])
-        self.assertNotEqual(payload['information'], confirmation_body['information'])
-        self.assertEqual(updated_payload['note'], confirmation_body['note'])
-        self.assertNotEqual(payload['note'], confirmation_body['note'])
-        self.assertEqual(updated_payload['source'], confirmation_body['source'])
-        self.assertNotEqual(payload['source'], confirmation_body['source'])
+        confirmation_body = confirmation.json['data']['03_attributes']
         self.assertEqual(202, response.status_code)
+        self.assertEqual(updated_payload['classification'], confirmation_body['B_classification'])
+        self.assertNotEqual(payload['classification'], confirmation_body['B_classification'])
+        self.assertEqual(updated_payload['description'], confirmation_body['D_description'])
+        self.assertNotEqual(payload['description'], confirmation_body['D_description'])
+        self.assertEqual(updated_payload['information'], confirmation_body['E_information'])
+        self.assertNotEqual(payload['information'], confirmation_body['E_information'])
+        self.assertEqual(updated_payload['note'], confirmation_body['F_note'])
+        self.assertNotEqual(payload['note'], confirmation_body['F_note'])
+        self.assertEqual(updated_payload['source'], confirmation_body['G_source'])
+        self.assertNotEqual(payload['source'], confirmation_body['G_source'])
+        # This is a field that wasn't updated, so it only tests the final response against the original creation
+        self.assertEqual(payload['question'], confirmation_body['C_question'])
 
     # DESTROY -----------------------------------------------------------
     def test_successful_delete_education(self):
@@ -134,16 +140,24 @@ class TestEducationCrud(BaseCase):
             "description": "Testing Description",
             "information": "Testing Information",
             "note": "Testing Note",
-            "source": "Testing Source"
+            "source": "Testing Source",
+            "symbol": "Testing Symbol",
+            "order": 1
         }
         create_education = self.app.post('/api/v1/education', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = create_education.json['data']['id']
         url = f'/api/v1/education/{id}'
     # When
-        response = self.app.delete(url, headers={"Content-Type": "application/json"})
+        delete_response = self.app.delete(url, headers={"Content-Type": "application/json"})
+        data = delete_response.json['data']
     # Then
-        self.assertEqual(204, response.status_code)
-        # self.assertEqual('nil', body['id'])
-    # Once you have error handling done, the following can be tested
-        # confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
-        # confirmation_body = confirmation.json
+        self.assertEqual(202, delete_response.status_code)
+        self.assertEqual('nil', data['id'])
+        self.assertNotEqual(id, data['id'])
+        self.assertEqual("To see this record's deletion response, please do a GET request using the url", data['confirmation']['info'])
+        self.assertEqual(url, data['confirmation']['url'])
+    # Confirm with GET by ID
+        confirmation = self.app.get(url, headers={"Content-Type": "application/json"})
+        confirmation_data = confirmation.json['data']
+        self.assertEqual('Does Not Exist Error', confirmation_data['error'])
+        self.assertEqual("Please check your request, the Education record with given id doesn't exist.", confirmation_data['message'])
