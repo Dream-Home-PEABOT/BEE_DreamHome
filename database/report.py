@@ -1,7 +1,7 @@
 imaginative = {
-    "zipcode": 11111,
-    "credit_score": 695,
-    "salary": 55000,
+    "zipcode": 60654,
+    "credit_score": 617,
+    "salary": 3000,
     "monthly_debt": 1100,
     "downpayment_savings": 1000,
     "mortgage_term": 30,
@@ -11,13 +11,13 @@ imaginative = {
 }
 
 pragmatic = {
-    "zipcode": 11112,
-    "credit_score": 760,
-    "salary": 75000,
-    "monthly_debt": 1300,
-    "downpayment_savings": 20000,
+    "zipcode": 78230,
+    "credit_score": 701,
+    "salary": 4500,
+    "monthly_debt": 1500,
+    "downpayment_savings": 30000,
     "mortgage_term": 30,
-    "downpayment_percentage": 10,
+    "downpayment_percentage": 20,
     "goal_principal": 450000,
     "rent": 0
 }
