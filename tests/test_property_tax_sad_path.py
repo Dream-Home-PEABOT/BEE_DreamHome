@@ -39,7 +39,7 @@ class TestPropertyTaxCrudSadPath(BaseCase):
     # Given
         incorrect_field_payload = {
             "state": 79,
-            "average_rate": 1200
+            "annual_average_insurance_rate": 1200
         }
     # When
         incorrect_field_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))

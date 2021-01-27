@@ -365,7 +365,7 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```json
     {
       "state": "", /* required AND unique */
-      "average_rate": "" /* required */
+      "annual_average_insurance_rate": "" /* required */
     }
     ```
   - Returns:
@@ -378,7 +378,7 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     ```json
     {
       "state": "",
-      "average_rate": ""
+      "annual_average_insurance_rate": ""
     }
     ```
   - Returns:
