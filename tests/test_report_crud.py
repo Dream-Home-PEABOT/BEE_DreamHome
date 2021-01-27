@@ -65,7 +65,7 @@ class TestReportCrud(BaseCase):
         self.assertEqual(0, principal['principal_based_on_rent'])
         self.assertEqual(payload['goal_principal'], principal['goal_principal'])
         self.assertEqual(float, type(monthly['monthly_principal']))
-        self.assertEqual(0.1, downpayment['plan_style']['01_keanu_frugal']['savings_style_percentage'])
+        self.assertEqual(0.2, downpayment['plan_style']['min_savings_plan']['savings_style_percentage'])
 
     # UPDATE -----------------------------------------------------------
     def test_successful_post_report(self):
