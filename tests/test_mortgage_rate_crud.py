@@ -9,7 +9,7 @@ class TestMortgageRateCrud(BaseCase):
         # Given
         payload = {
             "credit_score_floor": "620",
-            "credit_score_cieling":"639",
+            "credit_score_ceiling":"639",
             "rate": 4.13
         }
         # When
@@ -45,7 +45,7 @@ class TestMortgageRateCrud(BaseCase):
         # Given
         payload = {
             "credit_score_floor": "Testing",
-            "credit_score_cieling":"Testing",
+            "credit_score_ceiling":"Testing",
             "rate": 888.0
         }
 
@@ -55,7 +55,7 @@ class TestMortgageRateCrud(BaseCase):
         # When
         updated_payload = {
             "credit_score_floor": "Testing",
-            "credit_score_cieling":"Testing",
+            "credit_score_ceiling":"Testing",
             "rate": 777.0
             }
 
@@ -66,7 +66,7 @@ class TestMortgageRateCrud(BaseCase):
         confirmation = self.app.get(confirmation_url, headers={"Content-Type": "application/json"})
         confirmation_body = confirmation.json['data']['attributes']
         self.assertEqual(updated_payload['credit_score_floor'], confirmation_body['credit_score_floor'])
-        self.assertEqual(payload['credit_score_cieling'], confirmation_body['credit_score_cieling'])
+        self.assertEqual(payload['credit_score_ceiling'], confirmation_body['credit_score_ceiling'])
 
         self.assertNotEqual(payload['rate'], confirmation_body['rate'])
 
@@ -109,7 +109,7 @@ class TestMortgageRateCrud(BaseCase):
         # Given
         payload = {
             "credit_score_floor": "620",
-            "credit_score_cieling":"639",
+            "credit_score_ceiling":"639",
             "rate": 4.13
         }
         mortgage_rate = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))

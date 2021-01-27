@@ -17,7 +17,7 @@ class MortgageRateController():
                     "id": str(mortgage_rate.id),
                     "attributes": {
                         "credit_score_floor": mortgage_rate.credit_score_floor,
-                        "credit_score_cieling": mortgage_rate.credit_score_cieling,
+                        "credit_score_ceiling": mortgage_rate.credit_score_ceiling,
                         "rate": mortgage_rate.rate
                     }
                 }
@@ -82,12 +82,12 @@ class MortgageRateController():
 
             json_mortgage_rate_objects = {}
             for mortgage_rate in all_mortgage_rates:
-                json_mortgage_rate_objects[convert_snake(f'range_{mortgage_rate.credit_score_floor}_{mortgage_rate.credit_score_cieling}')] = {
+                json_mortgage_rate_objects[convert_snake(f'range_{mortgage_rate.credit_score_floor}_{mortgage_rate.credit_score_ceiling}')] = {
                     "type": str(mortgage_rate),
                     "id": str(mortgage_rate.id),
                     "attributes": {
                         "rate": mortgage_rate.rate,
-                        "credit_score_cieling": mortgage_rate.credit_score_cieling,
+                        "credit_score_ceiling": mortgage_rate.credit_score_ceiling,
                         "credit_score_floor": mortgage_rate.credit_score_floor
                     }
                 }
