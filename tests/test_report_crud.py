@@ -2,8 +2,37 @@ import pry
 import json
 from tests.BaseCase import BaseCase
 
+
 class TestReportCrud(BaseCase):
-    # GET single
+    # CREATE -----------------------------------------------------------
+    def test_successful_post_record(self):
+    # Given
+        payload = {
+            "zipcode": 60654,
+            "credit_score": 617,
+            "salary": 3000,
+            "monthly_debt": 1100,
+            "downpayment_savings": 1000,
+            "mortgage_term": 30,
+            "downpayment_percentage": 10,
+            "goal_principal": 0,
+            "rent": 1800
+        }
+    # When
+        post_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        id = post_response.json['data']['id']
+        url = f'/api/v1/report/{id}'
+        data = post_response.json['data']
+    # Then
+        self.assertEqual(201, post_response.status_code)
+        self.assertEqual(id, data['id'])
+        self.assertEqual('To connect this report to a user in the future, save this url with the client', data['confirmation']['info'])
+        self.assertEqual(url, data['confirmation']['url'])
+    # Confirm with GET by ID
+        confirmation = self.app.get(url, headers={'Content-Type': "application/json"})
+        self.assertEqual(200, confirmation.status_code)
+
+    # READ by ID -----------------------------------------------------------
     def test_successful_get_record(self):
     # Given
         payload = {
@@ -38,36 +67,8 @@ class TestReportCrud(BaseCase):
         self.assertEqual(float, type(monthly['monthly_principal']))
         self.assertEqual(0.1, downpayment['plan_style']['01_keanu_frugal']['savings_style_percentage'])
 
-    # CREATE
-    def test_successful_post_record(self):
-    # Given
-        payload = {
-            "zipcode": 60654,
-            "credit_score": 617,
-            "salary": 3000,
-            "monthly_debt": 1100,
-            "downpayment_savings": 1000,
-            "mortgage_term": 30,
-            "downpayment_percentage": 10,
-            "goal_principal": 0,
-            "rent": 1800
-        }
-    # When
-        post_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-        id = post_response.json['data']['id']
-        url = f'/api/v1/report/{id}'
-        data = post_response.json['data']
-    # Then
-        self.assertEqual(201, post_response.status_code)
-        self.assertEqual(id, data['id'])
-        self.assertEqual('To connect this report to a user in the future, save this url with the client', data['confirmation']['info'])
-        self.assertEqual(url, data['confirmation']['url'])
-    # Confirm with GET by ID
-        confirmation = self.app.get(url, headers={'Content-Type': "application/json"})
-        self.assertEqual(200, confirmation.status_code)
-
-    # PUT
-    def test_successful_update_report(self):
+    # UPDATE -----------------------------------------------------------
+    def test_successful_post_report(self):
     # Given
         payload = {
             "zipcode": 60654,
@@ -104,7 +105,7 @@ class TestReportCrud(BaseCase):
         self.assertEqual(updated_payload['salary'], confirmation_data['C_salary'])
         self.assertNotEqual(payload, confirmation_data)
 
-    # DESTROY
+    # DESTROY -----------------------------------------------------------
     def test_successful_delete_report(self):
     # Given
         payload = {
