@@ -6,7 +6,6 @@ from database.db import initialize_db
 from api.routes.api_routes import api
 from api.helpers.errors import APIError
 
-
 app = Flask(__name__, template_folder = 'api/views')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
