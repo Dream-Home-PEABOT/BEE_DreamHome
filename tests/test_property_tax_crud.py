@@ -26,7 +26,7 @@ class TestPropertyTaxCrud(BaseCase):
         self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
         self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(kentucky))
         self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(illnois))
-      
+
         response = self.app.get('/api/v1/property_tax', headers={"Content-Type": "application/json"})
         body = response.json['data']
 
@@ -35,14 +35,14 @@ class TestPropertyTaxCrud(BaseCase):
         self.assertEqual(colorado, body['colorado']['attributes'])
         self.assertEqual(kentucky, body['kentucky']['attributes'])
         self.assertEqual(illnois, body['illnois']['attributes'])
-     
+
      # POST
     def test_successful_post_propertey_tax(self):
         # Given
         new_state = {
             "state": "West Kansas",
-            "tax_rate": 0.32,
-            "avg_property_tax": 1200,
+            "avg_tax_rate": 0.32,
+            "annual_avg_property_tax": 1200,
         }
 
         response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(new_state))
@@ -60,8 +60,8 @@ class TestPropertyTaxCrud(BaseCase):
         # Given
         payload = {
             "state": "West Virginia",
-            "tax_rate": 0.57,
-            "avg_property_tax": 802
+            "avg_tax_rate": 0.57,
+            "annual_avg_property_tax": 802
         }
 
         create_property_tax = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
@@ -71,8 +71,8 @@ class TestPropertyTaxCrud(BaseCase):
         # When
         updated_payload = {
             "state": "Best Virginia",
-            "tax_rate": 0.69,
-            "avg_property_tax": 420
+            "avg_tax_rate": 0.69,
+            "annual_avg_property_tax": 420
         }
         response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
         confirmation_url = response.json['data']['confirmation']['url']
@@ -85,11 +85,11 @@ class TestPropertyTaxCrud(BaseCase):
         self.assertNotEqual(payload['state'], confirmation_body['state'])
 
         # This is the only field that wasn't updated, so it only tests the final response against the original creation
-        self.assertEqual(updated_payload['tax_rate'], confirmation_body['tax_rate'])
-        self.assertNotEqual(payload['tax_rate'], confirmation_body['tax_rate'])
+        self.assertEqual(updated_payload['avg_tax_rate'], confirmation_body['avg_tax_rate'])
+        self.assertNotEqual(payload['avg_tax_rate'], confirmation_body['avg_tax_rate'])
 
-        self.assertEqual(updated_payload['avg_property_tax'], confirmation_body['avg_property_tax'])
-        self.assertNotEqual(payload['avg_property_tax'], confirmation_body['avg_property_tax'])
+        self.assertEqual(updated_payload['annual_avg_property_tax'], confirmation_body['annual_avg_property_tax'])
+        self.assertNotEqual(payload['annual_avg_property_tax'], confirmation_body['annual_avg_property_tax'])
 
         self.assertEqual(202, response.status_code)
 
@@ -98,8 +98,8 @@ class TestPropertyTaxCrud(BaseCase):
         # Given
         payload = {
             "state": "West Kansas",
-            "tax_rate": 0.32,
-            "avg_property_tax": 1200
+            "avg_tax_rate": 0.32,
+            "annual_avg_property_tax": 1200
         }
         create_state = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = create_state.json['data']['id']

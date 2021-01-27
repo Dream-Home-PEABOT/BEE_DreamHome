@@ -16,7 +16,7 @@ class HomeInsuranceController():
                     "id": str(insurance.id),
                     "attributes": {
                         "state": insurance.state,
-                        "average_rate": insurance.average_rate
+                        "annual_average_insurance_rate": insurance.annual_average_insurance_rate
                     }
                 }
             }, 200
@@ -47,7 +47,7 @@ class HomeInsuranceController():
             raise APISchemaError("Please check the Home Insurance documentation. Request is missing a required field or incorrect field entered.")
         except Exception:
             raise 500
-    
+
     # GET all
     def all_insurance(self):
         try:
@@ -66,13 +66,13 @@ class HomeInsuranceController():
                     "id": str(homeinsurance.id),
                     "attributes": {
                         "state": homeinsurance.state,
-                        "average_rate": homeinsurance.average_rate
+                        "annual_average_insurance_rate": homeinsurance.annual_average_insurance_rate
                     }
                 }
 
             return {"data": json_home_insurance_objects}, 200
         except Exception:
-            raise 500    
+            raise 500
 
     # PUT
     def update_insurance(self, id):
@@ -113,5 +113,5 @@ class HomeInsuranceController():
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the Insurance record with given id doesn't exist.")
         except Exception:
-            raise 500    
+            raise 500
 homeinsurancecontroller = HomeInsuranceController()

@@ -134,7 +134,7 @@ class TestPMICrudSadPath(BaseCase):
         # Given
         incorrect_field_payload = {
             "state": 79,
-            "average_rate": 1200
+            "annual_average_insurance_rate": 1200
         }
 
         # When
