@@ -11,9 +11,9 @@ class TestReportCrudSadPath(BaseCase):
     #single GET
     def test_unsuccessful_get_by_id_report_incorrect_id(self):
         # Given
-        tax_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
+        initial_post = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
 
-        id = tax_response.json['data']['id']
+        id = initial_post.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
         url = f'/api/v1/report/{new_id}'
 
@@ -30,9 +30,9 @@ class TestReportCrudSadPath(BaseCase):
     # PUT
     def test_unsuccessful_update_report_incorrect_id(self):
         # Given
-        tax_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
+        initial_post = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
 
-        id = tax_response.json['data']['id']
+        id = initial_post.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
         url = f'/api/v1/report/{new_id}'
 
@@ -48,20 +48,14 @@ class TestReportCrudSadPath(BaseCase):
 
     def test_unsuccessful_update_report_bad_fields(self):
         # Given
-        tax_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
+        initial_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
 
-        id = tax_response.json['data']['id']
+        id = initial_response.json['data']['id']
         url = f'/api/v1/report/{id}'
 
         # When
         incorrect_field_payload = {
-            "salary": 75000.0,
-            "zipcode": 11112,
-            "credit_score": 760,
-            "monthly_debt": 1300.0,
-            "downpayment_savings": 20000.0,
-            "downpayment_percentage": 10.0,
-            "this_one_is_wrong": "sorry"
+            "field_does_not_exist": "sorry_not_sorry"
         }
         bad_field_response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))
         body = bad_field_response.json['data']
@@ -74,9 +68,9 @@ class TestReportCrudSadPath(BaseCase):
     # DESTROY
     def test_unsuccessful_delete_report_incorrect_id(self):
         # Given
-        tax_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
+        initial_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(imaginative))
 
-        id = tax_response.json['data']['id']
+        id = initial_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
         url = f'/api/v1/report/{new_id}'
 
@@ -94,14 +88,16 @@ class TestReportCrudSadPath(BaseCase):
     def test_unsuccessful_post_report_extra_field_incorrect(self):
         # Given
         extra_field_payload = {
-            "salary": 75000.0,
-            "zipcode": 11112,
-            "credit_score": 760,
-            "monthly_debt": 1300.0,
-            "downpayment_savings": 20000.0,
-            "downpayment_percentage": 10.0,
-            "goal_principal": 0.0,
-            "oops_one_more": "my_bad"
+            "zipcode": 80209,
+            "credit_score": 710,
+            "salary": 5000,
+            "monthly_debt": 1500,
+            "downpayment_savings": 50000,
+            "mortgage_term": 30,
+            "downpayment_percentage": 20,
+            "goal_principal": 500000,
+            "rent": 0,
+            "extra_extra_field": "yo yo yo yo"
         }
 
         # When
@@ -116,13 +112,15 @@ class TestReportCrudSadPath(BaseCase):
     def test_unsuccessful_post_report_field_incorrect(self):
         # Given
         incorrect_field_payload = {
-            "salary": 75000.0,
-            "zipcode": 11112,
-            "credit_score": 760,
-            "monthly_debt": 1300.0,
-            "downpayment_savings": 20000.0,
-            "downpayment_percentage": 10.0,
-            "goal_principal": "zero point zero"
+            "zipcode": 'ABCDE',
+            "credit_score": 710,
+            "salary": 5000,
+            "monthly_debt": 1500,
+            "downpayment_savings": 50000,
+            "mortgage_term": 30,
+            "downpayment_percentage": 20,
+            "goal_principal": 500000,
+            "rent": 0
         }
 
         # When
