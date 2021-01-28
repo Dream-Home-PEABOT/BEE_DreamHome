@@ -2,6 +2,8 @@ from database.db import db
 import math
 import datetime
 from api.services.zip import zip_to_location, zip_to_avg_home
+from api.models.pmi import Pmi
+import pry
 
 
 class Report(db.Document):
@@ -53,7 +55,37 @@ class Report(db.Document):
         return zip_to_avg_home(self.zipcode)
 
     def pmi(self):
-        return 45
+        report_dp = self.downpayment_percentage
+        report_cs = self.credit_score
+        # Write a range guard for "dp" if they don't fall on the 5's
+        pmi = Pmi.objects.get(downpayment_percentage=report_dp)
+        if report_cs <= 639:
+            collector = pmi.range_620_639
+        elif report_cs in range(640, 659):
+            collector = pmi.range_640_659
+        elif report_cs in range(660, 679):
+            collector = pmi.range_660_679
+        elif report_cs in range(680, 699):
+            collector = pmi.range_680_699
+        elif report_cs in range(700, 719):
+            collector = pmi.range_700_719
+        elif report_cs in range(720, 739):
+            collector = pmi.range_720_739
+        elif report_cs in range(740, 759):
+            collector = pmi.range_740_759
+        elif report_cs in range(760, 850):
+            collector = pmi.range_760_850
+
+        if self.goal_principal == 0:
+            principal = self.principal_based_on_rent()
+        else:
+            principal = self.goal_principal
+
+        reduced_principal = (1 - (pmi.downpayment_percentage / 100)) * principal
+        annual_pmi = reduced_principal * (collector / 100)
+        monthly_pmi = (annual_pmi / 12)
+        return round(monthly_pmi)
+
 
     def property_tax(self):
         return 100
