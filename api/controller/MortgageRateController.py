@@ -1,22 +1,24 @@
-from flask import Response, request, render_template
-from api.models.home_insurance import HomeInsurance
+from flask import Response, request
+from api.models.mortgage_rate import MortgageRate
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 from re import sub
 import pry
 
-class HomeInsuranceController():
-    # single GET
-    def get_insurance(self, id):
+class MortgageRateController():
+
+    #single GET
+    def get_mortgage_rate(self, id):
         try:
-            insurance = HomeInsurance.objects.get(id=id)
+            mortgage_rate = MortgageRate.objects.get(id=id)
             return {
                 "data": {
-                    "type": str(insurance),
-                    "id": str(insurance.id),
+                    "type": str(mortgage_rate),
+                    "id": str(mortgage_rate.id),
                     "attributes": {
-                        "state": insurance.state,
-                        "annual_average_insurance_rate": insurance.annual_average_insurance_rate
+                        "credit_score_floor": mortgage_rate.credit_score_floor,
+                        "credit_score_ceiling": mortgage_rate.credit_score_ceiling,
+                        "rate": mortgage_rate.rate
                     }
                 }
             }, 200
@@ -24,20 +26,19 @@ class HomeInsuranceController():
             raise APIDoesNotExistError("Please check your request, the Home Insurance record with given id doesn't exist.")
         except Exception:
             raise 500
-
     #POST
-    def add_insurance(self):
+    def add_mortgage_rate(self):
         try:
             body = request.get_json()
-            home_insurance = HomeInsurance(**body)
-            home_insurance.save()
-            id = home_insurance.id
+            mortgage_rate = MortgageRate(**body)
+            mortgage_rate.save()
+            id = mortgage_rate.id
             return {
                 "data": {
                     "id": str(id),
                     "confirmation": {
                         "info": 'To see this new record, please do a GET request using the url',
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/mortgage_rate/{id}'
                     }
                 }
             }, 201
@@ -47,45 +48,18 @@ class HomeInsuranceController():
             raise APISchemaError("Please check the Home Insurance documentation. Request is missing a required field or incorrect field entered.")
         except Exception:
             raise 500
-
-    # GET all
-    def all_insurance(self):
+    #PUT
+    def update_mortgage_rate(self, id):
         try:
-            all_insurance = HomeInsurance.objects()
-
-            def convert_snake(string):
-                return '_'.join(
-                sub('([A-Z][a-z]+)', r' \1',
-                sub('([A-Z]+)', r' \1',
-                string.replace('-', ' '))).split()).lower()
-
-            json_home_insurance_objects = {}
-            for homeinsurance in all_insurance:
-                json_home_insurance_objects[convert_snake(homeinsurance.state)] = {
-                    "type": str(homeinsurance),
-                    "id": str(homeinsurance.id),
-                    "attributes": {
-                        "state": homeinsurance.state,
-                        "annual_average_insurance_rate": homeinsurance.annual_average_insurance_rate
-                    }
-                }
-
-            return {"data": json_home_insurance_objects}, 200
-        except Exception:
-            raise 500
-
-    # PUT
-    def update_insurance(self, id):
-        try:
-            home_insurance = HomeInsurance.objects.get(id=id)
+            mortgage_rate = MortgageRate.objects.get(id=id)
             body = request.get_json()
-            home_insurance.update(**body)
+            mortgage_rate.update(**body)
             return {
                 "data": {
                     "id": str(id),
                     "confirmation": {
                         "info": "To see this record's update response, please do a GET request using the url",
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/mortgage_rate/{id}'
                     }
                 }
             }, 202
@@ -95,23 +69,48 @@ class HomeInsuranceController():
             raise APIDoesNotExistError("Please check your request, the Insurance record with given id doesn't exist.")
         except Exception:
             raise 500
-
-    # DESTROY
-    def destroy_insurance(self, id):
+    #GET all
+    def all_mortgage_rate(self):
         try:
-            home_insurance = HomeInsurance.objects.get(id=id)
-            home_insurance.delete()
+            all_mortgage_rates = MortgageRate.objects()
+
+            def convert_snake(string):
+                return '_'.join(
+                sub('([A-Z][a-z]+)', r' \1',
+                sub('([A-Z]+)', r' \1',
+                string.replace('-', ' '))).split()).lower()
+
+            json_mortgage_rate_objects = {}
+            for mortgage_rate in all_mortgage_rates:
+                json_mortgage_rate_objects[convert_snake(f'range_{mortgage_rate.credit_score_floor}_{mortgage_rate.credit_score_ceiling}')] = {
+                    "type": str(mortgage_rate),
+                    "id": str(mortgage_rate.id),
+                    "attributes": {
+                        "rate": mortgage_rate.rate,
+                        "credit_score_ceiling": mortgage_rate.credit_score_ceiling,
+                        "credit_score_floor": mortgage_rate.credit_score_floor
+                    }
+                }
+
+            return {"data": json_mortgage_rate_objects}, 200
+        except Exception:
+            raise 500
+    #DELETE
+    def destroy_mortgage_rate(self, id):
+        try:
+            mortgage_rate = MortgageRate.objects.get(id=id)
+            mortgage_rate.delete()
             return {
                 "data": {
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/mortgage_rate/{id}'
                     }
                 }
             }, 204
         except DoesNotExist:
-            raise APIDoesNotExistError("Please check your request, the Insurance record with given id doesn't exist.")
+            raise APIDoesNotExistError("Please check your request, the Mortgage Rate record with given id doesn't exist.")
         except Exception:
             raise 500
-homeinsurancecontroller = HomeInsuranceController()
+mortgageratecontroller = MortgageRateController()

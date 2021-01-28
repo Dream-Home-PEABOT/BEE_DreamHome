@@ -9,6 +9,8 @@ flask-mongoengine = "*"
 "pry.py" = "*"
 gunicorn = "*"
 flask-cors = "*"
+requests = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.9"

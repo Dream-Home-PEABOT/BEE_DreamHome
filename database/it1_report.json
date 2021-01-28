@@ -1,0 +1,103 @@
+{
+    "data": {
+        "01_type": "Report object",
+        "02_id": "60107a150960bddb488263d3",
+        "03_attributes": {
+            "input": {
+                "A_zipcode": 80209,
+                "B_credit_score": 710,
+                "C_salary": 5000,
+                "D_monthly_debt": 1500,
+                "E_downpayment_savings": 50000,
+                "F_mortgage_term": 30,
+                "G_downpayment_percentage": 20,
+                "H_goal_principal": 500000,
+                "I_rent": 0
+            },
+            "output": {
+                "A_location": {
+                    "average_home_price": "$834,278",
+                    "city_state": "Denver, CO",
+                    "information": "By providing a zipcode, we can report location specific information such as average home price.",
+                    "zipcode": 80209
+                },
+                "B_principal": {
+                    "goal_principal": 500000,
+                    "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
+                    "mortgage_rate": 0.0271,
+                    "principal_based_on_rent": 0
+                },
+                "C_monthly": {
+                    "estimated_true_monthly": 225,
+                    "home_insurance_by_location": 125,
+                    "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided.",
+                    "monthly_principal": 1462.05,
+                    "pmi_by_location": 45,
+                    "property_tax_by_location": 100
+                },
+                "D_downpayment": {
+                    "downpayment_percent_saved": 10.0,
+                    "downpayment_percentage_selected": 20,
+                    "downpayment_saved": 50000,
+                    "information": "The down payment is the portion of the purchase price that you pay out-of-pocket (as opposed to borrowing)",
+                    "plan_style": {
+                        "01_keanu_frugal": {
+                            "plan_1": {
+                                "goal_end_date": "1/26/2059",
+                                "monthly_savings": 197,
+                                "number_of_years": 38
+                            },
+                            "plan_2": {
+                                "goal_end_date": "1/26/2061",
+                                "monthly_savings": 188,
+                                "number_of_years": 40
+                            },
+                            "plan_3": {
+                                "goal_end_date": "1/26/2063",
+                                "monthly_savings": 179,
+                                "number_of_years": 42
+                            },
+                            "saving_style_percentage": 0.1
+                        },
+                        "02_tswift_moderate": {
+                            "plan_1": {
+                                "goal_end_date": "1/26/2035",
+                                "monthly_savings": 536,
+                                "number_of_years": 14
+                            },
+                            "plan_2": {
+                                "goal_end_date": "1/26/2037",
+                                "monthly_savings": 469,
+                                "number_of_years": 16
+                            },
+                            "plan_3": {
+                                "goal_end_date": "1/26/2039",
+                                "monthly_savings": 417,
+                                "number_of_years": 18
+                            },
+                            "saving_style_percentage": 0.3
+                        },
+                        "03_beyonce": {
+                            "plan_1": {
+                                "goal_end_date": "1/26/2030",
+                                "monthly_savings": 833,
+                                "number_of_years": 9
+                            },
+                            "plan_2": {
+                                "goal_end_date": "1/26/2032",
+                                "monthly_savings": 682,
+                                "number_of_years": 11
+                            },
+                            "plan_3": {
+                                "goal_end_date": "1/26/2034",
+                                "monthly_savings": 577,
+                                "number_of_years": 13
+                            },
+                            "saving_style_percentage": 0.5
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

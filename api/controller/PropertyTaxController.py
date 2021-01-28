@@ -16,8 +16,8 @@ class PropertyTaxController():
                     "id": str(tax_info.id),
                     "attributes": {
                         "state": tax_info.state,
-                        "tax_rate": tax_info.tax_rate,
-                        "avg_property_tax": tax_info.avg_property_tax
+                        "avg_tax_rate": tax_info.avg_tax_rate,
+                        "annual_avg_property_tax": tax_info.annual_avg_property_tax
                     }
                 }
             }, 200
@@ -65,11 +65,11 @@ class PropertyTaxController():
                     "id": str(propertytax.id),
                     "attributes": {
                         "state": propertytax.state,
-                        "tax_rate": propertytax.tax_rate,
-                        "avg_property_tax": propertytax.avg_property_tax,
+                        "avg_tax_rate": propertytax.avg_tax_rate,
+                        "annual_avg_property_tax": propertytax.annual_avg_property_tax,
                     }
                 }
-        
+
             return {"data": json_property_tax_objects}, 200
         except Exception:
             raise 500

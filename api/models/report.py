@@ -2,16 +2,18 @@ import pry
 from database.db import db
 import math
 import datetime
+from api.services.zip import zip_to_location, zip_to_avg_home
 
 class Report(db.Document):
-    salary = db.IntField(required=True)
     zipcode = db.IntField(required=True)
     credit_score = db.IntField(required=True)
+    salary = db.IntField(required=True)
     monthly_debt = db.IntField(required=True)
     downpayment_savings = db.IntField(required=True)
+    mortgage_term = db.IntField(default=0)
     downpayment_percentage = db.IntField(required=True)
-    rent = db.IntField(default=0)
     goal_principal = db.IntField(default=0)
+    rent = db.IntField(default=0)
 
     def number_payments(self):
         return 360
@@ -43,6 +45,12 @@ class Report(db.Document):
         rate = rate / 100
         return round(rate, 4)
 
+    def city_state(self):
+        return zip_to_location(self.zipcode)
+
+    def home_price_by_zip(self):
+        return zip_to_avg_home(self.zipcode)
+
     def pmi(self):
         return 45
 
@@ -52,7 +60,7 @@ class Report(db.Document):
     def monthly_principal(self):
         if self.rent != 0:
             return self.rent
-        principal = self.goal_principal
+        principal = self.goal_principal - self.downpayment_savings
         annual_interest = self.mortgage_rate()
         monthly_interest = annual_interest / 12
         percentage = self.downpayment_percentage / 100
@@ -70,7 +78,6 @@ class Report(db.Document):
         percent_saved = (self.downpayment_savings / principal) * 100
         return round(percent_saved, 2)
 
-
     def downpayment_savings_goal_end_date(self, year):
         now = datetime.datetime.now()
         month = now.month
@@ -79,7 +86,6 @@ class Report(db.Document):
         new_year = current_year + year
         date = f'{month}/{day}/{new_year}'
         return date
-
 
     def principal_based_on_rent(self):
         if self.goal_principal != 0:
@@ -99,7 +105,32 @@ class Report(db.Document):
             principal = self.principal_based_on_rent()
         else:
             principal = self.goal_principal
-        downpayment = principal * (self.downpayment_percentage / 100)
-        downpayment -= self.downpayment_savings
+
+        downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
         monthly_goal = downpayment / (year * 12)
         return round(monthly_goal)
+
+    def number_of_years(self, savings_style):
+        monthly_pay = self.salary
+        monthly_debt = self.monthly_debt
+
+        if self.rent == 0:
+            monthly_living_expense = self.monthly_principal()
+            principal = self.goal_principal
+        else:
+            monthly_living_expense = self.rent
+            principal = self.principal_based_on_rent()
+
+        remaining_monthly = monthly_pay - monthly_debt - monthly_living_expense
+        savings_cap = remaining_monthly * savings_style
+
+        downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
+        potential_monthly_savings = downpayment / 12
+        year = 1
+        static_monthly = potential_monthly_savings
+        while potential_monthly_savings > savings_cap:
+            potential_monthly_savings = static_monthly / year
+            year += 1
+        else:
+            dynamic_years = (year, year + 2,  year + 4)
+        return dynamic_years
