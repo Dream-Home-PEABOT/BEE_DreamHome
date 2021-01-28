@@ -14,6 +14,7 @@ class Report(db.Document):
     downpayment_percentage = db.IntField(required=True)
     goal_principal = db.IntField(default=0)
     rent = db.IntField(default=0)
+    uid = db.StringField(unique=True)
 
     def number_payments(self):
         return 360
