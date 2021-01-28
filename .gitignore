@@ -7,6 +7,9 @@
 # Test environment
 .env.test
 
+# Deployment Information
+.env.deployment
+
 # Coverage
 htmlcov/
 htmlcov/**

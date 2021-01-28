@@ -11,7 +11,7 @@ api = Blueprint("api", __name__)
 
 @api.route('/')
 def hello():
-    return 'Welcome to your dream home server!'
+    return 'Welcome to the RESTful API Server for DreamHome!'
 
 @api.route('/api/v1/education/<id>', methods=['GET'])
 def get_education(id):
