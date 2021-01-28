@@ -8,11 +8,28 @@ class ReportController():
     # GET by UID
     def get_unique_report(self):
         try:
-            uid = request.get_json()
-            report = Report.objects.get(uid=uid)
-            return self.stylized_report_return(report), 200
+            try:
+                uid = request.get_json()
+            except Exception:
+                return {
+                    "data": {
+                        "error": 410,
+                        "message":"Missing UID"
+                    }
+                }, 410
+            try:
+                report = Report.objects.get(uid=uid)
+                return self.stylized_report_return(report), 200
+            except Exception:
+                return {
+                    "data": {
+                        "error": 406,
+                        "message":"No report matches this user"
+                    }
+                }, 406
         except Exception:
             raise 500
+
     # GET by ID
     def get_report(self, id):
         try:
@@ -30,7 +47,7 @@ class ReportController():
         tswift_plan = report.number_of_years(0.4)
         keanu_plan = report.number_of_years(0.2)
 
-        blarg = {
+        stylized_report = {
             "data": {
                 "01_type": str(report),
                 "02_id": str(report.id),
@@ -133,7 +150,7 @@ class ReportController():
                 }
             }
         }
-        return blarg
+        return stylized_report
 
     # POST
     def add_report(self):
