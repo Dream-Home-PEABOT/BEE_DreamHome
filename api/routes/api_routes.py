@@ -32,10 +32,14 @@ def update_education(id):
 @api.route('/api/v1/education/<id>', methods=['DELETE'])
 def destroy_education(id):
     return educationcontroller.destroy_education(id)
-
+        
 @api.route('/api/v1/report/<id>', methods=['GET'])
 def get_report(id):
     return reportcontroller.get_report(id)
+
+@api.route('/api/v1/report/unique', methods=['GET'])
+def get_unique_report():
+    return reportcontroller.get_unique_report()
 
 @api.route('/api/v1/report', methods=['POST'])
 def add_report():
