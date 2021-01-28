@@ -29,13 +29,13 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Create a `.env.test` file at the root of the directory with the following code:
     ```
     MONGODB_SETTINGS = {
-        'host': 'mongodb://localhost/dreamhome-dev'
+        'host': 'mongodb://localhost/dreamhome-test'
     }
     ```
   - To run all tests: `python -m unittest -b`
-  - To run a single test: `python -m unittest tests/test_<file>.py`
+  - To run a single test: `python -m unittest tests/test_<file_name>.py`
   - To run coverage: `coverage run -m unittest discover`
-  - To open coverage report: `open htmlcov/index.html` OR `coverage report -m` OR `coverage html`
+  - To open coverage report: `open html cov/index.html` OR `coverage report -m` OR `coverage html`
 
 ## Tech stack
 - [Python](https://www.python.org)
@@ -47,10 +47,15 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
 - [Heroku](https://www.heroku.com)
 - [JSON](https://jsonapi.org)
 
-## Team Contributions
+## Team Contributions Iteration 1
 - [Priya Power](https://github.com/priyapower): Backend Team Lead, Developer, Researcher, Backend Learning Coach
 - [Arique Aguilar](https://github.com/Arique1104): Backend Developer, Deployment Guru, Frontend Liaison and Design Consultant
-- [Eric Hale](https://github.com/EHale64): Backend Developer, Web Scraping Researcher, Error Pathing Standardization and Testing
+
+
+## Team Contributions MVP
+- [Priya Power](https://github.com/priyapower): Backend Team Lead, Developer, Researcher, Backend Learning Coach
+- [Arique Aguilar](https://github.com/Arique1104): Backend Developer, Deployment Guru, Frontend Liaison and Design Consultant
+- [Eric Hale](https://github.com/EHale64): Backend Developer, Web Scraping Researcher
 
 ## Endpoint Documentation
 ---
@@ -65,33 +70,7 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     - All education objects nested under a custom key created from the objects `classification` field
     - Example response:
       ```json
-      {
-        "data": {
-            "annual_salary": {
-                "attributes": {
-                    "classification": "Annual Salary",
-                    "description": "Gross income is the total amount you earn (typically over the course of a year) before expenses. Net income is the profit your business earns after expenses ",
-                    "information": "Depending on the home price you're aiming for, you may want to wait a year or two before you apply for a mortgage if you've just moved into a higher-paying role. The longer you stay in your higher-paying position, the more your lender may be willing to loan you.",
-                    "note": "The amount of money you earn plays a smaller role in getting a mortgage than you might think. ",
-                    "question": "What is your net monthly salary?",
-                    "source": "https://www.rocketmortgage.com"
-                },
-                "id": "5fff12cfc4f364ae6e64eee5",
-                "type": "Education object"
-            },
-            "credit_score": {
-                "attributes": {
-                    "classification": "Credit Score",
-                    "description": " A high score will give you access to lower interest rates and more lender choices. If you have a low score, you may have trouble getting a loan.",
-                    "information": "Your credit score plays a big role in the interest rate you'll get for your loan.",
-                    "note": "Your credit score is a numerical rating that ranges from 300 – 850 and tells lenders how responsible you are when you borrow money. ",
-                    "question": "What is your current credit score?",
-                    "source": "https://www.rocketmortgage.com"
-                },
-                "id": "5fff1fd5f621c1b039b52d86",
-                "type": "Education object"
-            }
-      }
+    ADD NEW EDUCATION RESPONSE HERE!
       ```
 
 #### Call a single education object by id
@@ -102,33 +81,24 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
     - A single education object's information
     - Example response:
       ```json
-      {
-        "data": {
-          "annual_salary": {
-              "attributes": {
-                  "classification": "Annual Salary",
-                  "description": "Gross income is the total amount you earn (typically over the course of a year) before expenses. Net income is the profit your business earns after expenses ",
-                  "information": "Depending on the home price you're aiming for, you may want to wait a year or two before you apply for a mortgage if you've just moved into a higher-paying role. The longer you stay in your higher-paying position, the more your lender may be willing to loan you.",
-                  "note": "The amount of money you earn plays a smaller role in getting a mortgage than you might think. ",
-                  "question": "What is your net monthly salary?",
-                  "source": "https://www.rocketmortgage.com"
-              }
-          }
-      }
+    ADD NEW EDUCATION RESPONSE HERE!
+
       ```
 
 #### Create a new education object
   - Method/HTTP_Verb: POST
   - `/api/v1/education`
   - Body:
-    ```json
+    ```
     {
-      "classification": "", /* required && unique */
-      "question": "", /* required */
-      "description":  "", /* required */
-      "information":  "",
-      "note": "",
-      "source": "" /* required */
+      "classification": String, # required && unique,
+      "question": String, # required
+      "description": String, # required
+      "information":  String, # optional
+      "note": String, # optional
+      "source": required,
+      "order": required,
+      "symbol": optional
     }
     ```
   - Returns:
@@ -138,14 +108,16 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Method/HTTP_Verb: PUT
   - `/api/v1/education/<id>`
   - Body: You can update any of the following fields:
-    ```json
+    ```
     {
-      "classification": "",
-      "question": "",
-      "description":  "",
-      "information":  "",
-      "note": "",
-      "source": ""
+      "classification": "add updated information here",
+      "question": "add updated information here",
+      "description": "add updated information here",
+      "information":  "add updated information here",
+      "note": "add updated information here",
+      "source": "add updated information here",
+      "order": "add updated information here",
+      "symbol": "add updated information here"l
     }
     ```
   - Returns:
@@ -182,16 +154,17 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Method/HTTP_Verb: POST
   - `/api/v1/report`
   - Body:
-    ```json
+    ```
     {
-      "salary": 0, /* required */
-      "zipcode": 0, /* required */
-      "credit_score": 0, /* required */
-      "monthly_debt": 0, /* required */
-      "downpayment_savings": 0, /* required */
-      "downpayment_percentage": 0, /* required */
-      "rent": 0, /* NOT required, but defaults to 0 if no input */
-      "goal_principal": 0 /* NOT required, but defaults to 0 if no input */
+      "zipcode": Integer (required=True),
+      "credit_score": Integer (required=True),
+      "salary": Integer (required=True),
+      "monthly_debt": Integer (required=True),
+      "downpayment_savings": Integer (required=True),
+      "mortgage_term": Integer(default=0),
+      "downpayment_percentage": Integer (required=True),
+      "goal_principal": Integer (default=0),
+      "rent": Integer (default=0)
     }
     ```
   - Returns:
@@ -202,16 +175,17 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Method/HTTP_Verb: PUT
   - `/api/v1/report/<id>`
   - Body: You can update any of the following fields:
-    ```json
+    ```
     {
-      "salary": 0,
-      "zipcode": 0,
-      "credit_score": 0,
-      "monthly_debt": 0,
-      "downpayment_savings": 0,
-      "downpayment_percentage": 0,
-      "rent": 0,
-      "goal_principal": 0
+      "zipcode": Add updated info (required=True),
+      "credit_score": Add updated info (required=True),
+      "salary": Add updated info (required=True),
+      "monthly_debt": Add updated info (required=True),
+      "downpayment_savings": Add updated info (required=True),
+      "mortgage_term": Add updated info(default=0),
+      "downpayment_percentage": Add updated info (required=True),
+      "goal_principal": Add updated info (default=0),
+      "rent": Add updated info (default=0)
     }
     ```
   - Returns:
@@ -246,11 +220,11 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Method/HTTP_Verb: POST
   - `/api/v1/property-tax`
   - Body:
-    ```json
+    ```py
     {
-      "state": "", /* required AND unique */
-      "question": "", /* required */
-      "description": "" /* required */
+      "state": "", # required AND unique
+      "question": "", # required
+      "description": "" # required
     }
     ```
   - Returns:
