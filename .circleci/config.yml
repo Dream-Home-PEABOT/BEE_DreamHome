@@ -4,7 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.9
-
+      - image: circleci/mongo:4.4.3
+        port: 27017:27017
     working_directory: ~/repo
 
     steps:
@@ -16,6 +17,9 @@ jobs:
           command: |
             pip install pipenv
             pipenv install
+      - run:
+          name: Waiting for Mongo
+          command: dockerize -wait tcp://localhost:27017 -timeout 1m
       # Step 3: run linter and tests
       - run:
           name: run tests
