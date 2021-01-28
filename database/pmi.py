@@ -7,7 +7,7 @@ downpayment_zero = {
     "range_700_719": 1.15,
     "range_720_739": 0.95,
     "range_740_759": 0.75,
-    "range_760_850": 0.55,
+    "range_760_850": 0.55
 }
 downpayment_five = {
     "downpayment_percentage": 5,
