@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: circleci/python:3.9
       - image: circleci/mongo:4.4.3
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: mongoadmin
+          MONGO_INITDB_ROOT_PASSWORD: IAMAPASSWORD
     working_directory: ~/repo
 
     steps:
