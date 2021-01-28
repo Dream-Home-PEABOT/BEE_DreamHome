@@ -1,4 +1,4 @@
-from flask import Response, request, render_template
+from flask import Response, request
 from api.models.education import Education
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError

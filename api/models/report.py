@@ -14,6 +14,8 @@ class Report(db.Document):
     downpayment_percentage = db.IntField(required=True)
     goal_principal = db.IntField(default=0)
     rent = db.IntField(default=0)
+    added_by = db.ReferenceField('User')
+
 
     def number_payments(self):
         return 360
@@ -134,3 +136,13 @@ class Report(db.Document):
         else:
             dynamic_years = (year, year + 2,  year + 4)
         return dynamic_years
+
+
+class User(db.Document):
+    name = db.StringField(required=True)
+    uid = db.StringField(required=True, unique=True)
+    email = db.EmailField(required=True, unique=True)
+    reports = db.ListField(db.ReferenceField('Report', reverse_delete_rule=db.PULL))
+
+
+User.register_delete_rule(Report, 'added_by', db.CASCADE)

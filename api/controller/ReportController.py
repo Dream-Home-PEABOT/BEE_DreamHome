@@ -135,7 +135,7 @@ class ReportController():
                 "data": {
                     "id": str(id),
                     "confirmation": {
-                        "info": 'To connect this report to a user in the future, save this url with the client',
+                        "info": 'To see this new report, please do a GET request using the url',
                         "url": f'/api/v1/report/{id}'
                     }
                 }
