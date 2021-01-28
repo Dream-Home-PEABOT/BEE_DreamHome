@@ -3,6 +3,7 @@ import math
 import datetime
 from api.services.zip import zip_to_location, zip_to_avg_home
 from api.models.pmi import Pmi
+from api.models.mortgage_rate import MortgageRate
 import pry
 
 
@@ -31,21 +32,24 @@ class Report(db.Document):
         return 125
 
     def mortgage_rate(self):
-        rate = 0.0
-        if self.credit_score in range(300, 639):
-           rate = 4.072
-        elif self.credit_score in range(640, 659):
-            rate = 3.526
-        elif self.credit_score in range(660, 679):
-            rate = 3.096
-        elif self.credit_score in range(680, 699):
-            rate = 2.882
-        elif self.credit_score in range(700, 759):
-            rate = 2.705
-        elif self.credit_score in range(760, 850):
-            rate = 2.483
+        report_cs = self.credit_score
+        if report_cs <= 619:
+            user_ceiling = "619"
+        elif report_cs in range(620, 639):
+            user_ceiling = "639"
+        elif report_cs in range(640, 659):
+            user_ceiling = "659"
+        elif report_cs in range(660, 679):
+            user_ceiling = "679"
+        elif report_cs in range(680, 699):
+            user_ceiling = "699"
+        elif report_cs in range(700, 759):
+            user_ceiling = "759"
+        elif report_cs in range(760, 850):
+            user_ceiling = "850"
 
-        rate = rate / 100
+        mortgage_rate = MortgageRate.objects.get(credit_score_ceiling=user_ceiling)
+        rate = mortgage_rate.rate / 100
         return round(rate, 4)
 
     def city_state(self):
