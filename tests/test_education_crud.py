@@ -1,4 +1,3 @@
-import pry
 import json
 from tests.BaseCase import BaseCase
 from database.education import salary, zip, debt, savings, credit, percent, term, rent, principal

@@ -2,7 +2,7 @@ from flask import Response, request
 from api.models.pmi import Pmi
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
-import pry
+
 
 class PmiController():
 

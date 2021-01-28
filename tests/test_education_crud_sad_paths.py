@@ -1,7 +1,6 @@
 from tests.BaseCase import BaseCase
 from database.education import savings
 import json
-import pry
 
 
 class TestEducationCrudSadPath(BaseCase):

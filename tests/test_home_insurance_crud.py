@@ -1,7 +1,7 @@
-import pry
 import json
 from tests.BaseCase import BaseCase
 from database.home_insurance import gecko, country_farm, postgressive
+
 
 class TestHomeInsuranceCrud(BaseCase):
     # CREATE -----------------------------------------------------------

@@ -1,7 +1,6 @@
 from tests.BaseCase import BaseCase
 from database.report import imaginative, pragmatic
 import json
-import pry
 
 
 class TestReportCrudSadPath(BaseCase):

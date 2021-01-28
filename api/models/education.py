@@ -1,5 +1,6 @@
 from database.db import db
 
+
 class Education(db.Document):
     classification = db.StringField(required=True, unique=True)
     question = db.StringField(required=True)

@@ -11,4 +11,4 @@ class TestWelcome(unittest.TestCase):
         response = self.app.get('/')
     # Then
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, b'Welcome to your dream home server!')
+        self.assertEqual(response.data, 'Welcome to the RESTful API Server for DreamHome!')

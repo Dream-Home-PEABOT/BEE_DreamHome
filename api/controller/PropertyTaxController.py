@@ -3,7 +3,7 @@ from api.models.property_tax import PropertyTax
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 from re import sub
-import pry
+
 
 class PropertyTaxController():
     # single Get

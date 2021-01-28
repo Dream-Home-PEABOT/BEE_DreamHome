@@ -1,7 +1,7 @@
-import pry
 import json
 from tests.BaseCase import BaseCase
 from database.pmi import downpayment_zero, downpayment_five, downpayment_ten, downpayment_fifteen
+
 
 class TestPmiCrud(BaseCase):
     # CREATE -----------------------------------------------------------

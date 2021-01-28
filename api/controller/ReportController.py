@@ -2,7 +2,7 @@ from flask import Response, request, render_template
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
-import pry
+
 
 class ReportController():
     # GET by ID

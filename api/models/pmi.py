@@ -1,5 +1,6 @@
 from database.db import db
 
+
 class Pmi(db.Document):
     downpayment_percentage = db.IntField(required=True, unique=True)
     range_620_639 = db.FloatField(required=True)

@@ -3,7 +3,7 @@ from api.models.education import Education
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 from re import sub
-import pry
+
 
 class EducationController():
     # GET single

@@ -1,4 +1,3 @@
-import pry
 import json
 from tests.BaseCase import BaseCase
 from database.property_tax import colorado, kentucky, illnois

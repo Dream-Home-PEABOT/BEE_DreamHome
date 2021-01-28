@@ -1,8 +1,8 @@
-import pry
 from database.db import db
 import math
 import datetime
 from api.services.zip import zip_to_location, zip_to_avg_home
+
 
 class Report(db.Document):
     zipcode = db.IntField(required=True)

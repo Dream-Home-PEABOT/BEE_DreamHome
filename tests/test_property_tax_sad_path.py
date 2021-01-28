@@ -1,7 +1,6 @@
 from tests.BaseCase import BaseCase
 from database.property_tax import colorado
 import json
-import pry
 
 
 class TestPropertyTaxCrudSadPath(BaseCase):

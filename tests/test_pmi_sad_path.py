@@ -1,7 +1,6 @@
 from tests.BaseCase import BaseCase
 from database.pmi import downpayment_zero
 import json
-import pry
 
 
 class TestPMICrudSadPath(BaseCase):
