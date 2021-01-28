@@ -37,6 +37,8 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - To run coverage: `coverage run -m unittest discover`
   - To open coverage report: `open html cov/index.html` OR `coverage report -m` OR `coverage html`
 
+## .env vs .env.test!!!
+
 ## Tech stack
 - [Python](https://www.python.org)
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
