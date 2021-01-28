@@ -35,7 +35,7 @@ class TestReportCrud(BaseCase):
     def test_successful_get_record(self):
     # Given
         payload = {
-            "zipcode": 78230,
+            "zipcode": 80214,
             "credit_score": 701,
             "salary": 4500,
             "monthly_debt": 1500,
@@ -60,7 +60,7 @@ class TestReportCrud(BaseCase):
         self.assertEqual(200, get_response.status_code)
         self.assertEqual(id, data['02_id'])
         self.assertEqual(payload['zipcode'], input['A_zipcode'])
-        self.assertEqual('San Antonio, TX', location['city_state'])
+        self.assertEqual('Denver, CO', location['city_state'])
         self.assertEqual(0, principal['principal_based_on_rent'])
         self.assertEqual(payload['goal_principal'], principal['goal_principal'])
         self.assertEqual(float, type(monthly['monthly_principal']))
@@ -108,7 +108,7 @@ class TestReportCrud(BaseCase):
     def test_successful_delete_report(self):
     # Given
         payload = {
-            "zipcode": 78230,
+            "zipcode": 80214,
             "credit_score": 701,
             "salary": 4500,
             "monthly_debt": 1500,
