@@ -5,7 +5,6 @@ jobs:
     docker:
       - image: circleci/python:3.9
       - image: circleci/mongo:4.4.3
-        port: 27017:27017
     working_directory: ~/repo
 
     steps:
