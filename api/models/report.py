@@ -6,7 +6,6 @@ from api.models.mortgage_rate import MortgageRate
 from api.models.home_insurance import HomeInsurance
 from api.models.property_tax import PropertyTax
 from api.helpers.state_abbrev_to_full import states
-import pry
 
 
 class Report(db.Document):
@@ -36,17 +35,17 @@ class Report(db.Document):
         report_cs = self.credit_score
         if report_cs <= 619:
             user_ceiling = "619"
-        elif report_cs in range(620, 639):
+        elif report_cs in range(620, 640):
             user_ceiling = "639"
-        elif report_cs in range(640, 659):
+        elif report_cs in range(640, 660):
             user_ceiling = "659"
-        elif report_cs in range(660, 679):
+        elif report_cs in range(660, 680):
             user_ceiling = "679"
-        elif report_cs in range(680, 699):
+        elif report_cs in range(680, 700):
             user_ceiling = "699"
-        elif report_cs in range(700, 759):
+        elif report_cs in range(700, 760):
             user_ceiling = "759"
-        elif report_cs in range(760, 850):
+        elif report_cs in range(760, 851):
             user_ceiling = "850"
 
         mortgage_rate = MortgageRate.objects.get(credit_score_ceiling=user_ceiling)
@@ -71,33 +70,27 @@ class Report(db.Document):
             guarded_dp = 10
         elif report_dp in range(15, 20):
             guarded_dp = 15
-
+        else:
+            return "No PMI required for a 20 percent or higher downpayment."
 
         report_cs = self.credit_score
         pmi = Pmi.objects.get(downpayment_percentage=guarded_dp)
 
         if report_cs <= 639:
             collector = pmi.range_620_639
-        # elif report_cs in range(640, 659):
         elif report_cs in range(640, 660):
             collector = pmi.range_640_659
         elif report_cs in range(660, 680):
-        # elif report_cs in range(660, 679):
             collector = pmi.range_660_679
         elif report_cs in range(680, 700):
-        # elif report_cs in range(680, 699):
             collector = pmi.range_680_699
         elif report_cs in range(700, 720):
-        # elif report_cs in range(700, 719):
             collector = pmi.range_700_719
         elif report_cs in range(720, 740):
-        # elif report_cs in range(720, 739):
             collector = pmi.range_720_739
-        elif report_cs in range(740, 780):
-        # elif report_cs in range(740, 759):
+        elif report_cs in range(740, 760):
             collector = pmi.range_740_759
         elif report_cs in range(760, 851):
-        # elif report_cs in range(760, 850):
             collector = pmi.range_760_850
 
         if self.goal_principal == 0:
