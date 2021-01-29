@@ -5,6 +5,7 @@ from api.models.pmi import Pmi
 from api.models.mortgage_rate import MortgageRate
 from api.models.home_insurance import HomeInsurance
 from api.models.property_tax import PropertyTax
+from api.models.median_home_value import MedianHomeValue
 from api.helpers.state_abbrev_to_full import states
 import pry
 
@@ -20,6 +21,13 @@ class Report(db.Document):
     goal_principal = db.IntField(default=0)
     rent = db.IntField(default=0)
     uid = db.StringField(unique=True)
+
+    def zip_to_avg_home(self, city_state):
+        state = city_state[-2:]
+        median_home = MedianHomeValue.objects.get(state=state)
+        pry()
+        return median_home.avg_home_value
+
 
     def number_payments(self):
         return self.mortgage_term * 12
