@@ -54,28 +54,31 @@ class PmiController():
             raise 500
 
     def index(self):
-        all_pmi = Pmi.objects()
+        try:
+            all_pmi = Pmi.objects()
 
-        json_pmi_objects = {}
+            json_pmi_objects = {}
 
-        for pmi in all_pmi:
-            json_pmi_objects[f'downpayment_{pmi.downpayment_percentage}'] = {
-                "type": str(pmi),
-                "id": str(pmi.id),
-                "attributes": {
-                    "downpayment_percentage": pmi.downpayment_percentage,
-                    "range_620_639": pmi.range_620_639,
-                    "range_640_659": pmi.range_640_659,
-                    "range_660_679": pmi.range_660_679,
-                    "range_680_699": pmi.range_680_699,
-                    "range_700_719": pmi.range_700_719,
-                    "range_720_739": pmi.range_720_739,
-                    "range_740_759": pmi.range_740_759,
-                    "range_760_850": pmi.range_760_850
+            for pmi in all_pmi:
+                json_pmi_objects[f'downpayment_{pmi.downpayment_percentage}'] = {
+                    "type": str(pmi),
+                    "id": str(pmi.id),
+                    "attributes": {
+                        "downpayment_percentage": pmi.downpayment_percentage,
+                        "range_620_639": pmi.range_620_639,
+                        "range_640_659": pmi.range_640_659,
+                        "range_660_679": pmi.range_660_679,
+                        "range_680_699": pmi.range_680_699,
+                        "range_700_719": pmi.range_700_719,
+                        "range_720_739": pmi.range_720_739,
+                        "range_740_759": pmi.range_740_759,
+                        "range_760_850": pmi.range_760_850
+                    }
                 }
-            }
 
-        return { "data": json_pmi_objects}, 200
+            return { "data": json_pmi_objects}, 200
+        except Exception:
+            raise 500
 
     def update_pmi(self, id):
         try:
@@ -92,7 +95,7 @@ class PmiController():
                 }
             }, 202
         except (InvalidQueryError, FieldDoesNotExist, ValidationError):
-            raise APISchemaError("Please check the Property PMI documentation. Request is missing a required field or incorrect field entered.")
+            raise APISchemaError("Please check the PMI documentation. Request is missing a required field or incorrect field entered.")
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the PMI record with given id doesn't exist.")
         except Exception:
