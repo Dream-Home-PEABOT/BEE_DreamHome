@@ -4,6 +4,8 @@ import datetime
 from api.services.zip import zip_to_location, zip_to_avg_home
 from api.models.pmi import Pmi
 from api.models.mortgage_rate import MortgageRate
+from api.models.home_insurance import HomeInsurance
+from api.helpers.state_abbrev_to_full import states
 import pry
 
 
@@ -29,7 +31,12 @@ class Report(db.Document):
         return tm
 
     def home_insurance(self):
-        return 125
+        zip = self.zipcode
+        grab_state = self.city_state()[-2:]
+        state = states[grab_state]
+        home_insurance = HomeInsurance.objects.get(state=state)
+        monthly_insurance = home_insurance.annual_average_insurance_rate / 12
+        return round(monthly_insurance)
 
     def mortgage_rate(self):
         report_cs = self.credit_score
