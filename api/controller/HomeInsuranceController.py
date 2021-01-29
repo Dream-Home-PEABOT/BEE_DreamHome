@@ -37,7 +37,7 @@ class HomeInsuranceController():
                     "id": str(id),
                     "confirmation": {
                         "info": 'To see this new record, please do a GET request using the url',
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/home-insurance/{id}'
                     }
                 }
             }, 201
@@ -85,7 +85,7 @@ class HomeInsuranceController():
                     "id": str(id),
                     "confirmation": {
                         "info": "To see this record's update response, please do a GET request using the url",
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/home-insurance/{id}'
                     }
                 }
             }, 202
@@ -106,7 +106,7 @@ class HomeInsuranceController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/home_insurance/{id}'
+                        "url": f'/api/v1/home-insurance/{id}'
                     }
                 }
             }, 204
