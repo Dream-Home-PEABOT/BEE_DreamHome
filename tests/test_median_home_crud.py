@@ -16,8 +16,21 @@ class TestMedianHomeCrud(BaseCase):
     # Given
         # florida payload off in line 12
     # When
-        response = self.app.post('/api/v1/median-house-value', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
+        response = self.app.post('/api/v1/median-home-value', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
         id = response.json['data']['id']
-        url = f'/api/v1/median-house-value/{id}'
+        url = f'/api/v1/median-home-value/{id}'
+
+        get_response = self.app.get(url, headers={"Content-Type": "application/json"})
+        all_response = self.app.get('/api/v1/median-home-value', headers={"Content-Type": "application/json"})
+        pry()
+
+        payload = {
+            "year": 2021
+        }
+        update_response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+
+
+
+        delete_response = self.app.delete(url, headers={"Content-Type": "application/json"})
         pry()
     # Then
