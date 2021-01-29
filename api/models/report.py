@@ -61,8 +61,13 @@ class Report(db.Document):
         return round(rate, 4)
 
     def property_tax(self):
-        
-        return 100
+        zip = self.zipcode
+        grab_state = self.city_state()[-2:]
+        state = states[grab_state]
+        property_tax = PropertyTax.objects.get(state=state)
+        monthly_property_tax = property_tax.annual_avg_property_tax / 12
+        return round(monthly_property_tax)
+        # Remember to save city_state the FIRST time it is called and then return that info in separate variable/function
 
     def pmi(self):
         report_dp = self.downpayment_percentage
