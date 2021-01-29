@@ -1,7 +1,6 @@
 from database.db import db
 import math
 import datetime
-from api.services.zip import zip_to_location, zip_to_avg_home
 from api.models.pmi import Pmi
 from api.models.mortgage_rate import MortgageRate
 from api.models.home_insurance import HomeInsurance
@@ -25,15 +24,12 @@ class Report(db.Document):
     def number_payments(self):
         return self.mortgage_term * 12
 
-    def city_state(self):
-        return zip_to_location(self.zipcode)
+    # def home_price_by_zip(self):
+        # return zip_to_avg_home(self.zipcode)
 
-    def home_price_by_zip(self):
-        return zip_to_avg_home(self.zipcode)
-
-    def home_insurance(self):
+    def home_insurance(self, city_state):
         zip = self.zipcode
-        grab_state = self.city_state()[-2:]
+        grab_state = city_state[-2:]
         state = states[grab_state]
         home_insurance = HomeInsurance.objects.get(state=state)
         monthly_insurance = home_insurance.annual_average_insurance_rate / 12
@@ -60,14 +56,13 @@ class Report(db.Document):
         rate = mortgage_rate.rate / 100
         return round(rate, 4)
 
-    def property_tax(self):
+    def property_tax(self, city_state):
         zip = self.zipcode
-        grab_state = self.city_state()[-2:]
+        grab_state = city_state[-2:]
         state = states[grab_state]
         property_tax = PropertyTax.objects.get(state=state)
         monthly_property_tax = property_tax.annual_avg_property_tax / 12
         return round(monthly_property_tax)
-        # Remember to save city_state the FIRST time it is called and then return that info in separate variable/function
 
     def pmi(self):
         report_dp = self.downpayment_percentage
@@ -86,19 +81,26 @@ class Report(db.Document):
 
         if report_cs <= 639:
             collector = pmi.range_620_639
-        elif report_cs in range(640, 659):
+        # elif report_cs in range(640, 659):
+        elif report_cs in range(640, 660):
             collector = pmi.range_640_659
-        elif report_cs in range(660, 679):
+        elif report_cs in range(660, 680):
+        # elif report_cs in range(660, 679):
             collector = pmi.range_660_679
-        elif report_cs in range(680, 699):
+        elif report_cs in range(680, 700):
+        # elif report_cs in range(680, 699):
             collector = pmi.range_680_699
-        elif report_cs in range(700, 719):
+        elif report_cs in range(700, 720):
+        # elif report_cs in range(700, 719):
             collector = pmi.range_700_719
-        elif report_cs in range(720, 739):
+        elif report_cs in range(720, 740):
+        # elif report_cs in range(720, 739):
             collector = pmi.range_720_739
-        elif report_cs in range(740, 759):
+        elif report_cs in range(740, 780):
+        # elif report_cs in range(740, 759):
             collector = pmi.range_740_759
-        elif report_cs in range(760, 850):
+        elif report_cs in range(760, 851):
+        # elif report_cs in range(760, 850):
             collector = pmi.range_760_850
 
         if self.goal_principal == 0:
@@ -111,8 +113,8 @@ class Report(db.Document):
         monthly_pmi = (annual_pmi / 12)
         return round(monthly_pmi)
 
-    def true_monthly(self):
-        tm = self.rent + self.home_insurance() + self.property_tax()
+    def true_monthly(self, city_state):
+        tm = self.rent + self.home_insurance(city_state) + self.property_tax(city_state)
         if self.downpayment_percentage < 20:
             tm += self.pmi()
         return tm

@@ -1,8 +1,10 @@
+from api.services.zip import zip_to_location, zip_to_avg_home
 from flask import Response, request, render_template, jsonify
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
 import pry
+
 
 class ReportController():
     # GET by UID
@@ -43,6 +45,7 @@ class ReportController():
             raise 500
 
     def stylized_report_return(self, report):
+        city_state = zip_to_location(report.zipcode)
         beyonce_plan = report.number_of_years(0.6)
         tswift_plan = report.number_of_years(0.4)
         keanu_plan = report.number_of_years(0.2)
@@ -67,8 +70,8 @@ class ReportController():
                         "A_location": {
                             "information": "By providing a zipcode, we can report location specific information such as average home price.",
                             "zipcode": report.zipcode,
-                            "city_state": report.city_state(),
-                            "average_home_price": report.home_price_by_zip(),
+                            "city_state": city_state,
+                            "average_home_price": zip_to_avg_home(report.zipcode),
                         },
                         "B_principal": {
                             "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
@@ -79,9 +82,9 @@ class ReportController():
                         "C_monthly": {
                             "information": "This is an estimate of what your monthly expenses will be in purchasing a home in the zipcode your provided.",
                             "monthly_principal": report.monthly_principal(),
-                            "estimated_true_monthly": report.true_monthly(),
-                            "home_insurance_by_location": report.home_insurance(),
-                            "property_tax_by_location": report.property_tax(),
+                            "estimated_true_monthly": report.true_monthly(city_state),
+                            "home_insurance_by_location": report.home_insurance(city_state),
+                            "property_tax_by_location": report.property_tax(city_state),
                             "pmi_by_location": report.pmi()
                         },
                         "D_downpayment": {
