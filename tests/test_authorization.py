@@ -1,11 +1,19 @@
 import json
 import pry
 from tests.BaseCase import BaseCase
+from database.mortgage_rate import range_700_759
+from database.pmi import downpayment_zero, downpayment_five, downpayment_ten, downpayment_fifteen
 
 
 class TestAuthorization(BaseCase):
-
     def test_get_report_by_user(self):
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
+    # Post for pmi
+        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
+        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
+        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
+        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_fifteen))
     #Given
         harry_uid = 'jhdfs783uy4ir98f7ygh2jeuwidsi8943yrih'
 
@@ -16,7 +24,7 @@ class TestAuthorization(BaseCase):
             "monthly_debt": 1500,
             "downpayment_savings": 50000,
             "mortgage_term": 30,
-            "downpayment_percentage": 20,
+            "downpayment_percentage": 19,
             "goal_principal": 500000,
             "rent": 0,
             "uid": harry_uid
@@ -37,25 +45,25 @@ class TestAuthorization(BaseCase):
             "uid": ginny_uid
         }
         self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(ginny_report))
-        #     - uid
-    # #When
+    # When
         harry_response = self.app.get('/api/v1/report/unique', headers={"Content-Type": "application/json"}, data=json.dumps(harry_uid))
         harry_data = harry_response.json['data']
-    # #Then
+    # Then
         self.assertEqual(200, harry_response.status_code)
         self.assertEqual(harry_report['credit_score'], harry_data['03_attributes']['input']['B_credit_score'])
         self.assertNotEqual(ginny_report['credit_score'], harry_data['03_attributes']['input']['B_credit_score'])
-        #  #when
+    # When
 
         ginny_response = self.app.get('/api/v1/report/unique', headers={"Content-Type": "application/json"}, data=json.dumps(ginny_uid))
         ginny_data = ginny_response.json['data']
-    # #Then
+    # Then
         self.assertEqual(200, ginny_response.status_code)
         self.assertEqual(ginny_report['credit_score'], ginny_data['03_attributes']['input']['B_credit_score'])
         self.assertNotEqual(harry_report['credit_score'], ginny_data['03_attributes']['input']['B_credit_score'])
 
-
     def test_user_wants_to_register(self):
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         unregistered_report = {
             "zipcode": 80209,
@@ -88,7 +96,9 @@ class TestAuthorization(BaseCase):
     #Then
         self.assertEqual(unregistered_confirmation.json, registered_confirmation.json)
 
-    def test_user_wants_to_register(self):
+    def test_user_wants_to_register_sad_path_missing_uid(self):
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         unregistered_report = {
             "zipcode": 80209,
@@ -113,7 +123,9 @@ class TestAuthorization(BaseCase):
         self.assertEqual(410, data['error'])
         self.assertEqual("Missing UID", data['message'])
 
-    def test_registered_user_wrong_uid(self):
+    def test_registered_user_sad_path_wrong_uid(self):
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         registered_report = {
             "zipcode": 80209,
@@ -132,10 +144,8 @@ class TestAuthorization(BaseCase):
 
     # When
         wrong_uid = 'awdorfnjcaoielruwbn'
-
         error_confirmation = self.app.get('/api/v1/report/unique', headers={"Content-Type": "application/json"}, data=json.dumps(wrong_uid))
     #Then
         data = error_confirmation.json['data']
         self.assertEqual(406, data['error'])
         self.assertEqual("No report matches this user", data['message'])
-# pass w/ wrong uid

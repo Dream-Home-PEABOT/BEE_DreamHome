@@ -291,8 +291,8 @@ new_hampshire = {
     "annual_avg_property_tax": 5550
 }
 
-illnois = {
-    "state": "Illnois",
+illinois = {
+    "state": "Illinois",
     "avg_tax_rate": 2.30,
     "annual_avg_property_tax": 4299
 }

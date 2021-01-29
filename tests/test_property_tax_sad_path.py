@@ -1,5 +1,5 @@
 from tests.BaseCase import BaseCase
-from database.property_tax import colorado
+from database.property_tax import texas
 import json
 
 
@@ -10,9 +10,9 @@ class TestPropertyTaxCrudSadPath(BaseCase):
     # CREATE SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_post_property_tax_not_unique(self):
     # Given
-        initial_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        initial_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
     # When
-        error_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        error_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
         body = error_response.json['data']
     # Then
         self.assertEqual(400, error_response.status_code)
@@ -27,7 +27,7 @@ class TestPropertyTaxCrudSadPath(BaseCase):
             "what_is_this": "i_dont_even"
         }
     # When
-        extra_field_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(extra_field_payload))
+        extra_field_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(extra_field_payload))
         body = extra_field_response.json['data']
     # Then
         self.assertEqual(406, extra_field_response.status_code)
@@ -41,7 +41,7 @@ class TestPropertyTaxCrudSadPath(BaseCase):
             "annual_average_insurance_rate": 1200
         }
     # When
-        incorrect_field_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))
+        incorrect_field_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))
         body = incorrect_field_response.json['data']
     # Then
         self.assertEqual(406, incorrect_field_response.status_code)
@@ -51,11 +51,11 @@ class TestPropertyTaxCrudSadPath(BaseCase):
     # READ by ID SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_get_by_id_property_tax_incorrect_id(self):
     # Given
-        tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        tax_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
 
         id = tax_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/property_tax/{new_id}'
+        url = f'/api/v1/property-tax/{new_id}'
     # When
         incorrect_id_response = self.app.get(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']
@@ -68,11 +68,11 @@ class TestPropertyTaxCrudSadPath(BaseCase):
     # UPDATE SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_put_property_tax_incorrect_id(self):
     # Given
-        tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        tax_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
 
         id = tax_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/property_tax/{new_id}'
+        url = f'/api/v1/property-tax/{new_id}'
     # When
         incorrect_id_response = self.app.put(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']
@@ -84,10 +84,10 @@ class TestPropertyTaxCrudSadPath(BaseCase):
 
     def test_unsuccessful_put_property_tax_bad_fields(self):
     # Given
-        tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        tax_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
 
         id = tax_response.json['data']['id']
-        url = f'/api/v1/property_tax/{id}'
+        url = f'/api/v1/property-tax/{id}'
     # When
         extra_field_payload = {
             "bad_attribute": "Oops",
@@ -103,11 +103,11 @@ class TestPropertyTaxCrudSadPath(BaseCase):
     # DESTROY SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_delete_property_tax_incorrect_id(self):
     # Given
-        tax_response = self.app.post('/api/v1/property_tax', headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
+        tax_response = self.app.post('/api/v1/property-tax', headers={"Content-Type": "application/json"}, data=json.dumps(texas))
 
         id = tax_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/property_tax/{new_id}'
+        url = f'/api/v1/property-tax/{new_id}'
     # When
         incorrect_id_response = self.app.delete(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']
