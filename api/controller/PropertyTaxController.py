@@ -37,7 +37,7 @@ class PropertyTaxController():
                     "id": str(id),
                     "confirmation": {
                         "info": 'To see this new record, please do a GET request using the url',
-                        "url": f'/api/v1/property_tax/{id}'
+                        "url": f'/api/v1/property-tax/{id}'
                     }
                 }
             }, 201
@@ -85,7 +85,7 @@ class PropertyTaxController():
                     "id": str(id),
                     "confirmation": {
                         "info": "To see this record's update response, please do a GET request using the url",
-                        "url": f'/api/v1/property_tax/{id}'
+                        "url": f'/api/v1/property-tax/{id}'
                     }
                 }
             }, 202
@@ -106,7 +106,7 @@ class PropertyTaxController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/property_tax/{id}'
+                        "url": f'/api/v1/property-tax/{id}'
                     }
                 }
             }, 200

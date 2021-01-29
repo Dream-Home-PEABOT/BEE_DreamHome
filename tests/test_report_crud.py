@@ -1,38 +1,14 @@
 import json
 from tests.BaseCase import BaseCase
-from database.pmi import downpayment_zero, downpayment_five, downpayment_ten, downpayment_fifteen
-from database.mortgage_rate import range_300_619, range_620_639, range_640_659, range_660_679, range_680_699, range_700_759, range_760_850
-from database.home_insurance import illinois, colorado
-hi_il_insurance = illinois
-hi_co_insurance = colorado
-from database.property_tax import illinois, colorado
-import pry
+from database.pmi import downpayment_zero, downpayment_five, downpayment_ten
+
 
 class TestReportCrud(BaseCase):
-    # UPDATED CREATE -----------------------------------------------------------
-    def test_successful_official_post_record(self):
-    # Given
-        # Post for pmi
+    # CREATE -----------------------------------------------------------
+    def test_successful_post_record(self):
+    # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_fifteen))
-        # Post for mortgage_rate
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_620_639))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_660_679))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_680_699))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_760_850))
-        # Post for insurance
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_il_insurance))
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_co_insurance))
-        # Post for property tax
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
-        # Post for median home price
-
+    # Given
         payload = {
             "zipcode": 60651,
             "credit_score": 617,
@@ -40,18 +16,15 @@ class TestReportCrud(BaseCase):
             "monthly_debt": 1100,
             "downpayment_savings": 0,
             "mortgage_term": 30,
-            "downpayment_percentage": 14,
+            "downpayment_percentage": 0,
             "goal_principal": 300000,
             "rent": 0
         }
-
-
     # When
         post_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = post_response.json['data']['id']
         url = f'/api/v1/report/{id}'
         post_data = post_response.json['data']
-
     # Then
         self.assertEqual(201, post_response.status_code)
         self.assertEqual(id, post_data['id'])
@@ -65,7 +38,7 @@ class TestReportCrud(BaseCase):
 
         pmi_by_location = confirmation.json['data']['03_attributes']['output']['C_monthly']['pmi_by_location']
 
-        self.assertEqual(248, pmi_by_location)
+        self.assertEqual(562, pmi_by_location)
 
         home_insurance_by_location = confirmation.json['data']['03_attributes']['output']['C_monthly']['home_insurance_by_location']
 
@@ -73,78 +46,11 @@ class TestReportCrud(BaseCase):
         property_tax_by_location = confirmation.json['data']['03_attributes']['output']['C_monthly']['property_tax_by_location']
         self.assertEqual(358, property_tax_by_location)
 
-    # CREATE -----------------------------------------------------------
-    def test_successful_post_record(self):
-    # Given
-        # Post for pmi
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_fifteen))
-        # Post for mortgage_rate
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_620_639))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_660_679))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_680_699))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_760_850))
-        # Post for insurance
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_il_insurance))
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_co_insurance))
-        # Post for property tax
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
-        # Post for median home price
-        payload = {
-            "zipcode": 60654,
-            "credit_score": 617,
-            "salary": 3000,
-            "monthly_debt": 1100,
-            "downpayment_savings": 1000,
-            "mortgage_term": 30,
-            "downpayment_percentage": 10,
-            "goal_principal": 0,
-            "rent": 1800
-        }
-    # When
-        post_response = self.app.post('/api/v1/report', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
-        id = post_response.json['data']['id']
-        url = f'/api/v1/report/{id}'
-        data = post_response.json['data']
-    # Then
-        self.assertEqual(201, post_response.status_code)
-        self.assertEqual(id, data['id'])
-        self.assertEqual('To connect this report to a user in the future, save this url with the client', data['confirmation']['info'])
-        self.assertEqual(url, data['confirmation']['url'])
-    # Confirm with GET by ID
-        confirmation = self.app.get(url, headers={'Content-Type': "application/json"})
-        self.assertEqual(200, confirmation.status_code)
-
     # READ by ID -----------------------------------------------------------
     def test_successful_get_record(self):
-    # Given
-        # Post for pmi
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
+    # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_fifteen))
-        # Post for mortgage_rate
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_620_639))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_660_679))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_680_699))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_760_850))
-        # Post for insurance
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_il_insurance))
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_co_insurance))
-        # Post for property tax
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
-        # Post for median home price
-
+    # Given
         payload = {
             "zipcode": 60654,
             "credit_score": 617,
@@ -152,7 +58,7 @@ class TestReportCrud(BaseCase):
             "monthly_debt": 1100,
             "downpayment_savings": 1000,
             "mortgage_term": 30,
-            "downpayment_percentage": 10,
+            "downpayment_percentage": 7,
             "goal_principal": 0,
             "rent": 1800
         }
@@ -184,34 +90,16 @@ class TestReportCrud(BaseCase):
         self.assertEqual(id, data['02_id'])
         self.assertEqual(payload['zipcode'], input['A_zipcode'])
         self.assertEqual('Chicago, IL', location['city_state'])
-        self.assertEqual(394722, principal['principal_based_on_rent'])
+        self.assertEqual(381989, principal['principal_based_on_rent'])
         self.assertEqual(payload['goal_principal'], principal['goal_principal'])
         self.assertEqual(int, type(monthly['monthly_principal']))
         self.assertEqual(0.2, downpayment['plan_style']['min_savings_plan']['savings_style_percentage'])
     #
     # UPDATE -----------------------------------------------------------
     def test_successful_post_report(self):
-    # Given
-        # Post for pmi
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
+    # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
-        self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_fifteen))
-        # Post for mortgage_rate
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_620_639))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_660_679))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_680_699))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
-        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_760_850))
-        # Post for insurance
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_il_insurance))
-        self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_co_insurance))
-        # Post for property tax
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
-        self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
-        # Post for median home price
+    # Given
         payload = {
             "zipcode": 60654,
             "credit_score": 617,
