@@ -1,6 +1,6 @@
 import json
 from tests.BaseCase import BaseCase
-from database.property_tax import colorado, kentucky, illnois
+from database.property_tax import colorado, kentucky, illinois
 
 
 class TestPropertyTaxCrud(BaseCase):
@@ -44,7 +44,7 @@ class TestPropertyTaxCrud(BaseCase):
     # Given
         self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(colorado))
         self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(kentucky))
-        self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(illnois))
+        self.app.post('/api/v1/property_tax',headers={"Content-Type": "application/json"}, data=json.dumps(illinois))
     # When
         response = self.app.get('/api/v1/property_tax', headers={"Content-Type": "application/json"})
         body = response.json['data']
@@ -53,7 +53,7 @@ class TestPropertyTaxCrud(BaseCase):
         self.assertEqual(3, len(body))
         self.assertEqual(colorado, body['colorado']['attributes'])
         self.assertEqual(kentucky, body['kentucky']['attributes'])
-        self.assertEqual(illnois, body['illnois']['attributes'])
+        self.assertEqual(illinois, body['illinois']['attributes'])
 
     # UPDATE  -----------------------------------------------------------
     def test_successful_put_education(self):

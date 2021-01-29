@@ -54,7 +54,7 @@ class TestHomeInsuranceCrud(BaseCase):
         self.assertEqual(3, len(body))
         self.assertEqual(gecko, body['colorado']['attributes'])
         self.assertEqual(country_farm, body['kentucky']['attributes'])
-        self.assertEqual(postgressive, body['illnois']['attributes'])
+        self.assertEqual(postgressive, body['illinois']['attributes'])
 
     # UPDATE -----------------------------------------------------------
     def test_successful_put_education(self):
