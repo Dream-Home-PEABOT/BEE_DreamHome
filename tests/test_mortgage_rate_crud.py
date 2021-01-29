@@ -1,6 +1,6 @@
 import json
 from tests.BaseCase import BaseCase
-from database.mortgage_rate import range_620_639, range_640_659, range_660_679, range_680_699, range_700_759, range_760_850
+from database.mortgage_rate import range_300_619, range_620_639, range_640_659, range_660_679, range_680_699, range_700_759, range_760_850
 
 
 class TestMortgageRateCrud(BaseCase):
@@ -13,9 +13,9 @@ class TestMortgageRateCrud(BaseCase):
             "rate": 4.13
         }
     # When
-        response = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        response = self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = response.json['data']['id']
-        url = f'/api/v1/mortgage_rate/{id}'
+        url = f'/api/v1/mortgage-rate/{id}'
     # Then
         self.assertEqual('201 CREATED', response.status)
         response = self.app.get(url, headers={"Content-Type": "application/json"})
@@ -26,10 +26,10 @@ class TestMortgageRateCrud(BaseCase):
     # READ by ID -----------------------------------------------------------
     def test_successful_get_of_mortgage_rate(self):
     # Given
-        low_range = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_620_639))
-        high_range = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_760_850))
+        low_range = self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_620_639))
+        high_range = self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_760_850))
         id = low_range.json['data']['id']
-        url = f'/api/v1/mortgage_rate/{id}'
+        url = f'/api/v1/mortgage-rate/{id}'
     # When
         response = self.app.get(url, headers={"Content-Type": "application/json"})
         body = response.json['data']
@@ -42,15 +42,17 @@ class TestMortgageRateCrud(BaseCase):
     # READ all -----------------------------------------------------------
     def test_succssful_get_mortgage_rate(self):
     # Given
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_620_639))
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_640_659))
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_660_679))
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_680_699))
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_700_759))
-        self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_760_850))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_620_639))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_640_659))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_660_679))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_680_699))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_700_759))
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(range_760_850))
     # When
-        response = self.app.get('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"})
+        response = self.app.get('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"})
         body = response.json['data']
+        returned_range_300_619 = body['range_300_619']
         returned_range_620_639 = body['range_620_639']
         returned_range_640_659 = body['range_640_659']
         returned_range_660_679 = body['range_660_679']
@@ -59,7 +61,8 @@ class TestMortgageRateCrud(BaseCase):
         returned_range_760_850 = body['range_760_850']
     # Then
         self.assertEqual(200, response.status_code)
-        self.assertEqual(6, len(body))
+        self.assertEqual(7, len(body))
+        self.assertEqual(range_300_619, returned_range_300_619['attributes'])
         self.assertEqual(range_620_639, returned_range_620_639['attributes'])
         self.assertEqual(range_640_659, returned_range_640_659['attributes'])
         self.assertEqual(range_660_679, returned_range_660_679['attributes'])
@@ -75,9 +78,9 @@ class TestMortgageRateCrud(BaseCase):
             "credit_score_ceiling":"Testing",
             "rate": 888.0
         }
-        create_mortgage_rate = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        create_mortgage_rate = self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = create_mortgage_rate.json['data']['id']
-        url = f'/api/v1/mortgage_rate/{id}'
+        url = f'/api/v1/mortgage-rate/{id}'
     # When
         updated_payload = {
             "credit_score_floor": "Testing",
@@ -102,9 +105,9 @@ class TestMortgageRateCrud(BaseCase):
             "credit_score_ceiling":"639",
             "rate": 4.13
         }
-        mortgage_rate = self.app.post('/api/v1/mortgage_rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
+        mortgage_rate = self.app.post('/api/v1/mortgage-rate', headers={"Content-Type": "application/json"}, data=json.dumps(payload))
         id = mortgage_rate.json['data']['id']
-        url = f'/api/v1/mortgage_rate/{id}'
+        url = f'/api/v1/mortgage-rate/{id}'
     # When
         response = self.app.delete(url, headers={"Content-Type": "application/json"})
     # Then

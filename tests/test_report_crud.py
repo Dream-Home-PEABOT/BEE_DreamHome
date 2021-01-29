@@ -1,6 +1,8 @@
 import json
 from tests.BaseCase import BaseCase
 from database.pmi import downpayment_zero, downpayment_five, downpayment_ten
+from database.mortgage_rate import range_300_619, range_620_639, range_640_659, range_660_679, range_680_699, range_700_759, range_760_850
+import pry
 
 
 class TestReportCrud(BaseCase):
@@ -8,6 +10,8 @@ class TestReportCrud(BaseCase):
     def test_successful_post_record(self):
     # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_zero))
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
     # Given
         payload = {
             "zipcode": 60651,
@@ -50,6 +54,8 @@ class TestReportCrud(BaseCase):
     def test_successful_get_record(self):
     # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_five))
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
     # Given
         payload = {
             "zipcode": 60654,
@@ -62,7 +68,7 @@ class TestReportCrud(BaseCase):
             "goal_principal": 0,
             "rent": 1800
         }
-# THIS PAYLOAD WAS NOT WORKING!!!
+    # THIS PAYLOAD WAS NOT WORKING!!!
         # payload = {
         #     "zipcode": 80214,
         #     "credit_score": 701,
@@ -99,6 +105,8 @@ class TestReportCrud(BaseCase):
     def test_successful_post_report(self):
     # Post for pmi
         self.app.post('/api/v1/pmi', headers={"Content-Type":"application/json"}, data=json.dumps(downpayment_ten))
+    # Post for mortgage_rate
+        self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
     # Given
         payload = {
             "zipcode": 60654,
