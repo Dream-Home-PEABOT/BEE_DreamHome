@@ -5,8 +5,10 @@ from database.mortgage_rate import range_300_619, range_620_639, range_640_659, 
 from database.home_insurance import illinois, colorado
 hi_il_insurance = illinois
 hi_co_insurance = colorado
-from database.property_tax import illinois, colorado
 import pry
+from database.median_home_value import illinois
+mhv_illinois = illinois
+from database.property_tax import illinois, colorado
 
 class TestReportCrud(BaseCase):
     # UPDATED CREATE -----------------------------------------------------------
@@ -32,6 +34,9 @@ class TestReportCrud(BaseCase):
         self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
         self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
         # Post for median home price
+        x = self.app.post('/api/v1/median-house-value', headers={"Content-Type":"application/json"}, data=json.dumps(mhv_illinois))
+        pry()
+
 
         payload = {
             "zipcode": 60651,
