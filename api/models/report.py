@@ -24,9 +24,6 @@ class Report(db.Document):
     def number_payments(self):
         return self.mortgage_term * 12
 
-    # def home_price_by_zip(self):
-        # return zip_to_avg_home(self.zipcode)
-
     def home_insurance(self, city_state):
         zip = self.zipcode
         grab_state = city_state[-2:]
