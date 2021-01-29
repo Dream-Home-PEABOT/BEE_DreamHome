@@ -1,19 +1,3 @@
-gecko = {
-    "state": "Colorado",
-    "annual_average_insurance_rate": 3082
-}
-
-country_farm = {
-    "state": "Kentucky",
-    "annual_average_insurance_rate": 2862
-}
-
-postgressive = {
-    "state": "Illnois",
-    "annual_average_insurance_rate": 2201
-}
-
-
 oklahoma = {
     "state": "Oklahoma",
     "annual_average_insurance_rate": 4445
@@ -130,7 +114,7 @@ new_mexico = {
 }
 
 illinois = {
-    "state": "Illnois",
+    "state": "Illinois",
     "annual_average_insurance_rate": 2201
 }
 michigan = {
