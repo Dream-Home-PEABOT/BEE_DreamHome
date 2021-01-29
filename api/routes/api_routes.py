@@ -134,22 +134,22 @@ def update_mortgage_rate(id):
 def destroy_mortgage_rate(id):
     return mortgageratecontroller.destroy_mortgage_rate(id)
 
-@api.route('/api/v1/median-house-value', methods=['POST'])
+@api.route('/api/v1/median-home-value', methods=['POST'])
 def add_median_home_value():
     return medianhomevaluecontroller.add_median_home_value()
-#
-# @api.route('/api/v1/median-house-value/<id>', methods=['GET'])
-# def get_median_home_value(id):
-#     return medianhomevaluecontroller.get_median_home_value(id)
-#
-# @api.route('/api/v1/median-house-value', methods=['GET'])
-# def all_median_home_value():
-#     return medianhomevaluecontroller.all_median_home_value()
-#
-# @api.route('/api/v1/median-house-value/<id>', methods=['PUT'])
-# def update_median_home_value(id):
-#     return medianhomevaluecontroller.update_median_home_value(id)
-#
-# @api.route('/api/v1/median-house-value/<id>', methods=['DELETE'])
-# def destroy_median_home_value(id):
-#     return medianhomevaluecontroller.destroy_median_home_value(id)
+
+@api.route('/api/v1/median-home-value/<id>', methods=['GET'])
+def get_median_home_value(id):
+    return medianhomevaluecontroller.get_median_home_value(id)
+
+@api.route('/api/v1/median-home-value', methods=['GET'])
+def all_median_home_value():
+    return medianhomevaluecontroller.all_median_home_value()
+
+@api.route('/api/v1/median-home-value/<id>', methods=['PUT'])
+def update_median_home_value(id):
+    return medianhomevaluecontroller.update_median_home_value(id)
+
+@api.route('/api/v1/median-home-value/<id>', methods=['DELETE'])
+def destroy_median_home_value(id):
+    return medianhomevaluecontroller.destroy_median_home_value(id)
