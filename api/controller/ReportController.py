@@ -1,4 +1,4 @@
-from api.services.zip import zip_to_location, zip_to_avg_home
+from api.services.zip import zip_to_location
 from flask import Response, request, render_template, jsonify
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
@@ -71,7 +71,8 @@ class ReportController():
                             "information": "By providing a zipcode, we can report location specific information such as average home price.",
                             "zipcode": report.zipcode,
                             "city_state": city_state,
-                            "average_home_price": zip_to_avg_home(report.zipcode),
+                            "average_home_price": report.zip_to_avg_home(city_state), # THIS NEEDS TO SWITCH TO A METHOD WITHIN THE REPORT MODEL
+                            #replace with report.zip_to_avg_home
                         },
                         "B_principal": {
                             "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
