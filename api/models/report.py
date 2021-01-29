@@ -5,6 +5,7 @@ from api.services.zip import zip_to_location, zip_to_avg_home
 from api.models.pmi import Pmi
 from api.models.mortgage_rate import MortgageRate
 from api.models.home_insurance import HomeInsurance
+from api.models.property_tax import PropertyTax
 from api.helpers.state_abbrev_to_full import states
 import pry
 
@@ -22,13 +23,13 @@ class Report(db.Document):
     uid = db.StringField(unique=True)
 
     def number_payments(self):
-        return 360
+        return self.mortgage_term * 12
 
-    def true_monthly(self):
-        tm = self.rent + self.home_insurance() + self.property_tax()
-        if self.downpayment_percentage < 20:
-            tm += self.pmi()
-        return tm
+    def city_state(self):
+        return zip_to_location(self.zipcode)
+
+    def home_price_by_zip(self):
+        return zip_to_avg_home(self.zipcode)
 
     def home_insurance(self):
         zip = self.zipcode
@@ -59,17 +60,25 @@ class Report(db.Document):
         rate = mortgage_rate.rate / 100
         return round(rate, 4)
 
-    def city_state(self):
-        return zip_to_location(self.zipcode)
-
-    def home_price_by_zip(self):
-        return zip_to_avg_home(self.zipcode)
+    def property_tax(self):
+        
+        return 100
 
     def pmi(self):
         report_dp = self.downpayment_percentage
+        if report_dp <= 4:
+            guarded_dp = 0
+        elif report_dp in range(5, 10):
+            guarded_dp = 5
+        elif report_dp in range(10, 15):
+            guarded_dp = 10
+        elif report_dp in range(15, 20):
+            guarded_dp = 15
+
+
         report_cs = self.credit_score
-        # Write a range guard for "dp" if they don't fall on the 5's
-        pmi = Pmi.objects.get(downpayment_percentage=report_dp)
+        pmi = Pmi.objects.get(downpayment_percentage=guarded_dp)
+
         if report_cs <= 639:
             collector = pmi.range_620_639
         elif report_cs in range(640, 659):
@@ -97,9 +106,11 @@ class Report(db.Document):
         monthly_pmi = (annual_pmi / 12)
         return round(monthly_pmi)
 
-
-    def property_tax(self):
-        return 100
+    def true_monthly(self):
+        tm = self.rent + self.home_insurance() + self.property_tax()
+        if self.downpayment_percentage < 20:
+            tm += self.pmi()
+        return tm
 
     def monthly_principal(self):
         if self.rent != 0:
