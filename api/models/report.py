@@ -208,8 +208,8 @@ class Report(db.Document):
     def downpayment_savings_goal_end_date(self, year):
         now = datetime.datetime.now()
         month = now.month
-        current_year = now.year
         day = now.day
+        current_year = now.year
         new_year = current_year + year
         date = f'{month}/{day}/{new_year}'
         return date
@@ -221,18 +221,13 @@ class Report(db.Document):
         if self.downpayment_savings >= potential_downpayment:
             dynamic_years = (0, 0, 0)
         else:
-            monthly_living_expenses = self.calc_monthly_living_expense()
-            remaining_monthly = self.calc_remaining_monthly_expense(monthly_living_expenses)
+            #calculations for dynamic years
+            remaining_monthly = self.calc_remaining_monthly_expense(self.calc_monthly_living_expenses())
+
             downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
+
             potential_monthly_savings = downpayment / 12
-            year = 1
-            static_monthly = potential_monthly_savings
-            savings_cap = remaining_monthly * savings_style
-            while potential_monthly_savings > savings_cap:
-                potential_monthly_savings = static_monthly / year
-                year += 1
-            else:
-                dynamic_years = (year, year + 2,  year + 4)
+            dynamic_years = self.calc_dynamic_years(potential_monthly_savings, remaining_monthly, savings_style)
         return dynamic_years
 
     def calc_remaining_monthly_expense(self, monthly_living_expense):
@@ -247,3 +242,16 @@ class Report(db.Document):
         else:
             monthly_living_expense = self.rent
         return monthly_living_expense
+
+    def calc_dynamic_years(self, potential_monthly_savings, remaining_monthly, savings_style):
+        # static monthly is required for the loop
+        # because potential monthly dynamically changes
+        year = 1
+        static_monthly = potential_monthly_savings
+        savings_cap = remaining_monthly * savings_style
+        while potential_monthly_savings > savings_cap:
+            potential_monthly_savings = static_monthly / year
+            year += 1
+        else:
+            dynamic_years = (year, year + 2,  year + 4)
+        return dynamic_years
