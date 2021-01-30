@@ -1,7 +1,6 @@
 import json
 from tests.BaseCase import BaseCase
 from database.median_home_value import florida, alaska
-import pry
 
 class TestMedianHomeCrud(BaseCase):
     # CREATE -----------------------------------------------------------

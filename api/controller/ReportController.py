@@ -3,7 +3,6 @@ from flask import Response, request, render_template, jsonify
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
 from api.helpers.errors import APINotUniqueError, APISchemaError, APIDoesNotExistError
-import pry
 
 
 class ReportController():
@@ -36,7 +35,6 @@ class ReportController():
     def get_report(self, id):
         try:
             report = Report.objects.get(id=id)
-
             return self.stylized_report_return(report), 200
         except (ValidationError, DoesNotExist):
             raise APIDoesNotExistError(
