@@ -158,12 +158,12 @@ class Report(db.Document):
             return 0
 
         principal = self.principal_imaginative_or_pragmatic()
-        potential_downpayment = principal * (self.downpayment_percentage / 100)
 
+        potential_downpayment = principal * (self.downpayment_percentage / 100)
         if self.downpayment_savings >= potential_downpayment:
             downpayment = self.downpayment_savings
-
         downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
+
         monthly_goal = downpayment / (year * 12)
         return round(monthly_goal)
 
@@ -208,43 +208,48 @@ class Report(db.Document):
     def downpayment_savings_goal_end_date(self, year):
         now = datetime.datetime.now()
         month = now.month
-        current_year = now.year
         day = now.day
+        current_year = now.year
         new_year = current_year + year
         date = f'{month}/{day}/{new_year}'
         return date
 
     # ReportController stylized report function call
     def number_of_years(self, savings_style):
-        monthly_pay = self.salary
-        monthly_debt = self.monthly_debt
-
-        if self.rent == 0:
-            monthly_living_expense = self.monthly_principal()
-            principal = self.goal_principal
-        else:
-            monthly_living_expense = self.rent
-            principal = self.principal_based_on_rent()
-
-        remaining_monthly = monthly_pay - monthly_debt - monthly_living_expense
-
-        if remaining_monthly < 500:
-            remaining_monthly = 500
-
-        savings_cap = remaining_monthly * savings_style
-
+        principal = self.principal_imaginative_or_pragmatic()
         potential_downpayment = principal * (self.downpayment_percentage / 100)
-
         if self.downpayment_savings >= potential_downpayment:
             dynamic_years = (0, 0, 0)
         else:
+            #calculations for dynamic years
+            remaining_monthly = self.calc_remaining_monthly_expense(self.calc_monthly_living_expense())
             downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
             potential_monthly_savings = downpayment / 12
-            year = 1
-            static_monthly = potential_monthly_savings
-            while potential_monthly_savings > savings_cap:
-                potential_monthly_savings = static_monthly / year
-                year += 1
-            else:
-                dynamic_years = (year, year + 2,  year + 4)
+            dynamic_years = self.calc_dynamic_years(potential_monthly_savings, remaining_monthly, savings_style)
+        return dynamic_years
+
+    def calc_remaining_monthly_expense(self, monthly_living_expense):
+        remaining_monthly = self.salary - self.monthly_debt - monthly_living_expense
+        if remaining_monthly < 500:
+            remaining_monthly = 500
+        return remaining_monthly
+
+    def calc_monthly_living_expense(self):
+        if self.rent == 0:
+            monthly_living_expense = self.monthly_principal()
+        else:
+            monthly_living_expense = self.rent
+        return monthly_living_expense
+
+    def calc_dynamic_years(self, potential_monthly_savings, remaining_monthly, savings_style):
+        # static monthly is required for the loop
+        # because potential monthly dynamically changes
+        year = 1
+        static_monthly = potential_monthly_savings
+        savings_cap = remaining_monthly * savings_style
+        while potential_monthly_savings > savings_cap:
+            potential_monthly_savings = static_monthly / year
+            year += 1
+        else:
+            dynamic_years = (year, year + 2,  year + 4)
         return dynamic_years
