@@ -11,7 +11,7 @@ imaginative = {
 }
 
 pragmatic = {
-    "zipcode": 78230,
+    "zipcode": 80214,
     "credit_score": 701,
     "salary": 4500,
     "monthly_debt": 1500,

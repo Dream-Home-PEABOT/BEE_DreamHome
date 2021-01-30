@@ -1,6 +1,6 @@
 import json
 from tests.BaseCase import BaseCase
-from database.home_insurance import gecko, country_farm, postgressive
+from database.home_insurance import florida
 
 
 class TestHomeInsuranceCrudSadPath(BaseCase):
@@ -10,9 +10,9 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
     # CREATE SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_post_insurance_not_unique(self):
     # Given
-        initial_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        initial_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
     # When
-        error_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        error_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
         body = error_response.json['data']
     # Then
         self.assertEqual(400, error_response.status_code)
@@ -27,7 +27,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
             "what_is_this": "i_dont_even"
         }
     # When
-        extra_field_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(extra_field_payload))
+        extra_field_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(extra_field_payload))
         body = extra_field_response.json['data']
     # Then
         self.assertEqual(406, extra_field_response.status_code)
@@ -41,7 +41,7 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
             "annual_average_insurance_rate": 1200
         }
     # When
-        incorrect_field_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))
+        incorrect_field_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(incorrect_field_payload))
         body = incorrect_field_response.json['data']
     # Then
         self.assertEqual(406, incorrect_field_response.status_code)
@@ -51,11 +51,11 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
     # READ by ID SAD PATHS  -----------------------------------------------------------
     def test_unsuccessful_get_by_id_home_insurance_incorrect_id(self):
     # Given
-        insurance_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        insurance_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
 
         id = insurance_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/home_insurance/{new_id}'
+        url = f'/api/v1/home-insurance/{new_id}'
     # When
         incorrect_id_response = self.app.get(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']
@@ -68,11 +68,11 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
     # UPDATE SAD PATHS  -----------------------------------------------------------
     def test_unsuccessful_put_home_insurance_incorrect_id(self):
     # Given
-        insurance_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        insurance_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
 
         id = insurance_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/home_insurance/{new_id}'
+        url = f'/api/v1/home-insurance/{new_id}'
     # When
         incorrect_id_response = self.app.put(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']
@@ -85,10 +85,10 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
 
     def test_unsuccessful_put_home_insurance_bad_fields(self):
     # Given
-        insurance_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        insurance_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
 
         id = insurance_response.json['data']['id']
-        url = f'/api/v1/home_insurance/{id}'
+        url = f'/api/v1/home-insurance/{id}'
     # When
         extra_field_payload = {
             "bad_attribute": "Oops",
@@ -104,11 +104,11 @@ class TestHomeInsuranceCrudSadPath(BaseCase):
     # DESTROY SAD PATHS -----------------------------------------------------------
     def test_unsuccessful_delete_home_insurance_incorrect_id(self):
     # Given
-        insurance_response = self.app.post('/api/v1/home_insurance', headers={"Content-Type": "application/json"}, data=json.dumps(gecko))
+        insurance_response = self.app.post('/api/v1/home-insurance', headers={"Content-Type": "application/json"}, data=json.dumps(florida))
 
         id = insurance_response.json['data']['id']
         new_id = self.ReplaceStringByIndex(id, 0, 5, '12345')
-        url = f'/api/v1/home_insurance/{new_id}'
+        url = f'/api/v1/home-insurance/{new_id}'
     # When
         incorrect_id_response = self.app.delete(url, headers={"Content-Type": "application/json"})
         body = incorrect_id_response.json['data']

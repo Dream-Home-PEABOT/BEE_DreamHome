@@ -1,7 +1,12 @@
-from database.db import db
 import math
 import datetime
-from api.services.zip import zip_to_location, zip_to_avg_home
+from database.db import db
+from api.models.pmi import Pmi
+from api.models.mortgage_rate import MortgageRate
+from api.models.home_insurance import HomeInsurance
+from api.models.property_tax import PropertyTax
+from api.models.median_home_value import MedianHomeValue
+from api.helpers.state_abbrev_to_full import states
 
 
 class Report(db.Document):
@@ -14,48 +19,102 @@ class Report(db.Document):
     downpayment_percentage = db.IntField(required=True)
     goal_principal = db.IntField(default=0)
     rent = db.IntField(default=0)
+    uid = db.StringField(unique=True)
+
+    def zip_to_avg_home(self, city_state):
+        abbrev_state = city_state[-2:]
+        state = states[abbrev_state]
+        median_home = MedianHomeValue.objects.get(state=state)
+        return median_home.avg_home_value
 
     def number_payments(self):
-        return 360
+        return self.mortgage_term * 12
 
-    def true_monthly(self):
-        tm = self.rent + self.home_insurance() + self.property_tax()
+    def home_insurance(self, city_state):
+        zip = self.zipcode
+        grab_state = city_state[-2:]
+        state = states[grab_state]
+        home_insurance = HomeInsurance.objects.get(state=state)
+        monthly_insurance = home_insurance.annual_average_insurance_rate / 12
+        return round(monthly_insurance)
+
+    def mortgage_rate(self):
+        report_cs = self.credit_score
+        if report_cs <= 619:
+            user_ceiling = "619"
+        elif report_cs in range(620, 640):
+            user_ceiling = "639"
+        elif report_cs in range(640, 660):
+            user_ceiling = "659"
+        elif report_cs in range(660, 680):
+            user_ceiling = "679"
+        elif report_cs in range(680, 700):
+            user_ceiling = "699"
+        elif report_cs in range(700, 760):
+            user_ceiling = "759"
+        elif report_cs in range(760, 851):
+            user_ceiling = "850"
+
+        mortgage_rate = MortgageRate.objects.get(credit_score_ceiling=user_ceiling)
+        rate = mortgage_rate.rate / 100
+        return round(rate, 4)
+
+    def property_tax(self, city_state):
+        zip = self.zipcode
+        grab_state = city_state[-2:]
+        state = states[grab_state]
+        property_tax = PropertyTax.objects.get(state=state)
+        monthly_property_tax = property_tax.annual_avg_property_tax / 12
+        return round(monthly_property_tax)
+
+    def pmi(self):
+        report_dp = self.downpayment_percentage
+        if report_dp <= 4:
+            guarded_dp = 0
+        elif report_dp in range(5, 10):
+            guarded_dp = 5
+        elif report_dp in range(10, 15):
+            guarded_dp = 10
+        elif report_dp in range(15, 20):
+            guarded_dp = 15
+        else:
+            return "No PMI required for a 20 percent or higher downpayment."
+
+        report_cs = self.credit_score
+        pmi = Pmi.objects.get(downpayment_percentage=guarded_dp)
+
+        if report_cs <= 639:
+            collector = pmi.range_620_639
+        elif report_cs in range(640, 660):
+            collector = pmi.range_640_659
+        elif report_cs in range(660, 680):
+            collector = pmi.range_660_679
+        elif report_cs in range(680, 700):
+            collector = pmi.range_680_699
+        elif report_cs in range(700, 720):
+            collector = pmi.range_700_719
+        elif report_cs in range(720, 740):
+            collector = pmi.range_720_739
+        elif report_cs in range(740, 760):
+            collector = pmi.range_740_759
+        elif report_cs in range(760, 851):
+            collector = pmi.range_760_850
+
+        if self.goal_principal == 0:
+            principal = self.principal_based_on_rent()
+        else:
+            principal = self.goal_principal
+
+        reduced_principal = (1 - (pmi.downpayment_percentage / 100)) * principal
+        annual_pmi = reduced_principal * (collector / 100)
+        monthly_pmi = (annual_pmi / 12)
+        return round(monthly_pmi)
+
+    def true_monthly(self, city_state):
+        tm = self.rent + self.home_insurance(city_state) + self.property_tax(city_state)
         if self.downpayment_percentage < 20:
             tm += self.pmi()
         return tm
-
-    def home_insurance(self):
-        return 125
-
-    def mortgage_rate(self):
-        rate = 0.0
-        if self.credit_score in range(300, 639):
-           rate = 4.072
-        elif self.credit_score in range(640, 659):
-            rate = 3.526
-        elif self.credit_score in range(660, 679):
-            rate = 3.096
-        elif self.credit_score in range(680, 699):
-            rate = 2.882
-        elif self.credit_score in range(700, 759):
-            rate = 2.705
-        elif self.credit_score in range(760, 850):
-            rate = 2.483
-
-        rate = rate / 100
-        return round(rate, 4)
-
-    def city_state(self):
-        return zip_to_location(self.zipcode)
-
-    def home_price_by_zip(self):
-        return zip_to_avg_home(self.zipcode)
-
-    def pmi(self):
-        return 45
-
-    def property_tax(self):
-        return 100
 
     def monthly_principal(self):
         if self.rent != 0:

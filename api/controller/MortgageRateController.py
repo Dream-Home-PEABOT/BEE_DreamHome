@@ -38,7 +38,7 @@ class MortgageRateController():
                     "id": str(id),
                     "confirmation": {
                         "info": 'To see this new record, please do a GET request using the url',
-                        "url": f'/api/v1/mortgage_rate/{id}'
+                        "url": f'/api/v1/mortgage-rate/{id}'
                     }
                 }
             }, 201
@@ -59,7 +59,7 @@ class MortgageRateController():
                     "id": str(id),
                     "confirmation": {
                         "info": "To see this record's update response, please do a GET request using the url",
-                        "url": f'/api/v1/mortgage_rate/{id}'
+                        "url": f'/api/v1/mortgage-rate/{id}'
                     }
                 }
             }, 202
@@ -105,7 +105,7 @@ class MortgageRateController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/mortgage_rate/{id}'
+                        "url": f'/api/v1/mortgage-rate/{id}'
                     }
                 }
             }, 204
