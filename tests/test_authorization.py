@@ -2,7 +2,7 @@ import json
 from tests.BaseCase import BaseCase
 from database.mortgage_rate import range_700_759
 from database.pmi import downpayment_zero, downpayment_five, downpayment_ten, downpayment_fifteen
-import pry
+
 
 class TestAuthorization(BaseCase):
     def test_get_report_by_user(self):
