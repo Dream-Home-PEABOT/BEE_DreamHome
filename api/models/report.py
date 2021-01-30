@@ -7,7 +7,7 @@ from api.models.home_insurance import HomeInsurance
 from api.models.property_tax import PropertyTax
 from api.models.median_home_value import MedianHomeValue
 from api.helpers.state_abbrev_to_full import states
-
+import pry
 
 class Report(db.Document):
     zipcode = db.IntField(required=True)
@@ -222,10 +222,8 @@ class Report(db.Document):
             dynamic_years = (0, 0, 0)
         else:
             #calculations for dynamic years
-            remaining_monthly = self.calc_remaining_monthly_expense(self.calc_monthly_living_expenses())
-
+            remaining_monthly = self.calc_remaining_monthly_expense(self.calc_monthly_living_expense())
             downpayment = (principal - self.downpayment_savings) * (self.downpayment_percentage / 100)
-
             potential_monthly_savings = downpayment / 12
             dynamic_years = self.calc_dynamic_years(potential_monthly_savings, remaining_monthly, savings_style)
         return dynamic_years
