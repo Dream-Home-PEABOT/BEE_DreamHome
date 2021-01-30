@@ -5,6 +5,7 @@ from api.controller.PmiController import pmicontroller
 from api.controller.PropertyTaxController import propertytaxcontroller
 from api.controller.HomeInsuranceController import homeinsurancecontroller
 from api.controller.MortgageRateController import mortgageratecontroller
+from api.controller.MedianHomeValueController import medianhomevaluecontroller
 
 
 api = Blueprint("api", __name__)
@@ -132,3 +133,23 @@ def update_mortgage_rate(id):
 @api.route('/api/v1/mortgage-rate/<id>', methods=['DELETE'])
 def destroy_mortgage_rate(id):
     return mortgageratecontroller.destroy_mortgage_rate(id)
+
+@api.route('/api/v1/median-home-value', methods=['POST'])
+def add_median_home_value():
+    return medianhomevaluecontroller.add_median_home_value()
+
+@api.route('/api/v1/median-home-value/<id>', methods=['GET'])
+def get_median_home_value(id):
+    return medianhomevaluecontroller.get_median_home_value(id)
+
+@api.route('/api/v1/median-home-value', methods=['GET'])
+def all_median_home_value():
+    return medianhomevaluecontroller.all_median_home_value()
+
+@api.route('/api/v1/median-home-value/<id>', methods=['PUT'])
+def update_median_home_value(id):
+    return medianhomevaluecontroller.update_median_home_value(id)
+
+@api.route('/api/v1/median-home-value/<id>', methods=['DELETE'])
+def destroy_median_home_value(id):
+    return medianhomevaluecontroller.destroy_median_home_value(id)

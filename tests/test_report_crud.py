@@ -2,7 +2,6 @@ import json
 from tests.BaseCase import BaseCase
 from database.pmi import downpayment_zero, downpayment_five, downpayment_ten
 from database.mortgage_rate import range_300_619, range_620_639, range_640_659, range_660_679, range_680_699, range_700_759, range_760_850
-import pry
 
 
 class TestReportCrud(BaseCase):
@@ -31,7 +30,6 @@ class TestReportCrud(BaseCase):
         post_data = post_response.json['data']
     # Then
         self.assertEqual(201, post_response.status_code)
-        self.assertEqual(id, post_data['id'])
 
         confirmation = self.app.get(url, headers={'Content-Type': "application/json"})
         self.assertEqual(200, confirmation.status_code)

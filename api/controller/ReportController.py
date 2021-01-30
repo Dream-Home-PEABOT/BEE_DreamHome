@@ -1,4 +1,4 @@
-from api.services.zip import zip_to_location, zip_to_avg_home
+from api.services.zip import zip_to_location
 from flask import Response, request, render_template, jsonify
 from api.models.report import Report
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist, ValidationError, InvalidQueryError
@@ -49,6 +49,19 @@ class ReportController():
         beyonce_plan = report.number_of_years(0.6)
         tswift_plan = report.number_of_years(0.4)
         keanu_plan = report.number_of_years(0.2)
+        # LEAVE FOR DEBUGGING PURPOSES -------------------------------------------------
+            # report.zip_to_avg_home(city_state)
+            # report.number_payments()
+            # report.home_insurance(city_state)
+            # report.mortgage_rate()
+            # report.property_tax(city_state)
+            # report.pmi()
+            # report.true_monthly(city_state)
+            # report.monthly_principal()
+            # report.percentage_saved_based_on_principal()
+            # report.downpayment_savings_goal_end_date(10)
+            # report.principal_based_on_rent()
+            # report.downpayment_goal_monthly_savings(10)
 
         stylized_report = {
             "data": {
@@ -71,7 +84,7 @@ class ReportController():
                             "information": "By providing a zipcode, we can report location specific information such as average home price.",
                             "zipcode": report.zipcode,
                             "city_state": city_state,
-                            "average_home_price": zip_to_avg_home(report.zipcode),
+                            "average_home_price": report.zip_to_avg_home(city_state),
                         },
                         "B_principal": {
                             "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
