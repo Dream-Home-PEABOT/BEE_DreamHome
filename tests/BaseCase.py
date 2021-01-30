@@ -2,10 +2,14 @@ import unittest
 import json
 from app import app
 from database.db import db
-from database.home_insurance import illinois, colorado
-hi_il_insurance = illinois
+import pry
+from database.home_insurance import colorado, illinois
 hi_co_insurance = colorado
-from database.property_tax import illinois, colorado
+hi_il_insurance = illinois
+from database.median_home_value import colorado, illinois
+mhv_colorado = colorado
+mhv_illinois = illinois
+from database.property_tax import colorado, illinois
 
 class BaseCase(unittest.TestCase):
     def setUp(self):
@@ -29,11 +33,14 @@ class BaseCase(unittest.TestCase):
         # Post for insurance
         self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_il_insurance))
         self.app.post('/api/v1/home-insurance', headers={"Content-Type":"application/json"}, data=json.dumps(hi_co_insurance))
-        
+
         # Post for property tax
         self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(illinois))
         self.app.post('/api/v1/property-tax', headers={"Content-Type":"application/json"}, data=json.dumps(colorado))
+
         # Post for median home price
+        self.app.post('/api/v1/median-home-value', headers={"Content-Type": "application/json"}, data=json.dumps(mhv_colorado))
+        self.app.post('/api/v1/median-home-value', headers={"Content-Type": "application/json"}, data=json.dumps(mhv_illinois))
 
     def tearDown(self):
         for collection in self.db.list_collection_names():
