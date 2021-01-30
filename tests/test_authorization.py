@@ -94,6 +94,7 @@ class TestAuthorization(BaseCase):
 
         registered_confirmation = self.app.get('/api/v1/report/unique', headers={"Content-Type": "application/json"}, data=json.dumps(uid))
     #Then
+        self.assertEqual(200, registered_confirmation.status_code)
         self.assertEqual(unregistered_confirmation.json, registered_confirmation.json)
 
     def test_user_wants_to_register_sad_path_missing_uid(self):
