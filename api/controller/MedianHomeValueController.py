@@ -107,10 +107,10 @@ class MedianHomeValueController():
                     "id": 'nil',
                     "confirmation": {
                         "info": "To see this record's deletion response, please do a GET request using the url",
-                        "url": f'/api/v1/median-home-value{id}'
+                        "url": f'/api/v1/median-home-value/{id}'
                     }
                 }
-            }, 204
+            }, 202
         except DoesNotExist:
             raise APIDoesNotExistError("Please check your request, the Median Home Value record with given id doesn't exist.")
         except Exception:
