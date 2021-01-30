@@ -10,7 +10,8 @@ class ReportController():
     def get_unique_report(self):
         try:
             try:
-                uid = request.get_json()
+                uid_json = request.get_json()
+                uid = uid_json['uid']
             except Exception:
                 return {
                     "data": {
