@@ -19,7 +19,7 @@ class Report(db.Document):
     downpayment_percentage = db.IntField(required=True)
     goal_principal = db.IntField(default=0)
     rent = db.IntField(default=0)
-    uid = db.StringField(unique=True)
+    uid = db.StringField()
 
     def zip_to_avg_home(self, city_state):
         abbrev_state = city_state[-2:]
