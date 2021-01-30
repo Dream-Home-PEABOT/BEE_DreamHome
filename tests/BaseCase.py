@@ -2,7 +2,6 @@ import unittest
 import json
 from app import app
 from database.db import db
-import pry
 from database.home_insurance import colorado, illinois
 hi_co_insurance = colorado
 hi_il_insurance = illinois
