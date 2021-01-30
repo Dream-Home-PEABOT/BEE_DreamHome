@@ -38,10 +38,6 @@ def destroy_education(id):
 def get_report(id):
     return reportcontroller.get_report(id)
 
-@api.route('/api/v1/report/unique', methods=['GET'])
-def get_unique_report():
-    return reportcontroller.get_unique_report()
-
 @api.route('/api/v1/report', methods=['POST'])
 def add_report():
     return reportcontroller.add_report()
@@ -53,6 +49,10 @@ def update_report(id):
 @api.route('/api/v1/report/<id>', methods=['DELETE'])
 def destroy_report(id):
     return reportcontroller.destroy_report(id)
+
+@api.route('/api/v1/report/unique', methods=['POST'])
+def get_unique_report():
+    return reportcontroller.get_unique_report()
 
 @api.route('/api/v1/pmi/<id>', methods=['GET'])
 def get_pmi(id):
