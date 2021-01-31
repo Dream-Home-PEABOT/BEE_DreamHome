@@ -62,6 +62,7 @@ class ReportController():
         # report.downpayment_savings_goal_end_date(10)
         # report.principal_based_on_rent()
         # report.downpayment_goal_monthly_savings(10)
+        # report.calc_downpayment_cash_value()
 
         stylized_report = {
             "data": {
@@ -105,6 +106,7 @@ class ReportController():
                             "downpayment_percentage_selected": report.downpayment_percentage,
                             "downpayment_saved": report.downpayment_savings,
                             "downpayment_percent_saved": report.percentage_saved_based_on_principal(),
+                            "downpayment_cash_value": report.calc_downpayment_cash_value(),
                             "plan_style": {
                                 "min_savings_plan": {
                                     "savings_style_percentage": 0.2,
