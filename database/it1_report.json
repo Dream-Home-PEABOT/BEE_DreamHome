@@ -23,7 +23,7 @@
                 },
                 "B_principal": {
                     "goal_principal": 500000,
-                    "information": "Your principal is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
+                    "information": "Your principle is the amount that you borrow from a lender. The interest is extra money that goes to your lender in exchange for giving you a loan.",
                     "mortgage_rate": 0.0271,
                     "principal_based_on_rent": 0
                 },
