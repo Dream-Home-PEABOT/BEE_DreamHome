@@ -253,3 +253,9 @@ class Report(db.Document):
         else:
             dynamic_years = (year, year + 2,  year + 4)
         return dynamic_years
+
+    def calc_downpayment_cash_value(self):
+        principal = self.principal_imaginative_or_pragmatic()
+        multiplier = self.downpayment_percentage / 100
+        cash_value = round(principal * multiplier)
+        return cash_value
