@@ -1,0 +1,168 @@
+<html>
+    <head>
+      <title>{{name}}</title>
+    </head>
+    <body>
+      <h1>Welcome</h1>
+      <p>Documentation</p>
+<br>
+      <h2>Report</h2>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/report/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All report objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get Unique</h3>
+          <li>Method/HTTP_Verb: POST</li>
+          <li>Route: '/api/v1/report/unique' </li>
+          <li>Body: </li>
+<code>
+    <p>{</p>
+      <p>"uid": 'fakejmsodicjuid'# Required</p>
+    <p>}</p>
+</code>
+          <li>Returns: All report objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Create</h3>
+          <li>Method/HTTP_Verb: POST</li>
+          <li>Route: /api/v1/report </li>
+          <li>Body: N/A</li>
+
+          <code>
+            <p>  {</p>
+                      <p>"zipcode": 80209, # Required</p>
+                      <p>"credit_score": 710, # Required</p>
+                      <p>"salary": 5000, # Required</p>
+                      <p>"monthly_debt": 1500, # Required</p>
+                      <p>"downpayment_savings": 50000, # Required</p>
+                      <p>"mortgage_term": 30, # Optional && Default=0</p>
+                      <p>"downpayment_percentage": 20, # Required</p>
+                      <p>"goal_principal": 500000, # Optional && Default=0</p>
+                      <p>"rent": 0 # Optional && Default=0</p>
+                      <p>"uid": # Optional</p>
+            <p>  }</p>
+          </code>
+          <li>Returns: All report objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Update</h3>
+          <li>Method/HTTP_Verb: PUT</li>
+          <li>Route: '/api/v1/report/id_info_goes_here' </li>
+          <li>Body: </li>
+            <code>
+              <p>  {</p>
+                <p>  "zipcode": 80209, # Add Update</p>
+                <p>  "credit_score": 710, # Add Update</p>
+                <p>  "salary": 5000, # Add Update</p>
+                <p>  "monthly_debt": 1500, # Add Update</p>
+                <p>  "downpayment_savings": 50000, # Add Update</p>
+                <p>  "mortgage_term": 30, # Add Update</p>
+                <p>  "downpayment_percentage": 20, # Add Update</p>
+                <p>  "goal_principal": 500000, # Add Update</p>
+                <p>  "rent": 0, # Add Update</p>
+                <p>  "uid": 'lskijnvijfsis' # Add Update</p>
+              <p>  }</p>
+            </code>
+          <li>Returns: All report objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Destroy</h3>
+          <li>Method/HTTP_Verb: DELETE</li>
+          <li>Route: /api/v1/report </li>
+          <li>Body: N/A</li>
+          <li>Returns: All report objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>Education</h2>
+<br>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/education </li>
+          <li>Body: N/A</li>
+          <li>Returns: All education objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/education/id_info_goes_here </li>
+          <li>Body: N/A</li>
+          <li>Returns: All education objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>Property Tax</h2>
+<br>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/property-tax </li>
+          <li>Body: N/A</li>
+          <li>Returns: All property tax objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/property-tax/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All property tax objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>PMI</h2>
+<br>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/pmi </li>
+          <li>Body: N/A</li>
+          <li>Returns: All pmi objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/pmi/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All pmi objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>Home Insurance</h2>
+<br>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/home-insurance </li>
+          <li>Body: N/A</li>
+          <li>Returns: All home insurance objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/home-insurance/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All education objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>Median Home Value</h2>
+<br>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/median-home-value </li>
+          <li>Body: N/A</li>
+          <li>Returns: All Median Home Value objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/median-home-value/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All Median Home Value objects nested under a custom key created from the objects classification field</li>
+<br>
+      <h2>Mortgage Rate</h2>
+        <h3>Get All</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: /api/v1/mortgage-rate </li>
+          <li>Body: N/A</li>
+          <li>Returns: All Mortgage Rate objects nested under a custom key created from the objects classification field</li>
+<br>
+        <h3>Get One</h3>
+          <li>Method/HTTP_Verb: GET</li>
+          <li>Route: '/api/v1/mortgage-rate/id_info_goes_here' </li>
+          <li>Body: N/A</li>
+          <li>Returns: All Mortgage Rate objects nested under a custom key created from the objects classification field</li>
+<br>
+    </body>
+    <footer>
+        <h4>Backend Engineers</h4>
+        <li>
+          <a href="https://github.com/priyapower">Priya Power</a>
+        </li>
+        <li>
+          <a href="https://github.com/Arique1104">Arique Aguilar</a>
+        </li>
+    </footer>
+</html>

@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 from database.db import initialize_db
 from api.routes.api_routes import api
+from api.routes.config_routes import welcome
 from api.helpers.errors import APIError
 
 
@@ -19,6 +20,7 @@ app.config['MONGODB_SETTINGS'] = {
 }
 
 app.register_blueprint(api)
+app.register_blueprint(welcome)
 initialize_db(app)
 
 @app.errorhandler(APIError)
