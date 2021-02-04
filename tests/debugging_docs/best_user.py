@@ -1,6 +1,6 @@
 # - post report,
 {
-"zipcode": 80209,  # 02115 (Boston)
+"zipcode": "80209",  # 02115 (Boston)
 "credit_score": 710,
 "salary": 5000,
 "monthly_debt": 1500,
@@ -53,7 +53,7 @@
   # post /report
   # report
   {
-  "zipcode": 80209,
+  "zipcode": "80209",
   "credit_score": 710,
   "salary": 5000,
   "monthly_debt": 1500,

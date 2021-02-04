@@ -1,5 +1,5 @@
 imaginative = {
-    "zipcode": 60654,
+    "zipcode": "60654",
     "credit_score": 617,
     "salary": 3000,
     "monthly_debt": 1100,
@@ -11,7 +11,7 @@ imaginative = {
 }
 
 pragmatic = {
-    "zipcode": 80214,
+    "zipcode": "80214",
     "credit_score": 701,
     "salary": 4500,
     "monthly_debt": 1500,
@@ -23,7 +23,7 @@ pragmatic = {
 }
 
 iteration1_successful = {
-    "zipcode": 80209,
+    "zipcode": "80209",
     "credit_score": 710,
     "salary": 5000,
     "monthly_debt": 1500,

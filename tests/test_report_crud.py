@@ -13,7 +13,7 @@ class TestReportCrud(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
     # Given
         payload1 = {
-            "zipcode": 60651,
+            "zipcode": "60651",
             "credit_score": 617,
             "salary": 3000,
             "monthly_debt": 1100,
@@ -24,7 +24,7 @@ class TestReportCrud(BaseCase):
             "rent": 0
         }
         payload2 = {
-            "zipcode": 60651,
+            "zipcode": "60651",
             "credit_score": 617,
             "salary": 3000,
             "monthly_debt": 1100,
@@ -70,7 +70,7 @@ class TestReportCrud(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_300_619))
     # Given
         payload = {
-            "zipcode": 60654,
+            "zipcode": "60654",
             "credit_score": 617,
             "salary": 3000,
             "monthly_debt": 1100,
@@ -82,7 +82,7 @@ class TestReportCrud(BaseCase):
         }
     # THIS PAYLOAD WAS NOT WORKING!!!
         # payload = {
-        #     "zipcode": 80214,
+        #     "zipcode": "80214",
         #     "credit_score": 701,
         #     "salary": 4500,
         #     "monthly_debt": 1500,
@@ -121,7 +121,7 @@ class TestReportCrud(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_640_659))
     # Given
         payload = {
-            "zipcode": 60654,
+            "zipcode": "60654",
             "credit_score": 617,
             "salary": 3000,
             "monthly_debt": 1100,
@@ -137,7 +137,7 @@ class TestReportCrud(BaseCase):
     # When
         updated_payload = {
             "salary": 3500,
-            "zipcode": 60651,
+            "zipcode": "60651",
             "credit_score": 640
         }
         update_response = self.app.put(url, headers={"Content-Type": "application/json"}, data=json.dumps(updated_payload))
@@ -159,7 +159,7 @@ class TestReportCrud(BaseCase):
     def test_successful_delete_report(self):
     # Given
         payload = {
-            "zipcode": 80214,
+            "zipcode": "80214",
             "credit_score": 701,
             "salary": 4500,
             "monthly_debt": 1500,

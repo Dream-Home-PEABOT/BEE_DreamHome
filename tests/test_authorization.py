@@ -17,7 +17,7 @@ class TestAuthorization(BaseCase):
         harry_uid = { "uid": 'jhdfs783uy4ir98f7ygh2jeuwidsi8943yrih' }
 
         harry_report = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
@@ -32,7 +32,7 @@ class TestAuthorization(BaseCase):
 
         ginny_uid = { "uid": 'bdj857ytwgyurf897yughjjjw98d7yugh4b3ei' }
         ginny_report = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 720,
             "salary": 8000,
             "monthly_debt": 2500,
@@ -65,7 +65,7 @@ class TestAuthorization(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         unregistered_report = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
@@ -99,7 +99,7 @@ class TestAuthorization(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         unregistered_report = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
@@ -126,7 +126,7 @@ class TestAuthorization(BaseCase):
         self.app.post('/api/v1/mortgage-rate', headers={"Content-Type":"application/json"}, data=json.dumps(range_700_759))
     # Given
         registered_report = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
