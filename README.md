@@ -196,7 +196,7 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body:
     ```py
     {
-        "zipcode": 80209, # Required
+        "zipcode": "80209", # Required
         "credit_score": 710, # Required
         "salary": 5000, # Required
         "monthly_debt": 1500, # Required
@@ -218,7 +218,7 @@ This is the RESTful API back end server for [Dream Home](https://dream-home-cap.
   - Body: You can update any of the following fields:
     ```py
     {
-        "zipcode": 80209, # Add Update
+        "zipcode": "80209", # Add Update
         "credit_score": 710, # Add Update
         "salary": 5000, # Add Update
         "monthly_debt": 1500, # Add Update

@@ -1,6 +1,7 @@
 from tests.BaseCase import BaseCase
 from database.report import imaginative, pragmatic
 import json
+import pry
 
 
 class TestReportCrudSadPath(BaseCase):
@@ -11,7 +12,7 @@ class TestReportCrudSadPath(BaseCase):
     def test_unsuccessful_post_report_extra_field_incorrect(self):
     # Given
         extra_field_payload = {
-            "zipcode": 80209,
+            "zipcode": "80209",
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
@@ -33,7 +34,7 @@ class TestReportCrudSadPath(BaseCase):
     def test_unsuccessful_post_report_field_incorrect(self):
     # Given
         incorrect_field_payload = {
-            "zipcode": 'ABCDE',
+            "zipcode": 12345,
             "credit_score": 710,
             "salary": 5000,
             "monthly_debt": 1500,
