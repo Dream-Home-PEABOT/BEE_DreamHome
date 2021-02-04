@@ -8,9 +8,8 @@ from api.models.property_tax import PropertyTax
 from api.models.median_home_value import MedianHomeValue
 from api.helpers.state_abbrev_to_full import states
 
-
 class Report(db.Document):
-    zipcode = db.IntField(required=True)
+    zipcode = db.StringField(required=True)
     credit_score = db.IntField(required=True)
     salary = db.IntField(required=True)
     monthly_debt = db.IntField(required=True)
